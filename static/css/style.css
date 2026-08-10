@@ -194,7 +194,7 @@ section { padding: 80px 0; }
 /* ---------- 見積CTAバンド ---------- */
 .cta-band { background: #f4f4f4; padding: 52px 0 56px; }
 .cta-catch {
-  text-align: center; color: #e60012; font-weight: 800;
+  text-align: center; color: var(--orange-600); font-weight: 800;
   font-size: clamp(15px, 1.6vw, 18px); letter-spacing: .04em; margin-bottom: 18px;
 }
 .cta-band .cta-box {
@@ -221,31 +221,14 @@ section { padding: 80px 0; }
   background: var(--white); border: 1px solid #c8c8c8; text-align: center;
 }
 .cta-band .cta-tel > a { display: flex; align-items: center; gap: 8px; color: #1a1a1a; }
-.cta-band .cta-tel .freedial { width: 44px; height: 22px; color: #1a1a1a; flex-shrink: 0; }
+.cta-band .cta-tel .freedial { width: 46px; height: auto; flex-shrink: 0; }
 .cta-band .cta-tel .num { font-size: clamp(24px, 2.6vw, 31px); font-weight: 800; letter-spacing: .01em; line-height: 1.2; }
 .cta-band .cta-tel small { display: block; font-size: 13px; color: #444; margin-top: 2px; }
 .cta-tel-label { font-size: clamp(15px, 1.5vw, 18px); font-weight: 700; color: #1a1a1a; margin-top: 8px; }
 
-/* TikTok 5%off */
-.cta-tiktok {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  margin-top: 28px; flex-wrap: wrap;
-}
-.cta-tiktok .click {
-  position: relative; font-size: 12px; font-weight: 700; color: #444; padding: 0 10px;
-}
-.cta-tiktok .click::before, .cta-tiktok .click::after {
-  content: ""; position: absolute; top: -9px; width: 2px; height: 9px;
-  background: var(--orange-500); border-radius: 1px;
-}
-.cta-tiktok .click::before { left: 3px; transform: rotate(-28deg); }
-.cta-tiktok .click::after { right: 3px; transform: rotate(28deg); }
-.cta-tiktok .tt { width: 26px; height: 26px; fill: #1a1a1a; }
-.cta-tiktok .txt { font-size: clamp(15px, 1.6vw, 19px); font-weight: 700; color: #1a1a1a; }
-.cta-tiktok .off {
-  font-size: clamp(30px, 3.4vw, 44px); font-weight: 800; color: #f4511e; line-height: 1;
-}
-.cta-tiktok .off em { font-style: normal; font-size: .5em; font-weight: 800; }
+/* TikTok 5%off（既存サイトの画像をそのまま使用） */
+.cta-tiktok { margin-top: 26px; text-align: center; }
+.cta-tiktok img { width: min(420px, 86%); height: auto; margin: 0 auto; }
 
 /* ---------- 選ばれる理由 ---------- */
 .reasons { background: var(--white); }
@@ -324,18 +307,19 @@ section { padding: 80px 0; }
 .footer-logo img { width: 200px; }
 .footer-addr { margin-top: 16px; font-size: 13.5px; font-style: normal; }
 .footer-tel { margin-top: 14px; }
-.footer-tel a { font-size: 24px; font-weight: 800; color: var(--white); }
+.footer-tel a { font-size: 24px; font-weight: 800; color: var(--white); display: inline-flex; align-items: center; gap: 8px; }
+.footer-tel .freedial { width: 42px; height: auto; filter: invert(1) brightness(2); }
 .footer-tel small { display: block; font-size: 12px; }
-.footer-nav h4, .footer-sns h4 { color: var(--white); font-size: 14px; letter-spacing: .1em; margin-bottom: 16px; border-left: 3px solid var(--green-500); padding-left: 10px; }
+.footer-nav h4, .footer-sns h4, .footer-about h4 { color: var(--white); font-size: 14px; letter-spacing: .1em; margin-bottom: 16px; border-left: 3px solid var(--green-500); padding-left: 10px; }
 .footer-nav li { margin-bottom: 10px; font-size: 14px; }
 .footer-nav a:hover { color: var(--white); text-decoration: underline; }
-.footer-sns .sns-links { display: flex; gap: 12px; }
-.footer-sns .sns-links a {
+.sns-links { display: flex; gap: 12px; margin-top: 20px; }
+.sns-links a {
   width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.12);
   display: flex; align-items: center; justify-content: center; transition: background .2s;
 }
-.footer-sns .sns-links a:hover { background: rgba(255,255,255,.28); }
-.footer-sns svg { width: 22px; height: 22px; fill: var(--white); }
+.sns-links a:hover { background: rgba(255,255,255,.28); }
+.sns-links svg { width: 22px; height: 22px; fill: var(--white); }
 .footer-bottom { margin-top: 48px; border-top: 1px solid rgba(255,255,255,.15); padding: 20px 24px; font-size: 12px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .footer-bottom .links a { margin-right: 18px; }
 .footer-bottom a:hover { text-decoration: underline; }
@@ -405,7 +389,6 @@ section { padding: 80px 0; }
   .cta-estimate, .cta-band .cta-tel { min-width: 0; width: 100%; }
   .cta-estimate { padding: 18px 24px; }
   .cta-estimate svg { width: 42px; height: 32px; }
-  .cta-tiktok { gap: 8px; }
   .guide-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
 
