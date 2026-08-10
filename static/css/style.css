@@ -84,7 +84,7 @@ ul, ol { list-style: none; }
 .hero {
   position: relative; overflow: hidden;
   /* コンテンツは上寄せ。下は白ウェーブ(60px)分を確保する */
-  padding: clamp(28px, 4vw, 90px) 0 70px;
+  padding: clamp(16px, 1.6vw, 42px) 0 70px;
   color: var(--white);
   background: url("../assets/img/hero-pc.png") center top / cover no-repeat, #016a34;
   aspect-ratio: 1360 / 723;
