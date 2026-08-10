@@ -1,0 +1,77 @@
+<!--
+title: STEP2 引越プランの選択｜web見積｜なにわ引越センター
+description: なにわ引越センターのweb見積フォームです。必要事項をご入力ください。24時間受付、お見積りは無料です。
+-->
+<section class="page-head">
+  <div class="inner">
+    <span class="en">ESTIMATE</span>
+    <h1>web見積</h1>
+    <p class="page-lead">24時間受付・お見積りは無料です。単身・カップルのお客様には24時間以内にご返信いたします。</p>
+  </div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="index.html">ホーム</a></li>
+      <li>web見積</li>
+      <li>STEP2</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="inner">
+
+    <ol class="form-steps">
+      <li class="done">Step1<br><span style="font-size:10.5px;font-weight:600;opacity:.9">お客様情報</span></li>
+      <li class="current">Step2<br><span style="font-size:10.5px;font-weight:600;opacity:.9">プラン選択</span></li>
+      <li>Step3<br><span style="font-size:10.5px;font-weight:600;opacity:.9">現住所</span></li>
+      <li>Step4<br><span style="font-size:10.5px;font-weight:600;opacity:.9">引越先</span></li>
+      <li>Step5<br><span style="font-size:10.5px;font-weight:600;opacity:.9">道路状況</span></li>
+      <li>Step6<br><span style="font-size:10.5px;font-weight:600;opacity:.9">荷物情報</span></li>
+      <li>Step7<br><span style="font-size:10.5px;font-weight:600;opacity:.9">オプション</span></li>
+    </ol>
+
+    <form class="form-card" action="estimate-step3.html" method="get" novalidate>
+      <h2>引越プランの選択</h2>
+      <div class="form-inner">
+        <div class="form-row">
+          <span class="label">引越プラン <span class="req">必須</span></span>
+          <div>
+            <p class="h-sub" style="margin-bottom:10px;">単身の引越</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="plan" value="単身：スタンダードプラン"><span>スタンダードプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="単身：梱包プラスプラン"><span>梱包プラスプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="単身：フルコースプラン"><span>フルコースプラン</span></label>
+            </div>
+
+            <p class="h-sub" style="margin:22px 0 10px;">ご家族の引越</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="plan" value="家族：スタンダードプラン"><span>スタンダードプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="家族：梱包プラスプラン"><span>梱包プラスプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="家族：フルコースプラン"><span>フルコースプラン</span></label>
+            </div>
+
+            <p class="h-sub" style="margin:22px 0 10px;">その他のプラン</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="plan" value="カップルの引越"><span>カップルの引越</span></label>
+              <label class="choice"><input type="radio" name="plan" value="今すぐの引越"><span>今すぐの引越</span></label>
+              <label class="choice"><input type="radio" name="plan" value="オフィスの引越"><span>オフィスの引越</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="label" for="plan-note">プランに対する追記事項 <span class="req any">任意</span></label>
+          <div><textarea id="plan-note" name="plan_note" placeholder="「台所部分だけ梱包を手伝ってほしい」など、ご要望をご記入ください。"></textarea></div>
+        </div>
+      </div>
+      <div class="form-actions">
+      <a class="btn btn-back" href="estimate-step1.html">←　戻る</a>
+      <a class="btn btn-primary" href="estimate-step3.html">次へ　→</a>
+      </div>
+    </form>
+
+  </div>
+</div>
