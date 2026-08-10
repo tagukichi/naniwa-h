@@ -568,23 +568,24 @@ body.drawer-open { overflow: hidden; }
 .page-body p + p { margin-top: 14px; }
 .page-body .note { font-size: 13px; color: var(--ink-soft); }
 
-/* プランカード（下層） */
-.plan-detail { border: 2px solid var(--green-100); border-radius: var(--radius); overflow: hidden; background: var(--white); }
-.plan-detail + .plan-detail { margin-top: 28px; }
+/* プランカード（下層）: 緑の帯＋クリーム背景（既存サイト踏襲） */
+.plan-detail {
+  border: 2px solid var(--green-600); border-radius: 20px; overflow: hidden;
+  background: #fffdf0;
+}
+.plan-detail + .plan-detail { margin-top: 32px; }
 .plan-detail .ribbon {
-  background: var(--orange-050); color: var(--orange-600); font-weight: 800; font-size: 14px;
-  padding: 10px 24px; border-bottom: 2px dashed #f8d3ae; text-align: center;
+  background: var(--green-600); color: var(--white); font-weight: 800;
+  font-size: clamp(14.5px, 1.6vw, 17.5px); letter-spacing: .04em;
+  width: fit-content; max-width: calc(100% - 32px); margin: 0 auto;
+  padding: 13px 44px; border-radius: 0 0 16px 16px; text-align: center;
 }
-.plan-detail .pd-body { padding: 26px 28px 28px; }
+.plan-detail .pd-body { padding: 24px 30px 30px; }
 .plan-detail h3 {
-  font-size: clamp(18px, 2vw, 22px); font-weight: 800; color: var(--green-700);
-  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  font-size: clamp(17px, 1.9vw, 21px); font-weight: 800; color: var(--green-700);
+  text-align: center; letter-spacing: .08em; margin-bottom: 16px;
 }
-.plan-detail h3::before {
-  content: ""; width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-  background: var(--green-100) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2312714a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center / 18px no-repeat;
-}
-.plan-detail p { font-size: 14.5px; color: var(--ink-soft); }
+.plan-detail p { font-size: 14.5px; color: #4a5a50; }
 
 /* ステップリスト */
 .steps { counter-reset: step; }
@@ -908,3 +909,79 @@ a.voice-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px
 /* info-card をリンクにした場合 */
 a.info-card { transition: box-shadow .25s ease, transform .25s ease; display: block; }
 a.info-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+
+/* =============================================
+   キャラクター演出（既存サイト素材の再利用）
+   ============================================= */
+/* 下層ページヘッダーのキャラクター */
+.page-head .inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.page-head .ph-chara {
+  flex-shrink: 0; width: clamp(96px, 12vw, 150px); margin: -12px 40px -28px 0;
+  filter: drop-shadow(0 6px 14px rgba(4, 40, 24, .35));
+}
+.page-head .ph-chara img { width: 100%; }
+
+/* プランカード内の対話イラスト */
+.plan-dialog { margin-top: 22px; text-align: center; }
+.plan-dialog img { max-width: 480px; width: 100%; margin: 0 auto; }
+
+/* 図解イラスト */
+.diagram-block { text-align: center; margin-top: 22px; }
+.diagram-block img { max-width: 520px; width: 100%; margin: 0 auto; }
+
+/* フローカード（オフィスの流れ 等） */
+.flowcards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 44px;
+  counter-reset: fstep; position: relative; margin-top: 8px;
+}
+.flowcard {
+  background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+  padding: 26px 22px; text-align: center; position: relative; counter-increment: fstep;
+  box-shadow: 0 2px 10px rgba(10, 61, 41, .06);
+}
+.flowcard::before {
+  content: "Step" counter(fstep);
+  display: block; font-size: 15px; font-weight: 700; letter-spacing: .12em;
+  color: var(--green-600); margin-bottom: 6px;
+}
+.flowcard:not(:last-child)::after {
+  content: ""; position: absolute; top: 50%; right: -32px; transform: translateY(-50%);
+  border-left: 14px solid #8fc7ab; border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+}
+.flowcard:nth-child(3n)::after { display: none; }
+.flowcard h3 { font-size: 16.5px; font-weight: 800; color: var(--green-700); min-height: 3.2em; display: flex; align-items: center; justify-content: center; line-height: 1.6; }
+.flowcard .fc-icon { width: 74px; height: 74px; margin: 10px auto 14px; display: flex; align-items: center; justify-content: center; }
+.flowcard .fc-icon img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
+.flowcard p { font-size: 13.5px; color: var(--ink-soft); text-align: left; }
+
+/* フローカードを包むクリーム枠 */
+.flow-panel {
+  background: #fffdf0; border: 2px solid var(--green-600); border-radius: 20px;
+  padding: 0 34px 38px; margin-top: 40px;
+}
+.flow-panel > .fp-title {
+  background: var(--green-600); color: var(--white); text-align: center;
+  font-size: clamp(16px, 1.8vw, 20px); font-weight: 800; letter-spacing: .06em;
+  border-radius: 0 0 14px 14px; padding: 14px 26px; margin: 0 auto 26px; width: fit-content;
+}
+.flow-panel > .fp-lead { max-width: 800px; margin: 0 auto 30px; font-size: 14.5px; }
+.flow-panel h2.fp-heading { text-align: center; font-size: clamp(18px, 2vw, 23px); font-weight: 800; color: var(--green-700); margin-bottom: 26px; }
+
+/* プランカードのアイコン画像版（TOP） */
+.plan-card .icon-img {
+  display: flex; align-items: center; justify-content: center;
+  width: 112px; height: 112px; margin: 0 auto 18px; border-radius: 50%;
+  background: var(--green-050); transition: transform .3s ease;
+}
+.plan-card:hover .icon-img { transform: scale(1.06) rotate(-2deg); }
+.plan-card .icon-img img { width: 66%; height: 66%; object-fit: contain; }
+
+@media (max-width: 860px) {
+  .page-head .ph-chara { margin-right: 0; width: 84px; }
+  .flowcards { grid-template-columns: 1fr; gap: 30px; }
+  .flowcard::after, .flowcard:nth-child(3n)::after { display: none; }
+  .flowcard:not(:last-child)::before { }
+  .flowcard h3 { min-height: 0; }
+  .flow-panel { padding: 0 18px 26px; }
+  .plan-card .icon-img { width: 84px; height: 84px; }
+}
