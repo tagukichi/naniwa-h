@@ -79,18 +79,6 @@ ul, ol { list-style: none; }
 .header-cta { display: flex; gap: 10px; }
 .header-cta .btn { padding: 12px 22px; font-size: 14px; }
 
-/* ナビ */
-.global-nav ul { display: flex; justify-content: center; gap: 4px; border-top: 1px solid var(--line); max-width: 1280px; margin: 0 auto; }
-.global-nav a {
-  display: block; padding: 12px 18px; font-size: 15px; font-weight: 600;
-  border-radius: 8px 8px 0 0; position: relative;
-}
-.global-nav a::after {
-  content: ""; position: absolute; left: 18px; right: 18px; bottom: 6px; height: 3px;
-  border-radius: 2px; background: var(--green-500); transform: scaleX(0); transition: transform .25s ease;
-}
-.global-nav a:hover::after { transform: scaleX(1); }
-
 
 /* ---------- ヒーロー ---------- */
 .hero {
@@ -202,14 +190,60 @@ section { padding: 80px 0; }
 .disused-banner .btn { background: var(--white); color: var(--green-700); padding: 14px 32px; font-size: 15px; flex-shrink: 0; }
 
 /* ---------- 見積CTAバンド ---------- */
-.cta-band { background: var(--orange-050); padding: 56px 0; }
-.cta-band .cta-box { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
-.cta-band .balloon { font-weight: 800; color: var(--orange-600); font-size: 15px; text-align: center; }
-.cta-tel { text-align: center; line-height: 1.35; background: var(--white); padding: 14px 30px; border-radius: 14px; border: 1px solid var(--line); }
-.cta-tel a { font-size: 26px; font-weight: 800; color: var(--green-700); }
-.cta-tel small { display: block; font-size: 12px; color: var(--ink-soft); }
-.cta-note { text-align: center; margin-top: 20px; font-size: 14px; color: var(--ink-soft); }
-.cta-note strong { color: var(--orange-600); font-size: 18px; }
+.cta-band { background: #f4f4f4; padding: 52px 0 56px; }
+.cta-catch {
+  text-align: center; color: #e60012; font-weight: 800;
+  font-size: clamp(15px, 1.6vw, 18px); letter-spacing: .04em; margin-bottom: 18px;
+}
+.cta-band .cta-box {
+  display: flex; align-items: stretch; justify-content: center;
+  gap: 28px; flex-wrap: wrap;
+}
+
+/* 無料お見積もりボタン（縦積み・オレンジグラデ） */
+.cta-estimate {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-width: 300px; padding: 22px 40px; border-radius: 10px;
+  background: linear-gradient(180deg, #fbaa1b 0%, #f7811a 45%, #f45c07 100%);
+  color: var(--white); box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
+  transition: filter .2s ease, transform .2s ease;
+}
+.cta-estimate:hover { filter: brightness(1.06); transform: translateY(-2px); }
+.cta-estimate svg { width: 52px; height: 40px; }
+.cta-estimate span { font-size: 19px; font-weight: 700; letter-spacing: .04em; }
+
+/* 電話ボックス */
+.cta-band .cta-tel {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-width: 320px; padding: 18px 36px; border-radius: 10px;
+  background: var(--white); border: 1px solid #c8c8c8; text-align: center;
+}
+.cta-band .cta-tel > a { display: flex; align-items: center; gap: 8px; color: #1a1a1a; }
+.cta-band .cta-tel .freedial { width: 44px; height: 22px; color: #1a1a1a; flex-shrink: 0; }
+.cta-band .cta-tel .num { font-size: clamp(24px, 2.6vw, 31px); font-weight: 800; letter-spacing: .01em; line-height: 1.2; }
+.cta-band .cta-tel small { display: block; font-size: 13px; color: #444; margin-top: 2px; }
+.cta-tel-label { font-size: clamp(15px, 1.5vw, 18px); font-weight: 700; color: #1a1a1a; margin-top: 8px; }
+
+/* TikTok 5%off */
+.cta-tiktok {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 28px; flex-wrap: wrap;
+}
+.cta-tiktok .click {
+  position: relative; font-size: 12px; font-weight: 700; color: #444; padding: 0 10px;
+}
+.cta-tiktok .click::before, .cta-tiktok .click::after {
+  content: ""; position: absolute; top: -9px; width: 2px; height: 9px;
+  background: var(--orange-500); border-radius: 1px;
+}
+.cta-tiktok .click::before { left: 3px; transform: rotate(-28deg); }
+.cta-tiktok .click::after { right: 3px; transform: rotate(28deg); }
+.cta-tiktok .tt { width: 26px; height: 26px; fill: #1a1a1a; }
+.cta-tiktok .txt { font-size: clamp(15px, 1.6vw, 19px); font-weight: 700; color: #1a1a1a; }
+.cta-tiktok .off {
+  font-size: clamp(30px, 3.4vw, 44px); font-weight: 800; color: #f4511e; line-height: 1;
+}
+.cta-tiktok .off em { font-style: normal; font-size: .5em; font-weight: 800; }
 
 /* ---------- 選ばれる理由 ---------- */
 .reasons { background: var(--white); }
@@ -283,7 +317,7 @@ section { padding: 80px 0; }
 
 /* ---------- フッター ---------- */
 .site-footer { background: var(--green-900); color: #cfe5da; padding: 64px 0 0; }
-.footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 48px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 36px; align-items: start; }
 .footer-logo { background: var(--white); border-radius: 10px; padding: 12px 16px; width: fit-content; }
 .footer-logo img { width: 200px; }
 .footer-addr { margin-top: 16px; font-size: 13.5px; font-style: normal; }
@@ -309,6 +343,9 @@ section { padding: 80px 0; }
 
 /* ---------- レスポンシブ ---------- */
 @media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .cta-band .cta-box { gap: 18px; }
+  .cta-estimate, .cta-band .cta-tel { min-width: 280px; }
   .plan-grid { grid-template-columns: repeat(2, 1fr); }
   .services .service-grid { grid-template-columns: repeat(2, 1fr); }
   .guide-grid { grid-template-columns: repeat(3, 1fr); }
@@ -328,7 +365,6 @@ section { padding: 80px 0; }
   .header-cta .btn { padding: 10px 14px; font-size: 12.5px; white-space: nowrap; }
 
 
-  .global-nav { display: none; }
 
   .pc-only { display: none; }
 
@@ -361,6 +397,13 @@ section { padding: 80px 0; }
   .reason-item:nth-child(even) .reason-visual { order: 0; }
 
   .disused-banner { flex-direction: column; text-align: center; padding: 28px 24px; }
+
+  .cta-band { padding: 40px 0 44px; }
+  .cta-band .cta-box { flex-direction: column; align-items: stretch; }
+  .cta-estimate, .cta-band .cta-tel { min-width: 0; width: 100%; }
+  .cta-estimate { padding: 18px 24px; }
+  .cta-estimate svg { width: 42px; height: 32px; }
+  .cta-tiktok { gap: 8px; }
   .guide-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
 
