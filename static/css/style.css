@@ -82,7 +82,9 @@ ul, ol { list-style: none; }
 
 /* ---------- ヒーロー ---------- */
 .hero {
-  position: relative; overflow: hidden; padding: 0;
+  position: relative; overflow: hidden;
+  /* 下端の白ウェーブ(60px)の分だけ下パディングを取り、上下の見た目の余白を揃える */
+  padding: 0 0 60px;
   color: var(--white);
   background: url("../assets/img/hero-pc.png") center top / cover no-repeat, #016a34;
   aspect-ratio: 1360 / 723;
