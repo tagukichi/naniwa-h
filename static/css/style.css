@@ -294,14 +294,27 @@ section { padding: 80px 0; }
 .center-more .btn { padding: 14px 44px; font-size: 15px; }
 
 /* ---------- お知らせ・ブログ ---------- */
-.news { background: var(--white); padding-bottom: 40px; }
+.news {
+  background:
+    radial-gradient(rgba(18, 113, 74, .07) 1.5px, transparent 1.5px),
+    var(--green-050);
+  background-size: 22px 22px;
+  padding-bottom: 40px;
+}
+.news-list { background: var(--white); border-radius: var(--radius); padding: 0 24px; }
 .news-list { max-width: 780px; margin: 0 auto; border-top: 1px solid var(--line); }
 .news-list li { border-bottom: 1px solid var(--line); }
 .news-list a { display: flex; gap: 24px; padding: 18px 8px; font-size: 15px; align-items: baseline; transition: background .2s; }
 .news-list a:hover { background: var(--green-050); }
 .news-list time { color: var(--green-600); font-weight: 700; font-size: 13.5px; flex-shrink: 0; }
 
-.blog { background: var(--white); padding-top: 40px; }
+.blog {
+  background:
+    radial-gradient(rgba(18, 113, 74, .07) 1.5px, transparent 1.5px),
+    var(--green-050);
+  background-size: 22px 22px;
+  padding-top: 40px;
+}
 .blog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .blog-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--white); transition: box-shadow .25s ease; display: flex; flex-direction: column; }
 .blog-card:hover { box-shadow: var(--shadow); }
@@ -893,8 +906,8 @@ a.voice-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px
 
 /* PDFビューア枠 */
 .pdf-frame {
-  width: 100%; height: min(78vh, 900px); border: 1px solid var(--line);
-  border-radius: var(--radius); background: var(--green-050);
+  display: block; width: 100%; height: min(78vh, 900px);
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--green-050);
 }
 
 /* スクリーンリーダー専用 */
