@@ -312,13 +312,7 @@ section { padding: 80px 0; }
 .news-list a:hover { background: var(--green-050); }
 .news-list time { color: var(--green-600); font-weight: 700; font-size: 13.5px; flex-shrink: 0; }
 
-.blog {
-  background:
-    radial-gradient(rgba(18, 113, 74, .07) 1.5px, transparent 1.5px),
-    var(--green-050);
-  background-size: 22px 22px;
-  padding-top: 40px;
-}
+.blog { background: var(--white); padding-top: 40px; }
 .blog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .blog-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--white); transition: box-shadow .25s ease; display: flex; flex-direction: column; }
 .blog-card:hover { box-shadow: var(--shadow); }
@@ -986,24 +980,8 @@ a.info-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px)
   width: 112px; height: 112px; margin: 0 auto 18px; border-radius: 50%;
   background: var(--green-050); transition: transform .3s ease;
 }
-.plan-card:hover .icon-img { transform: scale(1.06) rotate(-2deg); }
-.plan-card .icon-img img {
-  width: 66%; height: 66%; object-fit: contain;
-  animation: icon-float 3.4s ease-in-out infinite;
-}
-.plan-card:nth-child(2) .icon-img img { animation-delay: -.5s; }
-.plan-card:nth-child(3) .icon-img img { animation-delay: -1s; }
-.plan-card:nth-child(4) .icon-img img { animation-delay: -1.5s; }
-.plan-card:nth-child(5) .icon-img img { animation-delay: -2s; }
-.plan-card:nth-child(6) .icon-img img { animation-delay: -2.5s; }
-.plan-card:hover .icon-img img { animation: icon-pop .55s ease; }
 
-@keyframes icon-float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50%      { transform: translateY(-7px) rotate(-2deg); }
-}
-@keyframes icon-pop {
-  0%   { transform: translateY(0) scale(1) rotate(0deg); }
+.plan-card .icon-img svg { width: 100%; height: 100%; display: block; }
   35%  { transform: translateY(-10px) scale(1.12) rotate(-6deg); }
   65%  { transform: translateY(-4px) scale(1.04) rotate(4deg); }
   100% { transform: translateY(0) scale(1) rotate(0deg); }
@@ -1091,3 +1069,87 @@ table.data .stars { color: #f5a623; letter-spacing: 2px; }
 /* ドロワーのロゴリンク */
 .drawer-logo { display: block; transition: opacity .2s ease; }
 .drawer-logo:hover { opacity: .75; }
+
+
+/* =============================================
+   引越プランアイコンの SVG アニメーション（常時再生）
+   ============================================= */
+.plan-card .icon-img svg { overflow: visible; }
+
+/* --- 単身: 段ボールを持って弾む／たまにまばたき --- */
+.pi-single .pi-person { animation: pi-hop 2.4s ease-in-out infinite; transform-origin: 23px 49px; }
+.pi-single .pi-box    { animation: pi-hop 2.4s ease-in-out infinite .12s; transform-origin: 45px 47px; }
+.pi-single .pi-eye    { animation: pi-blink 4.2s steps(1, end) infinite; transform-origin: center; transform-box: fill-box; }
+
+/* --- 家族: 3人が順番にぴょこぴょこ --- */
+.pi-family .pi-p1 { animation: pi-hop 2.1s ease-in-out infinite;      transform-origin: 15px 49px; }
+.pi-family .pi-p2 { animation: pi-hop 2.1s ease-in-out infinite .35s; transform-origin: 48px 49px; }
+.pi-family .pi-p3 { animation: pi-hop 2.1s ease-in-out infinite .7s;  transform-origin: 32px 49px; }
+
+/* --- カップル: ハートが交互に鼓動、キラッと光る --- */
+.pi-couple .pi-heart-a { animation: pi-beat 1.9s ease-in-out infinite;      transform-origin: 25px 34px; }
+.pi-couple .pi-heart-b { animation: pi-beat 1.9s ease-in-out infinite .32s; transform-origin: 41px 40px; }
+.pi-couple .pi-sparkle { animation: pi-twinkle 2.6s ease-in-out infinite;   transform-origin: 19px 16px; }
+
+/* --- 今すぐ: スピード線が流れる／車輪が回る／車体が揺れる --- */
+.pi-now .pi-truck  { animation: pi-drive 1.1s ease-in-out infinite; }
+.pi-now .pi-wheel  { animation: pi-spin 1s linear infinite; transform-origin: center; transform-box: fill-box; }
+.pi-now .pi-line1  { animation: pi-dash 1.1s linear infinite; }
+.pi-now .pi-line2  { animation: pi-dash 1.1s linear infinite .18s; }
+.pi-now .pi-line3  { animation: pi-dash 1.1s linear infinite .36s; }
+
+/* --- オフィス: 窓が順番に点灯 --- */
+.pi-office .pi-windows rect { animation: pi-lit 3.6s ease-in-out infinite; }
+.pi-office .w1 { animation-delay: 0s; }
+.pi-office .w2 { animation-delay: .3s; }
+.pi-office .w3 { animation-delay: .6s; }
+.pi-office .w4 { animation-delay: .9s; }
+.pi-office .w5 { animation-delay: 1.2s; }
+.pi-office .w6 { animation-delay: 1.5s; }
+
+/* --- 不用品: リサイクルマークが回る／フタが開く --- */
+.pi-disused .pi-recycle { animation: pi-spin 4s linear infinite; }
+.pi-disused .pi-lid     { animation: pi-lid 2.8s ease-in-out infinite; transform-origin: 26px 22px; }
+
+@keyframes pi-hop {
+  0%, 62%, 100% { transform: translateY(0); }
+  76%           { transform: translateY(-5px); }
+  88%           { transform: translateY(-1px); }
+}
+@keyframes pi-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(.1); }
+}
+@keyframes pi-beat {
+  0%, 55%, 100% { transform: scale(1); }
+  68%           { transform: scale(1.12); }
+  80%           { transform: scale(1.02); }
+}
+@keyframes pi-twinkle {
+  0%, 60%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); }
+  75%           { opacity: 1; transform: scale(1) rotate(35deg); }
+}
+@keyframes pi-drive {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.4px); }
+}
+@keyframes pi-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pi-dash {
+  0%   { opacity: 0; transform: translateX(7px); }
+  35%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-9px); }
+}
+@keyframes pi-lit {
+  0%, 100% { fill: #e4f2ea; }
+  50%      { fill: #ffe07a; }
+}
+@keyframes pi-lid {
+  0%, 70%, 100% { transform: translateY(0) rotate(0deg); }
+  82%           { transform: translateY(-2.5px) rotate(-7deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plan-card .icon-img svg * { animation: none !important; }
+}
