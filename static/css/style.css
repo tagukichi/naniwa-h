@@ -227,8 +227,10 @@ section { padding: 80px 0; }
 .cta-tel-label { font-size: clamp(15px, 1.5vw, 18px); font-weight: 700; color: #1a1a1a; margin-top: 8px; }
 
 /* TikTok 5%off（既存サイトの画像をそのまま使用） */
-.cta-tiktok { margin-top: 26px; text-align: center; }
-.cta-tiktok img { width: min(420px, 86%); height: auto; margin: 0 auto; }
+.cta-tiktok { margin-top: 32px; text-align: center; }
+.cta-tiktok a { display: block; transition: transform .2s ease, opacity .2s ease; }
+.cta-tiktok a:hover { transform: translateY(-2px); opacity: .85; }
+.cta-tiktok img { width: min(620px, 94%); height: auto; margin: 0 auto; }
 
 /* ---------- 選ばれる理由 ---------- */
 .reasons { background: var(--white); }
@@ -274,11 +276,20 @@ section { padding: 80px 0; }
 
 /* ---------- お客様の声 ---------- */
 .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.voice-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 24px; display: flex; flex-direction: column; }
-.voice-card .stars { color: #f5a623; letter-spacing: 2px; font-size: 15px; }
-.voice-card .meta { font-size: 12.5px; color: var(--ink-soft); margin: 8px 0 12px; }
-.voice-card .meta .tag { display: inline-block; background: var(--green-100); color: var(--green-700); border-radius: 4px; padding: 1px 8px; font-weight: 700; margin-right: 6px; }
-.voice-card p { font-size: 14px; flex: 1; }
+.voice-card {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px 22px; display: flex; flex-direction: column; gap: 14px;
+}
+.voice-head { display: flex; align-items: center; gap: 14px; }
+.voice-face { width: 58px; height: 58px; flex-shrink: 0; }
+.voice-card .stars { color: #f5a623; letter-spacing: 2px; font-size: 15px; line-height: 1.4; }
+.voice-card .meta { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; }
+.voice-card .meta .tag {
+  display: block; background: var(--green-100); color: var(--green-700);
+  border-radius: 4px; padding: 1px 8px; font-weight: 700; width: fit-content; margin-bottom: 3px;
+}
+.voice-card .meta .who { display: block; }
+.voice-card .voice-body { font-size: 14px; flex: 1; }
 .center-more { text-align: center; margin-top: 36px; }
 .center-more .btn { padding: 14px 44px; font-size: 15px; }
 
@@ -464,7 +475,6 @@ section { padding: 80px 0; }
 }
 .drawer-plans a:hover { background: var(--green-100); transform: translateX(2px); }
 .drawer-plans em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
-.drawer-plans .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange-500); flex-shrink: 0; }
 
 .drawer-links li + li { border-top: 1px solid var(--line); }
 .drawer-links a {
@@ -697,6 +707,7 @@ table.data td .price { font-weight: 800; color: var(--orange-600); }
 
 /* お客様の声 一覧 */
 .voice-archive { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.voice-archive .voice-card { height: 100%; }
 
 /* ブログ 一覧 */
 .blog-archive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -969,4 +980,36 @@ a.info-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px)
   .flowcard h3 { min-height: 0; }
   .flow-panel { padding: 0 18px 26px; }
   .plan-card .icon-img { width: 84px; height: 84px; }
+}
+
+
+/* ---------- お客様の声 詳細: なにわからの返信 ---------- */
+.reply-box {
+  margin-top: 44px; background: #fffdf0;
+  border: 2px solid var(--green-600); border-radius: 20px; padding: 0 30px 28px;
+}
+.reply-head {
+  background: var(--green-600); color: var(--white); font-weight: 800;
+  font-size: clamp(15px, 1.7vw, 18px); letter-spacing: .06em; text-align: center;
+  width: fit-content; margin: 0 auto 22px; padding: 12px 40px; border-radius: 0 0 16px 16px;
+}
+.reply-body { display: flex; align-items: center; gap: 26px; }
+.reply-mark { width: clamp(84px, 12vw, 130px); height: auto; flex-shrink: 0; }
+.reply-body p { font-size: 14.5px; color: #4a5a50; }
+
+/* 詳細ページの評価表示 */
+.article-meta .voice-face { width: 52px; height: 52px; }
+.article-meta .stars { color: #f5a623; letter-spacing: 2px; }
+table.data .stars { color: #f5a623; letter-spacing: 2px; }
+
+/* ---------- ドロワー: プランアイコン ---------- */
+.drawer-plans .ico {
+  width: 34px; height: 34px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.drawer-plans .ico img { width: 100%; height: 100%; object-fit: contain; }
+
+@media (max-width: 860px) {
+  .reply-body { flex-direction: column; text-align: center; gap: 16px; }
+  .reply-box { padding: 0 18px 22px; }
 }
