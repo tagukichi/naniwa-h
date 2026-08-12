@@ -95,3 +95,58 @@
 // FAQ カテゴリ内アンカーのスムーススクロール補正は CSS の
 // scroll-padding-top で対応済み
 // ============================================
+
+// ============================================
+// ページ内アンカーメニューの現在地ハイライト
+// ============================================
+(function () {
+  const nav = document.querySelector('.anchor-nav');
+  if (!nav) return;
+
+  const links = [...nav.querySelectorAll('a[href^="#"]')];
+  const sections = links
+    .map((a) => ({ link: a, el: document.getElementById(a.getAttribute('href').slice(1)) }))
+    .filter((s) => s.el);
+  if (!sections.length) return;
+
+  const list = nav.querySelector('ul');
+  let currentLink = null;
+
+  function setCurrent(target) {
+    if (target === currentLink) return;
+    currentLink = target;
+    sections.forEach(({ link }) => link.classList.toggle('is-current', link === target));
+
+    // スマホの横並びメニューでは現在地が見えるよう横スクロールさせる
+    if (list && list.scrollWidth > list.clientWidth + 1) {
+      const left = target.offsetLeft - (list.clientWidth - target.offsetWidth) / 2;
+      list.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+    }
+  }
+
+  // 画面上部（追従メニューの下）に最も近いセクションを現在地とする
+  function update() {
+    // スマホは横並びバーの直下、PCは固定ヘッダー分を基準線にする
+    const isBar = list && getComputedStyle(list).display === 'flex';
+    const offset = isBar ? nav.getBoundingClientRect().bottom + 20 : 140;
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.el.getBoundingClientRect().top <= offset) current = s;
+    }
+    // 最下部までスクロールしたら最後の項目を選択
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+      current = sections[sections.length - 1];
+    }
+    setCurrent(current.link);
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { update(); ticking = false; });
+  }, { passive: true });
+
+  window.addEventListener('resize', update);
+  update();
+})();
