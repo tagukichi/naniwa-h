@@ -83,13 +83,13 @@ ul, ol { list-style: none; }
 /* ---------- ヒーロー ---------- */
 .hero {
   position: relative; overflow: hidden;
-  /* 上下の余白を同量にしてコンテンツを中央寄りに置く */
-  padding: clamp(24px, 3vw, 64px) 0;
+  /* 画像の上側をトリミングして高さを詰める（下端基準で cover） */
+  padding: clamp(16px, 2vw, 40px) 0;
   align-items: center;
   color: var(--white);
-  background: url("../assets/img/hero-pc.png") center top / cover no-repeat, #016a34;
-  aspect-ratio: 1360 / 723;
-  min-height: 620px;
+  background: url("../assets/img/hero-pc.png") center bottom / cover no-repeat, #016a34;
+  aspect-ratio: 1360 / 610;
+  min-height: 540px;
   display: flex;
 }
 /* コピー側（右半分）だけ暗く落として可読性を確保 */
@@ -393,6 +393,19 @@ section { padding: 80px 0; }
     padding: 0 0 34px;
   }
   .hero::before { background: linear-gradient(180deg, transparent 42%, rgba(6, 48, 30, .22) 62%, rgba(6, 48, 30, .5) 86%); }
+
+  /* SPのみ：FV下端に逆三角形のノッチを出す */
+  .hero { overflow: visible; }
+  .hero::after {
+    content: "";
+    position: absolute; left: 50%; bottom: -24px; z-index: 3;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 34px solid transparent;
+    border-right: 34px solid transparent;
+    /* FV下端の色（#016a34 に ::before の暗幕が乗った実効色）に合わせる */
+    border-top: 24px solid #034d29;
+  }
 
   .hero-logo-sp { display: block; padding: 14px 0 4px; }
   .hero-logo-sp img { width: min(52vw, 220px); height: auto; margin: 0 auto; }
