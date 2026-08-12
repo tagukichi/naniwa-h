@@ -1076,15 +1076,18 @@ table.data .stars { color: #f5a623; letter-spacing: 2px; }
    ============================================= */
 .plan-card .icon-img svg { overflow: visible; }
 
-/* --- 単身: 段ボールを持って弾む／たまにまばたき --- */
-.pi-single .pi-person { animation: pi-hop 2.4s ease-in-out infinite; transform-origin: 23px 49px; }
-.pi-single .pi-box    { animation: pi-hop 2.4s ease-in-out infinite .12s; transform-origin: 45px 47px; }
-.pi-single .pi-eye    { animation: pi-blink 4.2s steps(1, end) infinite; transform-origin: center; transform-box: fill-box; }
+/* --- 単身: にっこり笑顔になる／たまにまばたき --- */
+.pi-single .pi-mouth { animation: pi-smile 3.2s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+.pi-single .pi-eye   { animation: pi-eye-smile 3.2s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+.pi-single .pi-box   { animation: pi-box-tilt 3.2s ease-in-out infinite; transform-origin: 44px 48px; }
 
-/* --- 家族: 3人が順番にぴょこぴょこ --- */
-.pi-family .pi-p1 { animation: pi-hop 2.1s ease-in-out infinite;      transform-origin: 15px 49px; }
-.pi-family .pi-p2 { animation: pi-hop 2.1s ease-in-out infinite .35s; transform-origin: 48px 49px; }
-.pi-family .pi-p3 { animation: pi-hop 2.1s ease-in-out infinite .7s;  transform-origin: 32px 49px; }
+/* --- 家族: 3人が順番に笑顔になる --- */
+.pi-family .pi-p1 .pi-mouth { animation: pi-smile 3.2s ease-in-out infinite;      transform-origin: center; transform-box: fill-box; }
+.pi-family .pi-p1 .pi-eye   { animation: pi-eye-smile 3.2s ease-in-out infinite;  transform-origin: center; transform-box: fill-box; }
+.pi-family .pi-p2 .pi-mouth { animation: pi-smile 3.2s ease-in-out infinite .3s;  transform-origin: center; transform-box: fill-box; }
+.pi-family .pi-p2 .pi-eye   { animation: pi-eye-smile 3.2s ease-in-out infinite .3s; transform-origin: center; transform-box: fill-box; }
+.pi-family .pi-p3 .pi-mouth { animation: pi-smile 3.2s ease-in-out infinite .6s;  transform-origin: center; transform-box: fill-box; }
+.pi-family .pi-p3 .pi-eye   { animation: pi-eye-smile 3.2s ease-in-out infinite .6s; transform-origin: center; transform-box: fill-box; }
 
 /* --- カップル: ハートが交互に鼓動、キラッと光る --- */
 .pi-couple .pi-heart-a { animation: pi-beat 1.9s ease-in-out infinite;      transform-origin: 25px 34px; }
@@ -1111,14 +1114,17 @@ table.data .stars { color: #f5a623; letter-spacing: 2px; }
 .pi-disused .pi-recycle { animation: pi-spin 4s linear infinite; }
 .pi-disused .pi-lid     { animation: pi-lid 2.8s ease-in-out infinite; transform-origin: 26px 22px; }
 
-@keyframes pi-hop {
-  0%, 62%, 100% { transform: translateY(0); }
-  76%           { transform: translateY(-5px); }
-  88%           { transform: translateY(-1px); }
+@keyframes pi-smile {
+  0%, 38%, 100% { transform: scale(1); }
+  55%, 82%      { transform: scale(1.45, 1.9) translateY(.4px); }
 }
-@keyframes pi-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95%           { transform: scaleY(.1); }
+@keyframes pi-eye-smile {
+  0%, 38%, 100% { transform: scaleY(1); }
+  55%, 82%      { transform: scaleY(.4) translateY(-1px); }
+}
+@keyframes pi-box-tilt {
+  0%, 38%, 100% { transform: rotate(0deg); }
+  55%, 82%      { transform: rotate(-4deg); }
 }
 @keyframes pi-beat {
   0%, 55%, 100% { transform: scale(1); }
