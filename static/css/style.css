@@ -133,6 +133,7 @@ ul, ol { list-style: none; }
 .hero-wave { display: block; width: 100%; height: 60px; position: absolute; left: 0; bottom: -1px; z-index: 2; }
 
 .pc-only { display: inline; }
+.hero-logo-sp { display: none; }
 
 /* ---------- セクション共通 ---------- */
 section { padding: 80px 0; }
@@ -379,21 +380,24 @@ section { padding: 80px 0; }
 
   .pc-only { display: none; }
 
+  /* SPはロゴを独立要素にし、背景は画像と同じ縦グラデーションで再現 */
   .hero {
-    background-image: url("../assets/img/hero-sp.png");
-    background-size: 100% auto;
-    background-position: center top;
-    background-color: #016a34;
+    background-image: none;
+    background-color: #8fc31f;
+    background: linear-gradient(180deg,
+      #8fc31f 0%, #8fc31f 44%, #7bb926 58%, #56a034 76%, #1c7c42 90%, #016a34 100%);
     aspect-ratio: auto;
     min-height: 0;
-    align-items: flex-end;
-    /* SP画像のロゴ部分（画像高さの約46%）を空けてコピーを配置 */
-    padding-top: calc(100vw * 883 / 390 * .46);
+    display: block;
+    align-items: initial;
+    padding: 0 0 60px;
   }
-  .hero::before {
-    background: linear-gradient(180deg, transparent 30%, rgba(6, 48, 30, .30) 46%, rgba(6, 48, 30, .58) 76%);
-  }
-  .hero-inner { grid-template-columns: 1fr; padding: 0 20px 48px; }
+  .hero::before { background: linear-gradient(180deg, transparent 42%, rgba(6, 48, 30, .22) 62%, rgba(6, 48, 30, .5) 86%); }
+
+  .hero-logo-sp { display: block; padding: 14px 0 4px; }
+  .hero-logo-sp img { width: min(52vw, 220px); height: auto; margin: 0 auto; }
+
+  .hero-inner { display: block; padding: 0 20px 20px; }
   .hero-copy { grid-column: 1; padding: 0; text-align: center; }
   .hero-copy h1 { font-size: 25px; }
   .hero-copy .hero-sub { font-size: 14px; }
