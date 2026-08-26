@@ -1251,3 +1251,131 @@ table.data .stars { color: #f5a623; letter-spacing: 2px; }
   .anchor-body .block { scroll-margin-top: 75px; }
   .anchor-body .block + .block { margin-top: 44px; }
 }
+
+/* =============================================
+   求人ページ
+   ============================================= */
+.recruit-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  margin: -28px 0 52px;
+}
+.recruit-tags li {
+  font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--green-050); color: var(--green-700);
+  border: 1px solid var(--green-100);
+}
+.recruit-tags li.is-main {
+  background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+  color: var(--white); border-color: transparent;
+}
+
+/* ---------- 数字で見る職場 ---------- */
+.rc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.rc-stats li {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; text-align: center; padding-bottom: 22px;
+  box-shadow: var(--shadow);
+}
+.rc-label {
+  background: var(--green-700); color: var(--white);
+  font-size: 13px; font-weight: 700; letter-spacing: .06em; padding: 9px 12px;
+}
+.rc-ico { display: block; margin: 20px auto 12px; width: 66px; color: var(--green-600); }
+.rc-ico svg { width: 100%; height: auto; }
+.rc-value {
+  font-size: 30px; font-weight: 800; line-height: 1.2; color: var(--ink);
+  letter-spacing: .02em;
+}
+.rc-value small { font-size: 15px; font-weight: 700; margin-left: 2px; }
+
+/* ---------- 先輩スタッフの声 ---------- */
+.rc-people { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; }
+.rc-person {
+  border: 2px solid var(--green-100); border-radius: 18px;
+  background: var(--white); overflow: hidden;
+}
+.rc-person-head {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 22px; background: var(--green-050); border-bottom: 1px solid var(--green-100);
+}
+.rc-avatar {
+  width: 56px; height: 56px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+  background: var(--white); border: 2px solid var(--green-100);
+}
+.rc-avatar svg { width: 100%; height: 100%; }
+.rc-person-role { font-size: 12px; font-weight: 700; color: var(--green-600); letter-spacing: .08em; }
+.rc-person-name { font-size: 19px; font-weight: 800; line-height: 1.4; }
+.rc-person-name span { font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+.qa-list { padding: 6px 22px 12px; }
+.qa-list .faq-item summary { font-size: 15px; padding: 15px 30px 15px 26px; }
+.qa-list .faq-item:last-child { border-bottom: none; }
+.qa-list .faq-answer { padding-left: 26px; }
+.qa-list .faq-answer::before { display: none; }
+
+/* ---------- 応募CTA帯 ---------- */
+.recruit-cta { background: var(--green-050); padding: 44px 0; margin: 60px 0; }
+.rc-cta-catch {
+  text-align: center; font-size: clamp(17px, 1.9vw, 21px); font-weight: 800;
+  color: var(--green-700); margin-bottom: 22px;
+}
+.rc-cta-btns { display: flex; gap: 20px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+.rc-cta-btns .btn-primary { padding: 20px 38px; }
+.rc-cta-tel {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--white); border: 2px solid var(--green-600); border-radius: 14px;
+  padding: 12px 30px; min-width: 300px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.rc-cta-tel:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.rc-cta-tel .mark img { width: 34px; height: auto; }
+.rc-cta-tel .num { font-size: 27px; font-weight: 800; color: var(--green-700); line-height: 1.2; letter-spacing: .01em; }
+.rc-cta-tel small { font-size: 11.5px; color: var(--ink-soft); font-weight: 600; }
+
+/* ---------- 募集要項テーブル ---------- */
+table.data.spec th { width: 22%; min-width: 130px; vertical-align: top; }
+table.data.spec td { line-height: 1.85; }
+.dot-list { margin: 8px 0; }
+.dot-list li { position: relative; padding-left: 16px; font-size: 14.5px; }
+.dot-list li + li { margin-top: 5px; }
+.dot-list li::before {
+  content: ""; position: absolute; left: 2px; top: .72em;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green-500);
+}
+.pay-main {
+  font-size: 20px; font-weight: 800; color: var(--orange-600);
+  line-height: 1.4; margin-bottom: 6px;
+}
+.pay-main.small { font-size: 17px; }
+.cond-head {
+  font-size: 13px; font-weight: 800; color: var(--green-700);
+  letter-spacing: .08em; margin-top: 16px;
+}
+.cond-head:first-child { margin-top: 0; }
+table.data.spec td a { color: var(--green-600); font-weight: 700; }
+.map-link { margin-top: 14px; font-size: 14px; }
+.map-link a { color: var(--green-600); font-weight: 700; text-decoration: underline; }
+
+/* 性別などの少数選択肢 */
+.choice-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.choice-row .choice { min-width: 118px; }
+
+@media (max-width: 900px) {
+  .rc-people { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 860px) {
+  .recruit-tags { margin: -18px 0 34px; }
+  .rc-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .rc-label { font-size: 11.5px; padding: 8px 6px; letter-spacing: 0; }
+  .rc-ico { width: 52px; margin: 14px auto 8px; }
+  .rc-value { font-size: 24px; }
+  .rc-value small { font-size: 13px; }
+  .recruit-cta { padding: 34px 0; margin: 44px 0; }
+  .rc-cta-btns { flex-direction: column; }
+  .rc-cta-btns .btn-primary { width: 100%; }
+  .rc-cta-tel { min-width: 0; width: 100%; }
+  .qa-list { padding: 4px 16px 8px; }
+  .qa-list .faq-item summary { font-size: 14.5px; padding: 14px 28px 14px 24px; }
+  table.data.spec th { width: auto; min-width: 0; }
+}
