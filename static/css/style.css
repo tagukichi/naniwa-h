@@ -1380,6 +1380,40 @@ table.data.spec td a { color: var(--green-600); font-weight: 700; }
   table.data.spec th { width: auto; min-width: 0; }
 }
 
+/* ---------- TOP: 採用情報バンド ---------- */
+.recruit-band {
+  color: var(--white);
+  background:
+    radial-gradient(rgba(255, 255, 255, .07) 1.5px, transparent 1.5px),
+    linear-gradient(135deg, var(--green-700), var(--green-900));
+  background-size: 22px 22px, auto;
+}
+.rb-grid { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center; }
+.rb-copy .en {
+  display: block; font-size: 13px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: #9fd8b8; margin-bottom: 10px;
+}
+.rb-copy h2 { font-size: clamp(26px, 3vw, 36px); font-weight: 800; line-height: 1.4; letter-spacing: .02em; }
+.rb-copy > p { margin-top: 16px; font-size: 15px; color: #dcefe4; max-width: 42em; }
+.rb-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.rb-chips li {
+  font-size: 13.5px; font-weight: 700; padding: 7px 16px; border-radius: 999px;
+  background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .3);
+}
+.rb-chips li:first-child { background: rgba(255, 224, 122, .18); border-color: #ffe07a; color: #ffe07a; }
+.rb-cta { margin-top: 28px; }
+.rb-visual img { width: 100%; max-width: 300px; margin: 0 auto; }
+
+@media (max-width: 860px) {
+  .rb-grid { grid-template-columns: 1fr; gap: 6px; text-align: center; }
+  .rb-copy > p { margin-left: auto; margin-right: auto; }
+  .rb-chips { justify-content: center; }
+  .rb-cta .btn { width: 100%; }
+  .rb-visual { order: -1; }
+  .rb-visual img { max-width: 150px; }
+}
+
+
 /* 求人ページなど、見積CTAを出さないページ */
 body.no-estimate-cta .cta-band,
 body.no-estimate-cta .fixed-cta { display: none; }
