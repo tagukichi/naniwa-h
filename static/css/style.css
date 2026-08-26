@@ -1379,3 +1379,6 @@ table.data.spec td a { color: var(--green-600); font-weight: 700; }
   .qa-list .faq-item summary { font-size: 14.5px; padding: 14px 28px 14px 24px; }
   table.data.spec th { width: auto; min-width: 0; }
 }
+
+/* 求人ページなど、見積CTAを出さないページ */
+body.no-estimate-cta .cta-band { display: none; }
