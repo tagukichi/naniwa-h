@@ -1381,4 +1381,9 @@ table.data.spec td a { color: var(--green-600); font-weight: 700; }
 }
 
 /* 求人ページなど、見積CTAを出さないページ */
-body.no-estimate-cta .cta-band { display: none; }
+body.no-estimate-cta .cta-band,
+body.no-estimate-cta .fixed-cta { display: none; }
+/* スマホ固定CTA分の下余白も戻す */
+@media (max-width: 860px) {
+  body.no-estimate-cta { padding-bottom: 0; }
+}
