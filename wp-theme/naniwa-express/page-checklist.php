@@ -1,0 +1,271 @@
+<?php
+/**
+ * 固定ページ：引越前後やることリスト（スラッグ: checklist）
+ *
+ * Template Name: 引越前後やることリスト
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<section class="page-head">
+  <div class="inner"><div class="ph-copy">
+    <span class="en">CHECKLIST</span>
+    <h1>引越前後やることリスト</h1>
+    <p class="page-lead">「引越すときって何するの？」各種お手続きに困ったら</p>
+  </div><p class="ph-chara"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-calendar-white.svg' ) ); ?>" alt=""></p></div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
+      <li>引越安心ガイド</li>
+      <li>引越前後やることリスト</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body wide">
+  <div class="inner">
+
+    <div class="lead-block">
+      <h2>「引越すときって何するの？」<br><span class="mark">各種お手続きに困ったら</span></h2>
+      <p>引越には、各種の手続きや登録作業などが、どうしても発生します。電気にガス、水道、郵便など、ご面倒かもしれません。なにわ引越センターでは、そんなご負担を少しでも軽くしていただけるように、各種お手続き情報をまとめました。</p>
+    </div>
+
+    <div class="anchor-layout">
+      <aside class="anchor-nav" aria-label="ページ内メニュー">
+        <p class="an-title">目次</p>
+        <ul>
+          <li><a href="#city">役所でのお手続き</a></li>
+          <li><a href="#school">お子様のお手続き</a></li>
+          <li><a href="#car">車・バイクの手続き</a></li>
+          <li><a href="#utility">電気・ガス・水道・電話の手続き</a></li>
+          <li><a href="#others">その他手続きが必要なもの</a></li>
+          <li><a href="#tools">引越お役立ちツール</a></li>
+        </ul>
+      </aside>
+
+      <div class="anchor-body">
+
+    <div class="block" id="city">
+      <h2 class="h-sec">役所でのお手続き</h2>
+      <p>市区町村ＨＰによっては、各種届出用紙類をダウンロードできるサービスがあります。事前にプリントアウトして記入しておけば手続きなどスムーズに終えることができます。</p>
+
+      <h3 class="h-sub" style="margin-top:28px;">転出手続き</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <tbody>
+            <tr><th>転居届<br><span style="font-weight:400;font-size:12.5px;">（同市区内への引越）</span></th><td>同市区内へ引越する場合は引越前の手続きは不要。</td></tr>
+            <tr><th>転出届<br><span style="font-weight:400;font-size:12.5px;">（他の市区町村へ引越）</span></th><td>転出届を提出し、転出証明書を受け取る。<br><strong>必要なもの</strong>：1.印鑑　2.身分を確認できるもの</td></tr>
+            <tr><th>国民健康保険<br>老人医療保険<br>小児医療証</th><td>各保険証を提出する。他の市町村に転出した日の翌日またはその日に失効となる。<br><strong>必要なもの</strong>：1.印鑑　2.身分を確認できるもの</td></tr>
+            <tr><th>印鑑登録</th><td>登録証を返却する。<br><strong>必要なもの</strong>：1.申請者の印鑑　2.印鑑登録証</td></tr>
+            <tr><th>児童手当</th><td>各市区町村によって手続きが異なりますので、ご確認ください。</td></tr>
+            <tr><th>原動機付自転車<br>（125cc以下）</th><td>廃車申告書を提出し、廃車証明書を受け取る。<br><strong>必要なもの</strong>：1.印鑑　2.標識交付証明書　3.ナンバープレート</td></tr>
+            <tr><th>飼い犬の<br>登録事項変更届</th><td>手続き不要。ただし、犬の鑑札の差し替えがあるので鑑札は大事に保管しておくこと。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="h-sub" style="margin-top:32px;">転入手続き</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <tbody>
+            <tr><th>転居届<br><span style="font-weight:400;font-size:12.5px;">（同市区内への引越）</span></th><td><strong>移転後14日以内</strong>に新居の役所へ転出証明書を届け出る。<br><strong>必要なもの</strong>：1.身分を確認できるもの　2.国民健康保険被保険者証（加入者のみ）　3.老人医療証（受給者のみ）　4.介護保険被保険者証（お持ちの方のみ）</td></tr>
+            <tr><th>転入届<br><span style="font-weight:400;font-size:12.5px;">（他の市区町村へ引越）</span></th><td><strong>移転後14日以内</strong>に新居の役所へ転出証明書を届け出る。<br><strong>必要なもの</strong>：1.前の市区町村から発行された転出証明書　2.身分を確認できるもの　3.印鑑</td></tr>
+            <tr><th>国民健康保険<br>老人医療保険<br>小児医療証</th><td><strong>移転後14日以内</strong>に各保険証を提出する。<br><strong>必要なもの</strong>：1.印鑑　2.前の住所で使用していた保険証（同じ世帯の中に一般の国民健康保険加入者とその他医療証がある場合には全部の医療証）</td></tr>
+            <tr><th>印鑑登録</th><td>登録しようとする印鑑を持参する。<br><strong>必要なもの</strong>：1.申請者の印鑑</td></tr>
+            <tr><th>児童手当</th><td>各市区町村によって手続きが異なりますので、ご確認ください。</td></tr>
+            <tr><th>原動機付自転車<br>（125cc以下）</th><td>登録を申請し、標識交付証明書を受け取る。<br><strong>必要なもの</strong>：1.印鑑　2.標識交付証明書　3.ナンバープレート　4.軽自動車税申告書兼原動機付き自転車標識交付申請書（窓口に揃えてあります）</td></tr>
+            <tr><th>飼い犬の<br>登録事項変更届</th><td>登録内容に変更があったときは、届出が必要です。注射未接種の場合は窓口で申し出てください。<br><strong>必要なもの</strong>：1.その年度に発行された注射済票（狂犬病予防注射済証）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block" id="school">
+      <h2 class="h-sec">お子様のお手続き</h2>
+      <p>公立の小・中学校は区役所での手続きが必要になりますので、転出・転入届の際に同時に行うと良いでしょう。</p>
+
+      <h3 class="h-sub" style="margin-top:28px;">転出手続き（公立小中学校）</h3>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-no"></div>
+          <div class="step-body">
+            <h3>通学中の学校に転校届を提出</h3>
+            <p>通学中の学校に<strong>転校届</strong>を提出し、<strong>転校確認書</strong>を受け取る。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-no"></div>
+          <div class="step-body">
+            <h3>役所に転校確認書を提出</h3>
+            <p>役所に<strong>転校確認書</strong>を提出し、<strong>転出学通知書</strong>を受け取る。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-no"></div>
+          <div class="step-body">
+            <h3>通学中の学校に転出学通知書を提出</h3>
+            <p>通学中の学校に<strong>転出学通知書</strong>を提出し、<strong>在学証明書、教科書受給証明書</strong>を受け取る。</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="h-sub" style="margin-top:32px;">転入手続き（公立小中学校）</h3>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-no"></div>
+          <div class="step-body">
+            <h3>役所で在学証明書を提出</h3>
+            <p>前住所役場から発行された<strong>在学証明書</strong>を提出し、入学通知書を受け取る。</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-no"></div>
+          <div class="step-body">
+            <h3>転校先の学校へ各書類を提出</h3>
+            <p>転校先の学校へ<strong>在学証明書、転出学通知書、入学通知書</strong>を提出する。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-box" style="margin-top:26px;">
+        <h4>私立小中学校の場合</h4>
+        <p>各学校によって手続きが異なりますので、ご確認ください。私立の学校の場合は、編入試験などが課されるケースがあるので、できるだけ早い段階で学校の下調べや連絡などをすませておく必要があります。都道府県の県庁所在地にある「私立中学高等学校協会」（名称は都道府県毎に異なる）に問い合わせて、学校を調べたり、手続きの流れを教えてもらったりすることができます。</p>
+      </div>
+    </div>
+
+    <div class="block" id="car">
+      <h2 class="h-sec">車・バイクの手続き</h2>
+      <p>登録の変更は<strong>引越後15日以内</strong>に手続きが必要です。また、車両の種類によって管轄が違いますのでご注意ください。</p>
+
+      <div class="notice-box green" style="margin-top:18px;">
+        <h4>転出時の手続き</h4>
+        <p>免許証・車庫証明・自動車・軽自動車は手続き不要です。原動機付自転車（125cc以下）は役所の手続きを参照してください。</p>
+      </div>
+
+      <h3 class="h-sub" style="margin-top:30px;">転入手続き</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr><th style="width:22%">種別</th><th style="width:22%">管轄</th><th>必要なもの</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>免許証<br><span style="font-weight:400;font-size:12.5px;">記載事項変更届</span></th>
+              <td>警察署および<br>運転免許試験場</td>
+              <td>1.運転免許証<br>2.新住所を確認できる書類（住民票・健康保険証・身分証明書、新住所に届いた郵便物等）</td>
+            </tr>
+            <tr>
+              <th>車庫証明</th>
+              <td>警察署</td>
+              <td>1.自動車保管場所証明申請書　2.所在図、配置図（用紙は警察署にあります）　3.印鑑<br>賃貸の駐車場の場合はさらに：4.駐車場賃貸借契約書の写し　5.貸主の保管場所使用承諾証明書</td>
+            </tr>
+            <tr>
+              <th>原動機付自転車<br>（125cc以下）</th>
+              <td>役所</td>
+              <td>役所の手続きを参照してください。</td>
+            </tr>
+            <tr>
+              <th>自動車<br>（登録変更）</th>
+              <td>陸運支局</td>
+              <td>変更登録申請書／手数料納付書（自動車検査登録印紙を添付）／変更の事実を証する書面（個人は住民票または戸籍謄本等、法人は登記簿謄本等で発行後3ヶ月以内のもの）／自動車検査証／印鑑／委任状（代理人申請の場合）／自動車保管場所証明書（使用の本拠の位置を変更した場合に必要、発行後1ヶ月以内のもの）</td>
+            </tr>
+            <tr>
+              <th>軽自動車<br>（登録変更）</th>
+              <td>軽自動車検査協会</td>
+              <td>自動車検査証記入申請書（使用者の押印または署名。使用者と所有者が異なる場合は所有者の押印も必要）／自動車検査証（車検証）／住所を証する書面（印鑑証明書または住民票抄本等、発行3ヶ月以内のもの）／車両番号標／軽自動車税申告書</td>
+            </tr>
+            <tr>
+              <th>バイク<br>（126cc以上）</th>
+              <td>陸運支局</td>
+              <td>軽自動車届出済証記入申請書／変更登録申請書／手数料納付書／変更の事実を証する書面／自動車検査証／印鑑／委任状（代理人申請の場合）／自動車保管場所証明書（必要な場合）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block" id="utility">
+      <h2 class="h-sec">電気・ガス・水道・電話の手続き</h2>
+      <p>引越後からすぐに利用できるように、引越先の新居の手続きも引越前に済ませておくことをお勧めします。</p>
+
+      <h3 class="h-sub" style="margin-top:28px;">転出手続き</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr><th style="width:20%">種別</th><th style="width:22%">時期</th><th>手続き内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>電気</th><td>1週間前までに</td><td>検針・領収証に記載されている支店に電話で連絡。事業所によってはweb上で手続きが可能。</td></tr>
+            <tr><th>ガス</th><td>1週間前までに</td><td>検針・領収証に記載されている支店に電話で連絡。事業所によってはweb上で手続きが可能。</td></tr>
+            <tr><th>水道</th><td>1週間前までに</td><td>現住所の水道局（営業所）へ連絡し、水道使用中止を申告する。水道局によってはWEB上での手続きが可能。<br><strong>確認事項</strong>：1.住所・電話番号　2.契約名義人　3.お客様番号（検針票などに記載）　4.中止する日にち　5.精算方法など</td></tr>
+            <tr><th>固定電話</th><td>予約制なので<br>なるべく早めに</td><td>NTTは電話番号116、または各社HP上で手続きの申し込みもできます。その他電話会社は各社にお問い合わせください。<br><strong>確認事項</strong>：1.現在使用中の電話番号　2.契約者名義　3.現住所と新住所　4.電話の取り外し・取り付け希望日</td></tr>
+            <tr><th>携帯電話</th><td>―</td><td>住所変更届を提出。電話会社各社によって手続方法が違います。HP上で手続き可能な場合もあり。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="h-sub" style="margin-top:32px;">転入手続き</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <thead>
+            <tr><th style="width:20%">種別</th><th style="width:22%">時期</th><th>手続き内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>電気</th><td>転入の2〜3日前</td><td>転居先の管轄事業所に連絡する。ブレーカーのスイッチを入れた上で電気を使い始め、「電気使用開始申込書」に必要事項を記入の上、ポストに投函。</td></tr>
+            <tr><th>ガス</th><td>転入の2〜3日前</td><td>転居先の管轄サービスショップに連絡する。当日、ガス会社の人が安全点検を行なった後使用できる。</td></tr>
+            <tr><th>水道</th><td>転入の2〜3日前</td><td>お近くの水道局（営業所）へ連絡。備え付けの「水道使用開始申込書」に必要事項を記入の上投函。水道局によってはWEB上での手続きが可能。<br><strong>確認事項</strong>：1.住所・電話番号　2.契約名義人　3.利用を開始する日にち　4.精算方法など</td></tr>
+            <tr><th>固定電話</th><td>―</td><td>手続き不要。</td></tr>
+            <tr><th>携帯電話</th><td>―</td><td>手続き不要。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block" id="others">
+      <h2 class="h-sec">その他手続きが必要なもの</h2>
+      <div class="card-grid">
+        <div class="info-card">
+          <h3>郵便物の転居・転送サービス</h3>
+          <p><strong>窓口に行く余裕がある方</strong><br>届出人の運転免許証、各種健康保険証、印鑑などを窓口に提出。1年間、旧住所あての郵便物等が新住所に無料で転送されます。</p>
+          <p style="margin-top:12px;"><strong>窓口に行く余裕がない方</strong><br>転居届にご記入の上、切手を貼らずにポストに投函。配達の際、転居の事実の確認のため郵便局員が訪問してきます。</p>
+        </div>
+        <div class="info-card">
+          <h3>銀行・郵貯口座の変更</h3>
+          <p>窓口、郵送、web上の手続きと、複数の手続き方法があります。詳しくは各社にお問い合わせください。</p>
+        </div>
+        <div class="info-card">
+          <h3>新聞、牛乳、クリーニングなど</h3>
+          <p>お近くの営業所までお問合せください。クリーニングの引き取りを忘れずに。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block" id="tools">
+      <h2 class="h-sec">引越お役立ちツール</h2>
+      <p>引越会社や関連会社各社が引越に役立つツールを提供しておりますが、中でも秀逸なのが引越コンシェルジュ（東京電力）さんのものです。</p>
+      <div class="notice-box green" style="margin-top:18px;">
+        <h4>引越コンシェルジュ（東京電力）マイ連絡帳</h4>
+        <p>1回の入力だけで、複数の事業者への引越手続きが簡単。</p>
+        <ul class="check-list" style="margin-top:12px;">
+          <li>住所入力だけで、手続きが必要な事業者の連絡先を一発検索</li>
+          <li>電気、ガス、水道の停止と開始の手続きが同時に可能</li>
+          <li>申込み後の状況も確認でき安心</li>
+          <li>登録内容を途中保存することができ、好きな時に再開可能</li>
+        </ul>
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<?php
+get_footer();

@@ -1,0 +1,426 @@
+<?php
+/**
+ * 固定ページ：求人情報（スラッグ: recruit）
+ *
+ * Template Name: 求人情報
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<section class="page-head">
+  <div class="inner"><div class="ph-copy">
+    <span class="en">RECRUIT</span>
+    <h1>求人情報</h1>
+    <p class="page-lead">引越助手・ドライバー大募集！自分のペースで働けます！</p>
+  </div><p class="ph-chara"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-truckkey-white.svg' ) ); ?>" alt=""></p></div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
+      <li>求人情報</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="inner">
+
+    <div class="lead-block">
+      <h2>引越助手・ドライバー大募集！<br><span class="mark">自分のペースで働けます！</span></h2>
+      <p>横浜市鶴見区の拠点から、横浜・川崎エリアを中心に単身からご家族まで幅広い引越を担当していただきます。未経験からのスタートも大歓迎。まずは職場見学だけでもお気軽にお問い合わせください。</p>
+    </div>
+
+    <ul class="recruit-tags">
+      <li class="is-main">未経験大歓迎</li>
+      <li>学歴不問</li>
+      <li>直行・直帰OK</li>
+      <li>シフト自由</li>
+      <li>短期・長期OK</li>
+      <li>運転免許取得支援あり</li>
+      <li>横浜・川崎エリア</li>
+    </ul>
+
+    <!-- ===== 数字で見る職場 ===== -->
+    <div class="block">
+      <h2 class="h-sec">数字で見る、なにわ引越センターの働き方</h2>
+      <ul class="rc-stats">
+        <li>
+          <p class="rc-label">1日の仕事量</p>
+          <span class="rc-ico"><svg viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="17" height="12" rx="1.5"/><path d="M19 8h5l4 4v5h-9z"/><circle cx="8" cy="19" r="2.4"/><circle cx="23" cy="19" r="2.4"/></svg></span>
+          <p class="rc-value">2〜3<small>件</small></p>
+        </li>
+        <li>
+          <p class="rc-label">途中休憩時間</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h14v7a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 3 16V9z"/><path d="M17 11h1.5a2.75 2.75 0 0 1 0 5.5H17"/><path d="M6.5 3v2.5M10 3v2.5M13.5 3v2.5"/></svg></span>
+          <p class="rc-value">約2<small>時間</small></p>
+        </li>
+        <li>
+          <p class="rc-label">正社員登用</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21h4.5v-4.5H11V12h4.5V7.5H21"/><path d="M17.5 4l3.5 3.5-3.5 3.5"/></svg></span>
+          <p class="rc-value">有り</p>
+        </li>
+        <li>
+          <p class="rc-label">創業年</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-7"/><path d="M12 13c0-3.3-2.7-6-6-6 0 3.3 2.7 6 6 6z"/><path d="M12 13c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6z"/><path d="M3.5 20h17"/></svg></span>
+          <p class="rc-value">2001<small>年</small></p>
+        </li>
+        <li>
+          <p class="rc-label">平均残業時間</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.5V12l3.5 2.2"/></svg></span>
+          <p class="rc-value">2<small>時間</small></p>
+        </li>
+        <li>
+          <p class="rc-label">従業員数</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.6"/><path d="M20 21v-1.6a5 5 0 0 0-5-5H9a5 5 0 0 0-5 5V21"/></svg></span>
+          <p class="rc-value">10<small>人</small></p>
+        </li>
+        <li>
+          <p class="rc-label">お客様との対話</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13.5a2.5 2.5 0 0 1-2.5 2.5H8l-4 3.5V5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8z"/><circle cx="8.5" cy="9.5" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="9.5" r=".9" fill="currentColor" stroke="none"/><circle cx="15.5" cy="9.5" r=".9" fill="currentColor" stroke="none"/></svg></span>
+          <p class="rc-value">普通</p>
+        </li>
+        <li>
+          <p class="rc-label">室内の仕事</p>
+          <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.4V21h13V9.4"/><path d="M10 21v-5.5h4V21"/></svg></span>
+          <p class="rc-value">多い</p>
+        </li>
+        <li>
+          <p class="rc-label">直行・直帰</p>
+          <span class="rc-ico"><svg viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12H2M4 10l-2 2 2 2"/><rect x="9" y="6" width="10" height="9" rx="1.2"/><path d="M19 9h3l2.5 2.5V15H19z"/><circle cx="12.5" cy="17" r="1.8"/><circle cx="21" cy="17" r="1.8"/><path d="M26 12h4M28 10l2 2-2 2"/></svg></span>
+          <p class="rc-value">OK</p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ===== 先輩スタッフの声 ===== -->
+    <div class="block">
+      <h2 class="h-sec">先輩スタッフの声</h2>
+
+      <div class="notice-box">
+        <p><strong>【差し替え待ち】</strong>インタビュー本文は現在プレースホルダーです。実際の取材テキストをいただければ差し替えます。</p>
+      </div>
+
+      <div class="rc-people">
+        <div class="rc-person">
+          <div class="rc-person-head">
+            <span class="rc-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="24" r="12" fill="#12714a"/><path d="M8 62c0-13.3 10.7-24 24-24s24 10.7 24 24z" fill="#12714a"/></svg>
+            </span>
+            <div>
+              <p class="rc-person-role">引越スタッフ</p>
+              <p class="rc-person-name">Sさん<span>／勤続◯年</span></p>
+            </div>
+          </div>
+          <div class="qa-list">
+            <details class="faq-item" open>
+              <summary>入社のきっかけ</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。入社前に何をしていたか、なにわ引越センターを知ったきっかけ、決め手になったポイントなどを2〜4行程度で。）</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>会社の雰囲気・魅力</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。職場の雰囲気、スタッフ同士の関係、働きやすいと感じる点などを2〜4行程度で。）</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>仕事のやりがい</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。お客様から言われて嬉しかった言葉、達成感を感じる瞬間などを2〜4行程度で。）</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>応募を考えている方へ</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。未経験の方への一言、こんな人と一緒に働きたい、などを2〜4行程度で。）</p></div>
+            </details>
+          </div>
+        </div>
+
+        <div class="rc-person">
+          <div class="rc-person-head">
+            <span class="rc-avatar" aria-hidden="true">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="24" r="12" fill="#1a8a5c"/><path d="M8 62c0-13.3 10.7-24 24-24s24 10.7 24 24z" fill="#1a8a5c"/></svg>
+            </span>
+            <div>
+              <p class="rc-person-role">ドライバー</p>
+              <p class="rc-person-name">Nさん<span>／勤続◯年</span></p>
+            </div>
+          </div>
+          <div class="qa-list">
+            <details class="faq-item" open>
+              <summary>入社のきっかけ</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。入社前に何をしていたか、なにわ引越センターを知ったきっかけ、決め手になったポイントなどを2〜4行程度で。）</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>会社の雰囲気・魅力</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。職場の雰囲気、スタッフ同士の関係、働きやすいと感じる点などを2〜4行程度で。）</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>仕事のやりがい</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。お客様から言われて嬉しかった言葉、達成感を感じる瞬間などを2〜4行程度で。）</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>応募を考えている方へ</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。未経験の方への一言、こんな人と一緒に働きたい、などを2〜4行程度で。）</p></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 応募CTA ===== -->
+<section class="recruit-cta">
+  <div class="inner">
+    <p class="rc-cta-catch">まずは話を聞いてみるだけでもOK！</p>
+    <div class="rc-cta-btns">
+      <a class="btn btn-primary" href="#entry">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        応募フォームから応募する</a>
+      <a class="rc-cta-tel" href="tel:0120562728">
+        <span class="mark"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/freedial.svg' ) ); ?>" alt="フリーダイヤル" width="34" height="18"></span>
+        <span class="num">0120-562-728</span>
+        <small>お電話でのお問い合わせ（9:00〜20:00／年中無休）</small>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+  <div class="inner">
+
+    <!-- ===== 募集要項 ===== -->
+    <div class="block">
+      <h2 class="h-sec">募集要項</h2>
+      <div class="table-wrap">
+        <table class="data spec">
+          <tbody>
+            <tr>
+              <th>職種</th>
+              <td>引越助手・ドライバー</td>
+            </tr>
+            <tr>
+              <th>雇用形態</th>
+              <td>アルバイト・パート<br>※正社員登用の制度があります</td>
+            </tr>
+            <tr>
+              <th>仕事内容</th>
+              <td>
+                <p>横浜・川崎エリアを中心とした、単身からご家族までの引越作業をお任せします。</p>
+                <ul class="dot-list">
+                  <li>お荷物の梱包・搬出・搬入・設置</li>
+                  <li>トラックへの積み込み・積み下ろし</li>
+                  <li>ドライバーは上記に加えて運転業務</li>
+                </ul>
+                <p class="note">1日の現場は2〜3件。チームで動くので、未経験の方も先輩と一緒に少しずつ覚えていけます。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>給与</th>
+              <td>
+                <p class="pay-main">日給 15,000円 〜 25,000円</p>
+                <ul class="dot-list">
+                  <li>基本給：日給 10,000円 〜 20,000円</li>
+                  <li>固定残業代：あり<br>
+                    1日あたり 3,125円（固定残業時間：1日あたり2時間）<br>
+                    固定残業時間を超えた勤務時間については、別途残業代を支給します。</li>
+                  <li>【一律手当】全員に一律で支払われる精勤・皆勤・家族手当金額：1日あたり 1,875円</li>
+                </ul>
+                <p class="note">※上記は運転手（ドライバー）の場合の金額です。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>試用期間</th>
+              <td>あり<br>※期間・条件は面談時にご説明します。</td>
+            </tr>
+            <tr>
+              <th>勤務時間</th>
+              <td>
+                <p><strong>【基本シフト】8:00〜17:00</strong>（実働8h、休憩1h）</p>
+                <p class="note">下記のような働き方に対応できます。</p>
+                <ul class="dot-list">
+                  <li>月1日〜</li>
+                  <li>短期（1週間以内）</li>
+                  <li>短期（1ヶ月以内）</li>
+                  <li>短期（3ヶ月以内）</li>
+                  <li>長期（3ヶ月以上）</li>
+                  <li>春／夏／冬休み期間限定</li>
+                  <li>シフト自由</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th>休日・休暇</th>
+              <td>シフト制<br>※ご希望の休日を伺ったうえでシフトを組みます。</td>
+            </tr>
+            <tr>
+              <th>待遇・福利厚生</th>
+              <td>運転免許取得支援（費用は全額支給）</td>
+            </tr>
+            <tr>
+              <th>応募条件</th>
+              <td>
+                <p class="cond-head">スキル</p>
+                <ul class="dot-list">
+                  <li>普通自動車</li>
+                  <li>準中型自動車</li>
+                  <li>中型自動車</li>
+                  <li>大型自動車</li>
+                </ul>
+                <p class="cond-head">資格</p>
+                <ul class="dot-list">
+                  <li>普通自動車第一種運転免許</li>
+                  <li>普通自動車第一種運転免許（AT限定）</li>
+                  <li>普通自動車第一種運転免許（MT限定）</li>
+                  <li>準中型自動車第一種運転免許</li>
+                  <li>中型自動車第一種運転免許（8t限定）</li>
+                  <li>中型自動車第一種運転免許</li>
+                </ul>
+                <p class="cond-head">経験</p>
+                <p class="pay-main small">未経験大歓迎</p>
+              </td>
+            </tr>
+            <tr>
+              <th>勤務地</th>
+              <td>〒230-0075 神奈川県横浜市鶴見区上の宮2-19-25<br>※横浜・川崎エリアを中心とした現場へ、直行・直帰OKです。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 会社情報 ===== -->
+    <div class="block">
+      <h2 class="h-sec">会社情報</h2>
+      <div class="table-wrap">
+        <table class="data spec">
+          <tbody>
+            <tr><th>会社名</th><td>なにわ引越センター株式会社（運営：NANIWA EXPRESS株式会社）</td></tr>
+            <tr><th>所在地</th><td>〒230-0075 神奈川県横浜市鶴見区上の宮2-19-25</td></tr>
+            <tr><th>設立</th><td>2001年11月（2007年1月 法人化）</td></tr>
+            <tr><th>従業員数</th><td>10名</td></tr>
+            <tr><th>事業内容</th><td>引越サービス／貨物軽自動車運送事業／一般貨物自動車運送事業／産業廃棄物収集運搬事業</td></tr>
+            <tr><th>連絡先</th><td>
+              フリーダイヤル：<a href="tel:0120562728">0120-562-728</a><br>
+              一般TEL：<a href="tel:0455800728">045-580-0728</a><br>
+              E-mail：<a href="mailto:info@naniwa-h.com">info@naniwa-h.com</a>
+            </td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="map-link"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C%E6%A8%AA%E6%B5%9C%E5%B8%82%E9%B6%B4%E8%A6%8B%E5%8C%BA%E4%B8%8A%E3%81%AE%E5%AE%AB2-19-25" target="_blank" rel="noopener">Googleマップで場所を見る</a></p>
+    </div>
+
+    <!-- ===== 応募フォーム ===== -->
+    <div class="block" id="entry">
+      <h2 class="h-sec">応募フォーム</h2>
+      <?php
+		$naniwa_form = get_theme_mod( 'naniwa_recruit_form', '' );
+		if ( $naniwa_form ) :
+			// カスタマイザーで設定された Contact Form 7 等のショートコードを出力する。
+			echo '<div class="form-card form-card-plugin">' . do_shortcode( $naniwa_form ) . '</div>';
+		else :
+			?>
+			<form class="form-card" action="#" method="post" novalidate>
+			        <h2>ご応募・お問い合わせ</h2>
+			        <div class="form-inner">
+			          <div class="form-row">
+			            <label class="label" for="rc-name">お名前 <span class="req">必須</span></label>
+			            <div><input type="text" id="rc-name" name="name" placeholder="例：浪花 太郎" required></div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-kana">ふりがな <span class="req">必須</span></label>
+			            <div><input type="text" id="rc-kana" name="kana" placeholder="例：なにわ たろう" required></div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-job">希望職種 <span class="req">必須</span></label>
+			            <div>
+			              <select id="rc-job" name="job" required>
+			                <option value="">選択してください</option>
+			                <option>引越助手</option>
+			                <option>ドライバー</option>
+			                <option>どちらでも可</option>
+			              </select>
+			            </div>
+			          </div>
+			
+			          <div class="form-row">
+			            <span class="label">性別 <span class="req any">任意</span></span>
+			            <div class="choice-row">
+			              <label class="choice"><input type="radio" name="gender" value="男性"><span>男性</span></label>
+			              <label class="choice"><input type="radio" name="gender" value="女性"><span>女性</span></label>
+			              <label class="choice"><input type="radio" name="gender" value="回答しない"><span>回答しない</span></label>
+			            </div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-age">年齢 <span class="req any">任意</span></label>
+			            <div><input type="number" id="rc-age" name="age" min="15" max="99" placeholder="例：28"><p class="hint">半角数字でご入力ください。</p></div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-tel">電話番号 <span class="req">必須</span></label>
+			            <div>
+			              <input type="tel" id="rc-tel" name="tel" placeholder="例：090-1234-5678" inputmode="tel" required>
+			              <p class="hint">日中つながりやすい番号をご入力ください。</p>
+			            </div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-email">メールアドレス <span class="req">必須</span></label>
+			            <div><input type="email" id="rc-email" name="email" placeholder="例：taro@example.com" inputmode="email" required></div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-type">お問い合わせ内容 <span class="req">必須</span></label>
+			            <div>
+			              <select id="rc-type" name="type" required>
+			                <option value="">選択してください</option>
+			                <option>応募したい</option>
+			                <option>職場見学をしたい</option>
+			                <option>仕事内容について質問したい</option>
+			                <option>その他</option>
+			              </select>
+			            </div>
+			          </div>
+			
+			          <div class="form-row">
+			            <label class="label" for="rc-message">ご質問・ご要望 <span class="req any">任意</span></label>
+			            <div><textarea id="rc-message" name="message" placeholder="ご希望の勤務日数、経験の有無など、ご自由にご記入ください。"></textarea></div>
+			          </div>
+			        </div>
+			        <div class="form-actions">
+			          <button type="submit" class="btn btn-primary">この内容で応募する</button>
+			        </div>
+			      </form>
+			<?php
+		endif;
+		?>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 応募CTA（下部） ===== -->
+<section class="recruit-cta">
+  <div class="inner">
+    <p class="rc-cta-catch">ご応募・ご質問をお待ちしています</p>
+    <div class="rc-cta-btns">
+      <a class="btn btn-primary" href="#entry">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        応募フォームから応募する</a>
+      <a class="rc-cta-tel" href="tel:0120562728">
+        <span class="mark"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/freedial.svg' ) ); ?>" alt="フリーダイヤル" width="34" height="18"></span>
+        <span class="num">0120-562-728</span>
+        <small>お電話でのお問い合わせ（9:00〜20:00／年中無休）</small>
+      </a>
+    </div>
+  </div>
+</section>
+
+<?php
+get_footer();

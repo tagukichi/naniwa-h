@@ -1,0 +1,172 @@
+<?php
+/**
+ * 固定ページ：よくある質問（スラッグ: faq）
+ *
+ * Template Name: よくある質問
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<section class="page-head">
+  <div class="inner"><div class="ph-copy">
+    <span class="en">FAQ</span>
+    <h1>よくある質問</h1>
+    <p class="page-lead">お客様からいただく、引越に関する疑問・ご質問にお答えさせていただきます。</p>
+  </div><p class="ph-chara"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/chara-think.svg' ) ); ?>" alt=""></p></div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
+      <li>引越安心ガイド</li>
+      <li>よくある質問</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="inner">
+
+    <div class="lead-block">
+      <h2>お客様からいただく、引越に関する疑問<br><span class="mark">ご質問にお答えさせていただきます。</span></h2>
+      <p>お問い合わせいただく前に一度ご確認ください。こちらに載っていないものについては、メールまたは、お電話にてご質問ください。</p>
+    </div>
+
+    <div class="faq-tabs">
+      <a href="#price">料金編</a>
+      <a href="#service">サービス編</a>
+      <a href="#option">オプション編</a>
+    </div>
+
+    <div class="block" id="price">
+      <h2 class="h-sec">料金編</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>段ボールはいくつ貰えますか？</summary>
+          <div class="faq-answer"><p class="txt">お客様のお荷物の量によって異なります。当社では荷物量に基づいた枚数をお渡ししております。（例：軽トラックだと10枚、2トントラックだと20枚。ガムテープも併せて差し上げております。）</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>段ボールの大きさを教えてください。</summary>
+          <div class="faq-answer"><p class="txt">大サイズ 幅56×奥行33×高さ32(cm)、中サイズ 幅46×奥行33×高さ32(cm)、小サイズ 幅33×奥行31×高さ31(cm)になります。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>料金の支払いのタイミングはいつですか？</summary>
+          <div class="faq-answer"><p class="txt">新居へのお荷物の搬入・配置が終了しましたら、お荷物搬入の完了確認を行いますので、その際にスタッフにお渡しください。ただし、格安長距離便と長距離直送便とは、積み込み時にご精算となります。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>荷物が損傷や紛失した際、補償はあるのでしょうか？</summary>
+          <div class="faq-answer"><p class="txt">当社では、万が一家財に損害が発生した場合に備え「東京海上日動火災」（運送業者貨物賠償責任保険）に加入しており、最大補償額は「1000万円」となっております。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>お支払い方法はどうなりますか？</summary>
+          <div class="faq-answer"><p class="txt">現金・銀行振込・クレジットカード・PayPayにてお支払いいただけます。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>スタッフさんへのチップはどのくらい用意したらよいですか？</summary>
+          <div class="faq-answer"><p class="txt">お気持ちだけで十分です。ありがとうございます。</p></div>
+        </details>
+
+      </div>
+    </div>
+
+    <div class="block" id="service">
+      <h2 class="h-sec">サービス編</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>お見積りを依頼したいんですが。</summary>
+          <div class="faq-answer"><p class="txt">当社へお見積りをご依頼いただく際には2つの方法がございます。パソコンからのご依頼、お電話でのご依頼です。詳しくは、なにわの<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">引越の流れ</a>をご覧ください。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>追加料金がかかることはありますか？</summary>
+          <div class="faq-answer"><p class="txt">お見積り時の金額より高くなることは一切ございません。ただし、お見積り時よりお荷物の量が大量に増えた場合や当日にオプションをご利用された場合、お客様のご都合でスタッフに大幅な待機時間が出た場合は料金が発生します。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>引越日までに何をすればいいのかわからないのですが。</summary>
+          <div class="faq-answer"><p class="txt">お客様が選ばれたプランによります。詳しくは<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">引越全体のながれ</a>をご覧ください。各種お手続きは<a href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>">引越前後やることリスト</a>にまとめています。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>新居が新築なのですが、引越作業で建物に傷がつかないか心配です。</summary>
+          <div class="faq-answer"><p class="txt">当社では専用の資材を使用して、しっかりと建物を養生してから搬入を行います。お客様の大事な住居に傷がつかないよう、細心の注意を払って作業を行っておりますので、ご心配は無用です。詳しくは<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">こちら</a>をご覧ください。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>運んでもらえないものを教えてください。</summary>
+          <div class="faq-answer"><p class="txt">貴重品、危険物、生ゴミ、生物、骨董品・美術品はお運びできません。なお、上記以外のものに関しても状況によってはお客様に保管をお願いすることがございます。詳しくは<a href="<?php echo esc_url( home_url( '/others/' ) ); ?>">電気工事、ペット、貴重品 その他</a>をご覧ください。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>犬や猫などのペットも荷物と一緒に運搬できますか？</summary>
+          <div class="faq-answer"><p class="txt">ペットに関しましては、運搬用トラックへの同乗はお断りしておりますが、提携しているペット輸送専門業者にてお運びしております。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>長距離の引越も受け付けてもらえますか？</summary>
+          <div class="faq-answer"><p class="txt">もちろんです。当社では長距離引越のお客様に向けて格安プランもご用意しております。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>夜間の引越は可能ですか？</summary>
+          <div class="faq-answer"><p class="txt">できる限りお客様のご要望通りにお応えいたします。お気軽に<a href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>">お問い合せ</a>ください。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>トラックには同乗させてもらえますか？</summary>
+          <div class="faq-answer"><p class="txt">申し訳ございません。お断りしております。お客様のトラックへの同乗は運送業法上、禁止行為となっております。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>個人情報の管理はどうなっていますか？</summary>
+          <div class="faq-answer"><p class="txt">お見積り時やお問い合わせ時に入力していただく個人情報は、当社が責任をもって管理しております。詳しくはプライバシーポリシー（※<a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">会社概要ページ</a>内）をご覧ください。</p></div>
+        </details>
+
+      </div>
+    </div>
+
+    <div class="block" id="option">
+      <h2 class="h-sec">オプション編</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>不用品は引き取ってもらえますか？</summary>
+          <div class="faq-answer"><p class="txt">はい、もちろんです。有料になりますが、当社でお引取りする際は、リサイクル券の購入など面倒な手続きを行う必要がないのでご好評をいただいております。詳しくは不用品処分ページの<a href="<?php echo esc_url( home_url( '/disused/' ) ); ?>">料金表</a>をご覧ください。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>エアコンの取り付け、取り外し工事はしてもらえますか？</summary>
+          <div class="faq-answer"><p class="txt">はい、お安く行わせていただきます。当社ではエアコンの取り付け、取り外し以外にも照明、温水洗浄便座、衛星放送アンテナなどの工事も承っております。</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>ピアノや車、バイクは運んでもらえますか？</summary>
+          <div class="faq-answer"><p class="txt">はい、当社と提携している業者にてお運びいたします。大型バイクに関しては、ゲート付き車両や二輪資格を持ったスタッフもおりますので、そちらでお運びします。どなた様もお気軽にお申し付けください。</p></div>
+        </details>
+
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="notice-box green">
+        <h4>解決しない場合は、お気軽にお問い合わせください</h4>
+        <p>こちらに載っていないご質問は、お電話（<a href="tel:0120562728" style="color:var(--green-600);font-weight:700;">0120-562-728</a>／9:00〜20:00 年中無休）または<a href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">お見積りフォーム</a>よりご連絡ください。</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<?php
+get_footer();

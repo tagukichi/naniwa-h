@@ -1,0 +1,472 @@
+<?php
+/**
+ * フロントページ（TOP）
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<!-- ヒーロー -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-logo-sp"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/eagle.png' ) ); ?>" alt="NANIWA EXPRESS なにわ引越センター" width="300" height="300"></p>
+      <div class="hero-copy" data-anim>
+        <span class="hero-area">横浜・川崎・東京・神奈川の引越し</span>
+        <h1>お荷物1つからでも<br>真心込めて。<br><span class="accent">安心・丁寧・格安</span>の引越し</h1>
+        <p class="hero-sub">単身からご家族、オフィス移転まで。<br class="pc-only">地域密着20年以上、お客様を第一に考える引越し屋です。</p>
+        <ul class="hero-badges">
+          <li>お客様満足度<strong>4.71<small>/5</small></strong>お客様の声 2,781件</li>
+          <li>見積り返信<strong>24時間<small>以内</small></strong>単身・カップル</li>
+          <li>梱包資材<strong>無料</strong>段ボール・テープ</li>
+        </ul>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            無料お見積もり（条件入力で仮見積）</a>
+          <a class="btn-tel" href="tel:0120562728">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span><span class="num">0120-562-728</span><small>9:00〜20:00（年中無休）</small></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 引越プラン -->
+  <section class="plans" id="plans">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">Plans</span>
+        <h2>引越プランを探す</h2>
+        <p class="lead">お引越しの人数やご事情に合わせて、最適なプランをご用意しています。</p>
+      </div>
+      <div class="plan-grid">
+        <a class="plan-card" href="<?php echo esc_url( home_url( '/single/' ) ); ?>">
+          <span class="icon-img">
+            <svg class="pi pi-single" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <g class="pi-box">
+                <rect x="36" y="31" width="17" height="17" rx="2" fill="#f0a04b"/>
+                <rect x="36" y="31" width="17" height="5.5" rx="2" fill="#e08a3c"/>
+                <rect x="43" y="31" width="3" height="17" fill="#f8d4a4"/>
+              </g>
+              <g class="pi-person">
+                <path d="M12 48c0-8.3 4.9-14.6 11-14.6S34 39.7 34 48a1.6 1.6 0 0 1-1.6 1.6H13.6A1.6 1.6 0 0 1 12 48z" fill="#8fc31f"/>
+                <circle cx="23" cy="26" r="7.4" fill="#fce8cf"/>
+                <path d="M15.6 26.4a7.4 7.4 0 0 1 14.8 0c0-1.6-1-2.5-2.5-3-2.6 1.7-6.9 1.7-9.7.2-1.6.6-2.6 1.5-2.6 2.8z" fill="#006934"/>
+                <g class="pi-face">
+                  <circle class="pi-eye" cx="20.4" cy="26.6" r="1.1" fill="#22322b"/>
+                  <circle class="pi-eye" cx="25.6" cy="26.6" r="1.1" fill="#22322b"/>
+                  <path class="pi-mouth" d="M21.5 29.4a2.4 2.4 0 0 0 3 0" stroke="#22322b" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <h3>単身の引越</h3>
+          <p>お値段安くて当たりまえ！仕事もサービスも充実の単身プラン。</p>
+          <span class="more">詳しくみる →</span>
+        </a>
+        <a class="plan-card" href="<?php echo esc_url( home_url( '/family/' ) ); ?>">
+          <span class="icon-img">
+            <svg class="pi pi-family" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <g class="pi-p1">
+                <path d="M5 49c0-8.5 4.6-15.3 10.3-15.3S25.6 40.5 25.6 49a1.4 1.4 0 0 1-1.4 1.4H6.4A1.4 1.4 0 0 1 5 49z" fill="#006934"/>
+                <circle cx="15.3" cy="27.5" r="6.2" fill="#fce8cf"/>
+                <path d="M9.1 27.8a6.2 6.2 0 0 1 12.4 0c0-1.4-.9-2.1-2.1-2.5-2.2 1.4-5.8 1.4-8.1.2-1.4.5-2.2 1.2-2.2 2.3z" fill="#006934"/>
+                <g class="pi-face">
+                  <circle class="pi-eye" cx="13" cy="28" r=".95" fill="#22322b"/>
+                  <circle class="pi-eye" cx="17.6" cy="28" r=".95" fill="#22322b"/>
+                  <path class="pi-mouth" d="M14 30.3a2.1 2.1 0 0 0 2.6 0" stroke="#22322b" stroke-width="1.05" stroke-linecap="round" fill="none"/>
+                </g>
+              </g>
+              <g class="pi-p2">
+                <path d="M38.4 49c0-8.5 4.6-15.3 10.3-15.3S59 40.5 59 49a1.4 1.4 0 0 1-1.4 1.4H39.8A1.4 1.4 0 0 1 38.4 49z" fill="#8fc31f"/>
+                <circle cx="48.7" cy="27.5" r="6.2" fill="#fce8cf"/>
+                <path d="M42.5 27.8a6.2 6.2 0 0 1 12.4 0c0-1.4-.9-2.1-2.1-2.5-2.2 1.4-5.8 1.4-8.1.2-1.4.5-2.2 1.2-2.2 2.3z" fill="#5a9c14"/>
+                <g class="pi-face">
+                  <circle class="pi-eye" cx="46.4" cy="28" r=".95" fill="#22322b"/>
+                  <circle class="pi-eye" cx="51" cy="28" r=".95" fill="#22322b"/>
+                  <path class="pi-mouth" d="M47.4 30.3a2.1 2.1 0 0 0 2.6 0" stroke="#22322b" stroke-width="1.05" stroke-linecap="round" fill="none"/>
+                </g>
+              </g>
+              <g class="pi-p3">
+                <path d="M24.4 50.4c0-5 3.4-8.9 7.6-8.9s7.6 3.9 7.6 8.9z" fill="#f07b23"/>
+                <circle cx="32" cy="36.5" r="5" fill="#fce8cf"/>
+                <path d="M27 36.7a5 5 0 0 1 10 0c0-1.2-.7-1.8-1.7-2.1-1.8 1.1-4.7 1.1-6.5.2-1.1.4-1.8 1-1.8 1.9z" fill="#e8650f"/>
+                <g class="pi-face">
+                  <circle class="pi-eye" cx="30.4" cy="36.9" r=".8" fill="#22322b"/>
+                  <circle class="pi-eye" cx="33.6" cy="36.9" r=".8" fill="#22322b"/>
+                  <path class="pi-mouth" d="M31.1 38.7a1.8 1.8 0 0 0 1.9 0" stroke="#22322b" stroke-width=".95" stroke-linecap="round" fill="none"/>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <h3>ご家族の引越</h3>
+          <p>小家族から大家族まで、引越サービスも充実！</p>
+          <span class="more">詳しくみる →</span>
+        </a>
+        <a class="plan-card" href="<?php echo esc_url( home_url( '/couple/' ) ); ?>">
+          <span class="icon-img">
+            <svg class="pi pi-couple" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <path class="pi-heart-a" d="M25 48C15.5 40 9 34.5 9 27.6 9 22.9 12.6 19.5 17 19.5c2.7 0 5.3 1.3 7 3.5l1 1.3 1-1.3c1.7-2.2 4.3-3.5 7-3.5 4.4 0 8 3.4 8 8.1C41 34.5 34.5 40 25 48z" fill="#12714a"/>
+              <path class="pi-heart-b" d="M41 52c-7.6-6.4-13-10.9-13-16.4 0-3.8 2.9-6.5 6.4-6.5 2.2 0 4.3 1 5.6 2.8l1 1.3 1-1.3c1.4-1.8 3.4-2.8 5.6-2.8 3.5 0 6.4 2.7 6.4 6.5C54 41.1 48.6 45.6 41 52z" fill="#f07b23"/>
+              <g class="pi-sparkle" fill="#8fc31f">
+                <path d="M19 12l1.1 2.6L22.7 16l-2.6 1.1L19 19.7l-1.1-2.6L15.3 16l2.6-1.1z"/>
+              </g>
+            </svg>
+          </span>
+          <h3>カップルの引越</h3>
+          <p>新生活を応援！お2人の新しい門出をお祝いします。</p>
+          <span class="more">詳しくみる →</span>
+        </a>
+        <a class="plan-card" href="<?php echo esc_url( home_url( '/now/' ) ); ?>">
+          <span class="icon-img">
+            <svg class="pi pi-now" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <g class="pi-lines" stroke="#8fc31f" stroke-width="3.2" stroke-linecap="round">
+                <path class="pi-line1" d="M4 25h9"/>
+                <path class="pi-line2" d="M2 32h11"/>
+                <path class="pi-line3" d="M4 39h9"/>
+              </g>
+              <g class="pi-truck">
+                <rect x="16" y="22" width="23" height="19" rx="2" fill="#12714a"/>
+                <path d="M39 29h8.6l5.4 6v6H39z" fill="#1a8a5c"/>
+                <rect x="41.6" y="31.4" width="6" height="4.6" rx="1" fill="#e4f2ea"/>
+                <circle class="pi-wheel" cx="24" cy="43" r="4.4" fill="#22322b"/>
+                <circle cx="24" cy="43" r="1.7" fill="#fff"/>
+                <circle class="pi-wheel" cx="45" cy="43" r="4.4" fill="#22322b"/>
+                <circle cx="45" cy="43" r="1.7" fill="#fff"/>
+              </g>
+            </svg>
+          </span>
+          <h3>今すぐの引越</h3>
+          <p>急だ！時間がない！とにかく急いでいる方に。当日対応可。</p>
+          <span class="more">詳しくみる →</span>
+        </a>
+        <a class="plan-card" href="<?php echo esc_url( home_url( '/office/' ) ); ?>">
+          <span class="icon-img">
+            <svg class="pi pi-office" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <rect x="15" y="13" width="21" height="37" rx="1.5" fill="#12714a"/>
+              <rect x="36" y="24" width="13" height="26" rx="1.5" fill="#1a8a5c"/>
+              <g class="pi-windows" fill="#e4f2ea">
+                <rect class="w1" x="19" y="18" width="4.6" height="4.6" rx="1"/>
+                <rect class="w2" x="26.6" y="18" width="4.6" height="4.6" rx="1"/>
+                <rect class="w3" x="19" y="26" width="4.6" height="4.6" rx="1"/>
+                <rect class="w4" x="26.6" y="26" width="4.6" height="4.6" rx="1"/>
+                <rect class="w5" x="19" y="34" width="4.6" height="4.6" rx="1"/>
+                <rect class="w6" x="26.6" y="34" width="4.6" height="4.6" rx="1"/>
+                <rect class="w2" x="39" y="28" width="3.8" height="3.8" rx="1"/>
+                <rect class="w4" x="44.2" y="28" width="3.8" height="3.8" rx="1"/>
+                <rect class="w6" x="39" y="35" width="3.8" height="3.8" rx="1"/>
+                <rect class="w1" x="44.2" y="35" width="3.8" height="3.8" rx="1"/>
+              </g>
+              <rect x="11" y="50" width="42" height="3" rx="1.5" fill="#22322b" opacity=".2"/>
+            </svg>
+          </span>
+          <h3>オフィスの引越</h3>
+          <p>大きなオフィスからSOHOまで、スムーズに移転！</p>
+          <span class="more">詳しくみる →</span>
+        </a>
+        <a class="plan-card" href="<?php echo esc_url( home_url( '/disused/' ) ); ?>">
+          <span class="icon-img">
+            <svg class="pi pi-disused" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <path d="M16 29h32l-2.8 18.6a3 3 0 0 1-3 2.4H21.8a3 3 0 0 1-3-2.4z" fill="#12714a"/>
+              <path d="M13 22h38v6.4H13z" fill="#1a8a5c"/>
+              <path class="pi-lid" d="M26 22l2.6-5h6.8l2.6 5" fill="none" stroke="#1a8a5c" stroke-width="3" stroke-linejoin="round"/>
+              <g transform="translate(32 39)">
+                <circle r="9.2" fill="#fff"/>
+                <g class="pi-recycle">
+                  <g><path d="M0-6.6l3 5.2h-6z" fill="#f07b23"/></g>
+                  <g transform="rotate(120)"><path d="M0-6.6l3 5.2h-6z" fill="#e8650f"/></g>
+                  <g transform="rotate(240)"><path d="M0-6.6l3 5.2h-6z" fill="#f07b23"/></g>
+                  <circle r="1.6" fill="#fff"/>
+                </g>
+              </g>
+            </svg>
+          </span>
+          <h3>不用品処分</h3>
+          <p>引越しで出た不用品もあわせてスッキリ処分。</p>
+          <span class="more">詳しくみる →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- その他のサービス -->
+  <section class="services" id="services">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">Services</span>
+        <h2>その他のサービス</h2>
+      </div>
+      <div class="service-grid">
+        <div class="service-card">
+          <span class="service-icon">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <rect x="18" y="28" width="28" height="22" rx="4" fill="#12714a"/>
+              <path d="M23 28v-6a9 9 0 0 1 18 0v6" fill="none" stroke="#1a8a5c" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="32" cy="38" r="3.6" fill="#f07b23"/>
+              <rect x="30.4" y="39" width="3.2" height="6" rx="1.6" fill="#f07b23"/>
+            </svg>
+          </span>
+          <h3>極秘引越し</h3>
+          <p>緊急を要する引越し、同居状態からの別離など。お客様のプライバシーを特に重んじ、周囲に知られたくない引越しでも安心してご依頼いただけます。</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <path d="M35 10L18 36h11l-2 18 19-28H34z" fill="#f07b23"/>
+            </svg>
+          </span>
+          <h3>今すぐ引越</h3>
+          <p>「当日いきなりの引越」にも対応できる体制を整えております。まずはお気軽にお問い合わせください。もちろん秘密は厳守いたします。</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <path d="M14 30a5 5 0 0 1 5-5h26a5 5 0 0 1 5 5v5H14z" fill="#1a8a5c"/>
+              <path d="M12 35h40v8a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3z" fill="#12714a"/>
+              <rect x="15" y="46" width="4" height="5" rx="1.4" fill="#12714a"/>
+              <rect x="45" y="46" width="4" height="5" rx="1.4" fill="#12714a"/>
+              <path d="M40 16h9M44.5 11.5V16m0 0-3 3m3-3 3 3" stroke="#f07b23" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </span>
+          <h3>模様替え・家具の移動</h3>
+          <p>大型家具や家電の移動、長距離の運搬にも対応。お部屋の模様替えや家具の配置換えもお手伝い可能です。</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
+              <path d="M24 14v10M40 14v10" stroke="#12714a" stroke-width="4" stroke-linecap="round"/>
+              <path d="M18 24h28v6a14 14 0 0 1-11 13.7V50h-6v-6.3A14 14 0 0 1 18 30z" fill="#12714a"/>
+              <path d="M29 44h6v8h-6z" fill="#1a8a5c"/>
+              <circle cx="46" cy="44" r="8" fill="#f07b23"/>
+              <path d="M46 40.5v3.5l2.4 2.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </span>
+          <h3>電気製品の取り付け・取り外し</h3>
+          <p>簡単な作業であれば無料で対応しております。製品の内容によって料金が異なる場合は、お見積り時にご相談ください。</p>
+        </div>
+      </div>
+      <div class="disused-banner">
+        <div>
+          <h3>不用品処分もお任せください</h3>
+          <p>事前にご提示した処分料金のみで対応。引越しとあわせてスムーズに片付けが可能です。</p>
+        </div>
+        <a class="btn" href="<?php echo esc_url( home_url( '/disused/' ) ); ?>">詳しくみる →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 選ばれる理由 -->
+  <section class="reasons" id="reasons">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">Reasons</span>
+        <h2>なにわが選ばれる理由</h2>
+        <p class="lead">当社はお客様を第一に考える引越し屋です！</p>
+      </div>
+
+      <div class="reason-item">
+        <div class="reason-body">
+          <span class="reason-num" data-num="01">REASON</span>
+          <h3>ストレスフリーで柔軟に対応</h3>
+          <p>お客様のご要望に素早く対応し、スムーズな引越しを実現いたします。お問い合わせには迅速にお返事し、当日のご依頼や急な変更にも柔軟に対応可能です。「すぐに返事がくる」「対応が早い」と多くのお客様からご好評をいただいております。</p>
+        </div>
+        <div class="reason-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/photo-family.png' ) ); ?>" alt="安心して相談するご家族" loading="lazy"></div>
+      </div>
+
+      <div class="reason-item">
+        <div class="reason-body">
+          <span class="reason-num" data-num="02">REASON</span>
+          <h3>見積りが早くて料金も安い！</h3>
+          <p>経験豊富なスタッフが見積り依頼を一つひとつ丁寧に確認。単身やカップルのお客様からのお見積りは24時間以内にご返信しております。訪問見積りの場合も、その場で金額をご提示いたします。</p>
+        </div>
+        <div class="reason-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/photo-estimate.png' ) ); ?>" alt="お見積りのイメージ" loading="lazy"></div>
+      </div>
+
+      <div class="reason-item">
+        <div class="reason-body">
+          <span class="reason-num" data-num="03">REASON</span>
+          <h3>梱包資材、段ボール、ガムテープ無料提供！</h3>
+          <p>引越しに必要な梱包資材を無料でご提供。事前準備の手間を省き、スムーズに引越しを進めることが可能です。当日引越しにも対応しており、その場での梱包や荷解きもお手伝いいたします。</p>
+        </div>
+        <div class="reason-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/photo-packing.png' ) ); ?>" alt="梱包資材（段ボール・ガムテープ）" loading="lazy"></div>
+      </div>
+
+      <div class="reason-item">
+        <div class="reason-body">
+          <span class="reason-num" data-num="04">REASON</span>
+          <h3>家具の掃除、組み立て家電の取り付け！</h3>
+          <p>梱包の際には家具や家電の汚れをきれいに拭き取り、新居へ清潔な状態で搬入。搬入時には家具の組み立てや家電の取り付けもお手伝いいたしますので、引越し後すぐに快適にお過ごしいただけます。</p>
+        </div>
+        <div class="reason-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/photo-aircon.png' ) ); ?>" alt="エアコンの取り付け作業" loading="lazy"></div>
+      </div>
+
+      <div class="reason-item">
+        <div class="reason-body">
+          <span class="reason-num" data-num="05">REASON</span>
+          <h3>荷解き後の段ボールを回収！！</h3>
+          <p>お運びしたお荷物の荷解きが完了しましたら、段ボールの回収にもお伺いいたします。引越し後の片付けの手間を減らし、すっきりと新生活をスタートしていただけます。※一部有料となる場合がございます。</p>
+        </div>
+        <div class="reason-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/photo-cardboard.png' ) ); ?>" alt="回収した段ボールの束" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 引越安心ガイド -->
+  <section class="guide" id="guide">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">Guide</span>
+        <h2>引越安心ガイド</h2>
+        <p class="lead">引っ越しをもっと楽しく、わかりやすく。</p>
+      </div>
+      <div class="guide-grid">
+        <a class="guide-card" href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          引越全体の流れ
+        </a>
+        <a class="guide-card" href="<?php echo esc_url( home_url( '/packing/' ) ); ?>">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/></svg>
+          梱包の仕方
+        </a>
+        <a class="guide-card" href="<?php echo esc_url( home_url( '/others/' ) ); ?>">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8H20l-4.9 3.6 1.9 5.8-5-3.6-5 3.6 1.9-5.8L4 8.8h6.1z"/></svg>
+          電気工事・ペット・貴重品
+        </a>
+        <a class="guide-card" href="<?php echo esc_url( home_url( '/faq/' ) ); ?>">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8v.5"/><path d="M12 17h.01"/></svg>
+          よくあるご質問
+        </a>
+        <a class="guide-card" href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          引越前後やることリスト
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- お客様の声 -->
+  <section class="voice" id="voice">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">Voice</span>
+        <h2>お客様の声</h2>
+        <p class="lead">お客様からご意見をいただき、サービス向上に役立てています。</p>
+      </div>
+      <div class="voice-grid">
+			<?php
+			$naniwa_voices = new WP_Query(
+				array(
+					'post_type'           => 'voice',
+					'posts_per_page'      => 3,
+					'ignore_sticky_posts' => true,
+				)
+			);
+			while ( $naniwa_voices->have_posts() ) :
+				$naniwa_voices->the_post();
+				naniwa_voice_card( 90 );
+			endwhile;
+			wp_reset_postdata();
+			?>
+		 </div>
+      <p class="center-more"><a class="btn btn-outline" href="<?php echo esc_url( get_post_type_archive_link( 'voice' ) ); ?>">その他のお客様の声 →</a></p>
+    </div>
+  </section>
+
+  <!-- 採用情報 -->
+  <section class="recruit-band" id="recruit">
+    <div class="inner">
+      <div class="rb-grid">
+        <div class="rb-copy">
+          <span class="en">Recruit</span>
+          <h2>一緒に働く仲間を<br>募集しています</h2>
+          <p>引越助手・ドライバー大募集！未経験からのスタートも大歓迎です。直行・直帰OK、シフトも自由なので、自分のペースで働けます。まずは職場見学だけでもお気軽にどうぞ。</p>
+          <ul class="rb-chips">
+            <li>日給 15,000円〜</li>
+            <li>未経験大歓迎</li>
+            <li>直行・直帰OK</li>
+            <li>シフト自由</li>
+          </ul>
+          <p class="rb-cta"><a class="btn btn-primary" href="<?php echo esc_url( home_url( '/recruit/' ) ); ?>">求人情報を見る　→</a></p>
+        </div>
+        <p class="rb-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/eagle.png' ) ); ?>" alt="" width="300" height="300" loading="lazy"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- お知らせ -->
+  <section class="news">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">News</span>
+        <h2>お知らせ</h2>
+      </div>
+      <ul class="news-list">
+			<?php
+			$naniwa_news = new WP_Query(
+				array(
+					'post_type'           => 'news',
+					'posts_per_page'      => 5,
+					'ignore_sticky_posts' => true,
+				)
+			);
+			while ( $naniwa_news->have_posts() ) :
+				$naniwa_news->the_post();
+				?>
+				<li>
+					<a href="<?php the_permalink(); ?>">
+						<time datetime="<?php echo esc_attr( get_the_date( 'Y-m-d' ) ); ?>"><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?></time>
+						<?php the_title(); ?>
+					</a>
+				</li>
+				<?php
+			endwhile;
+			wp_reset_postdata();
+			?>
+		 </ul>
+      <p class="center-more"><a class="btn btn-outline" href="#">お知らせ一覧はこちら →</a></p>
+    </div>
+  </section>
+
+  <!-- ブログ -->
+  <section class="blog" id="blog">
+    <div class="inner">
+      <div class="sec-head">
+        <span class="en">Blog</span>
+        <h2>ブログ</h2>
+        <p class="lead">沿線・エリアの住みやすさ情報など、お引越しに役立つ記事をお届けします。</p>
+      </div>
+      <div class="blog-grid">
+			<?php
+			$naniwa_posts = new WP_Query(
+				array(
+					'post_type'           => 'post',
+					'posts_per_page'      => 4,
+					'ignore_sticky_posts' => true,
+				)
+			);
+			while ( $naniwa_posts->have_posts() ) :
+				$naniwa_posts->the_post();
+				naniwa_blog_card();
+			endwhile;
+			wp_reset_postdata();
+			?>
+		 </div>
+      <p class="center-more"><a class="btn btn-outline" href="<?php echo esc_url( naniwa_blog_url() ); ?>">ブログ一覧 →</a></p>
+    </div>
+  </section>
+
+<?php
+get_footer();

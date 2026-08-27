@@ -1,0 +1,18 @@
+/*
+Theme Name: NANIWA EXPRESS
+Theme URI: https://naniwa-h.com/
+Author: なにわ引越センター
+Description: なにわ引越センター（NANIWA EXPRESS）公式サイト用のオリジナルテーマ。静的HTMLで確定したデザインをそのまま移植したクラシックテーマです。
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: naniwa
+*/
+
+/*
+ * 実際のスタイルは assets/css/style.css に置いています。
+ * このファイルはテーマ情報の宣言のみに使用します。
+ */

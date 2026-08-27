@@ -1,0 +1,89 @@
+<?php
+/**
+ * 固定ページ：今すぐの引越（スラッグ: now）
+ *
+ * Template Name: 今すぐの引越
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<section class="page-head">
+  <div class="inner"><div class="ph-copy">
+    <span class="en">NOW</span>
+    <h1>今すぐの引越</h1>
+    <p class="page-lead">急だ！時間がない！とにかく急いでいる方に</p>
+  </div><p class="ph-chara"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/eagle.png' ) ); ?>" alt="NANIWA EXPRESS マスコット"></p></div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
+      <li>今すぐの引越</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="inner">
+
+    <div class="lead-block">
+      <h2>急だ！時間がない！<br><span class="mark">とにかく急いでいる方に</span></h2>
+      <p>突然の異動命令や、諸事情などにより引越を余儀なくされるケースなど。引越はなにも、前もって準備出来ることばかりではありません。なにわ引越しセンターでは、そんな今すぐの引越にも、十分対応出来る体制を持っております。</p>
+    </div>
+
+    <div class="block">
+      <div class="plan-detail">
+        <p class="ribbon">秘密も厳守！今すぐ引越したい！</p>
+        <div class="pd-body">
+          <h3>いますぐの引越プラン</h3>
+          <p>引越は、すべてが希望に満ちあふれていると言うわけではありません。お客様のなかには、理由あって、突然引越さなければならないという方もいらっしゃいます。</p>
+          <p>「当日いきなりの引越」なんていうのも可能な場合がありますので、まずはお問い合わせください。<strong>もちろん秘密は厳守いたします。</strong></p>
+          <p>今すぐ引越プランでは、いただいたお見積もり依頼内容をもとに、経験豊富なスタッフがすぐにお見積もりいたします。まずはお早めにお問い合わせください。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 class="h-sec">こんなときにご利用いただいています</h2>
+      <ul class="check-list">
+        <li>突然の辞令で、準備期間のないまま引越さなければならない。</li>
+        <li>別居・離婚・別離。おたがいそれぞれ違った人生を歩む必要になったとき。</li>
+        <li>公にすることができない事情により、とにかくすぐに引越したい。</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="notice-box">
+        <h4>まずはお電話ください</h4>
+        <p>お急ぎの場合は、フォームよりもお電話のほうがスムーズです。受付時間は9:00〜20:00（年中無休）。当日の空き状況をその場でご確認いたします。</p>
+        <p style="margin-top:14px;"><a class="btn btn-primary" href="tel:0120562728" style="padding:14px 32px;font-size:16px;">0120-562-728 に電話する</a></p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 class="h-sec">お急ぎでも、サービスは変わりません</h2>
+      <div class="card-grid">
+        <div class="info-card">
+          <h3>その場での梱包もお手伝い</h3>
+          <p>当日引越しにも対応しており、その場での梱包や荷解きもお手伝いいたします。</p>
+        </div>
+        <div class="info-card">
+          <h3>梱包資材をすぐお届け</h3>
+          <p>急なご依頼にも柔軟に対応できる体制を整えておりますので、お気軽にご相談ください。</p>
+        </div>
+        <div class="info-card">
+          <h3>プライバシーを厳守</h3>
+          <p>周囲に知られたくないお引越しでも、お客様のプライバシーを重んじて対応いたします。</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<?php
+get_footer();

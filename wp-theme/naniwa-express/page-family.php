@@ -1,0 +1,102 @@
+<?php
+/**
+ * 固定ページ：ご家族の引越（スラッグ: family）
+ *
+ * Template Name: ご家族の引越
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<section class="page-head">
+  <div class="inner"><div class="ph-copy">
+    <span class="en">FAMILY</span>
+    <h1>ご家族の引越</h1>
+    <p class="page-lead">小家族から大家族まで、引越サービスも充実！</p>
+  </div><p class="ph-chara"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/chara-family.svg' ) ); ?>" alt=""></p></div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
+      <li>ご家族の引越</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="inner">
+
+    <div class="lead-block">
+      <h2>小家族から大家族まで、<br><span class="mark">引越サービスも充実！</span></h2>
+      <p>なにわ引越センターの家族引越は安さにこだわるのはもちろんのこと、サービスにも力を入れています。お値段が安くても引越はきっちりと！これがご家族での引越に対するなにわの精神です。</p>
+    </div>
+
+    <div class="block">
+      <h2 class="h-sec">3つのプランからお選びいただけます</h2>
+
+      <div class="plan-detail">
+        <p class="ribbon">とことん値段にこだわりたい！</p>
+        <div class="pd-body">
+          <h3>家族引越スタンダードプラン</h3>
+          <p>スタンダードプランは、小物の梱包および解梱をお客様が行い、大型家具・家電の梱包、荷物の搬出、搬入、配置をなにわ引越センターで行うプランです。小物梱包をお客様ご自身で行うことでお安くなりますので、引越料金の節約になります。</p>
+          <p>別途オプションにて、お荷物の一部から梱包を承っておりますので、「台所部分だけ手伝って欲しい！」など、ご要望がございましたら、お気軽にお問い合わせください。</p>
+                  <div class="plan-dialog"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/dialog-family-std.svg' ) ); ?>" alt="ご家族「準備はラク、引越後はゆっくり開梱」／なにわ「梱包から運搬、配置までお任せ！」" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="plan-detail">
+        <p class="ribbon">梱包も手伝って欲しい！忙しい人の梱包プラン</p>
+        <div class="pd-body">
+          <h3>梱包＋家族引越スタンダードプラン</h3>
+          <p>こちらのプランでは梱包の全て、搬出、搬入、配置まで全てなにわ引越センターのスタッフが行っております。</p>
+          <p>「荷造りする時間が無い！」と考えているお客様には最適なプランになっております。</p>
+                  <div class="plan-dialog"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/dialog-family-pack.svg' ) ); ?>" alt="ご家族「準備はラク、引越後はゆっくり開梱」／なにわ「梱包から運搬、配置までお任せ！」" loading="lazy"></div>
+        </div>
+      </div>
+
+      <div class="plan-detail">
+        <p class="ribbon">新しい生活をすぐにスタート！ラクしたい人のフルコースプラン</p>
+        <div class="pd-body">
+          <h3>家族引越全てお任せフルコースプラン</h3>
+          <p>こちらのプランは、引越前のお荷物の梱包から、新居での家具・家電の配置、お荷物の解梱まで全てお任せいただくプランになっております。</p>
+          <p>全ての作業をなにわ引越センターで行いますので、お客様は何もしなくてOK！新居に越したその日から、いつもと同じ暮らしができます！</p>
+          <p>「子供から目を離せない！」「楽に引越したい！」と考えているお客様や、腰痛や妊娠中で無理をしたくないお客様には最適なプランです。</p>
+                  <div class="plan-dialog"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/dialog-family-full.svg' ) ); ?>" alt="ご家族「新しい生活をすぐにスタート！」／なにわ「梱包から運搬、開梱や配置まで全てお任せ！」" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 class="h-sec">ご家族の引越しで、なにわが選ばれる理由</h2>
+      <div class="card-grid">
+        <div class="info-card">
+          <h3>家具の掃除・組み立てまで</h3>
+          <p>雑巾などをお貸しいただければ家具・家電の汚れを拭き取り、新居では組み立てや取り付けもお手伝いします。</p>
+        </div>
+        <div class="info-card">
+          <h3>訪問見積りはその場で提示</h3>
+          <p>お荷物の多いご家族には訪問見積りがおすすめ。お伺いしてその場で詳しい料金をご提示します。</p>
+        </div>
+        <div class="info-card">
+          <h3>不用品処分もまとめて</h3>
+          <p>引越しで出た不用品も、事前にご提示した処分料金のみで対応。<a href="<?php echo esc_url( home_url( '/disused/' ) ); ?>" style="color:var(--green-600);font-weight:700;">料金表はこちら</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="notice-box green">
+        <h4>お引越しの準備でお困りの方へ</h4>
+        <p>役所や学校の手続きは<a href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">引越前後やることリスト</a>にまとめています。荷造りの方法は<a href="<?php echo esc_url( home_url( '/packing/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご覧ください。</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<?php
+get_footer();

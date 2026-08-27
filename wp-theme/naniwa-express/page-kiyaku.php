@@ -1,0 +1,72 @@
+<?php
+/**
+ * 固定ページ：運送約款（スラッグ: kiyaku）
+ *
+ * Template Name: 運送約款
+ *
+ * @package naniwa
+ */
+
+get_header();
+?>
+
+<section class="page-head">
+  <div class="inner"><div class="ph-copy">
+    <span class="en">TERMS</span>
+    <h1>運送約款</h1>
+    <p class="page-lead">このページでは標準運送約款をご確認いただけます。</p>
+  </div><p class="ph-chara"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-laptop-white.svg' ) ); ?>" alt=""></p></div>
+</section>
+
+<nav class="breadcrumb" aria-label="パンくずリスト">
+  <div class="inner">
+    <ol>
+      <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">ホーム</a></li>
+      <li>運送約款</li>
+    </ol>
+  </div>
+</nav>
+
+<div class="page-body wide">
+  <div class="inner">
+
+    <div class="lead-block">
+      <h2>標準引越運送約款</h2>
+      <p>お引越しに関する契約内容や注意事項が記載されています。最終改正 令和七年国土交通省告示第百九十三号（平成二年運輸省告示第五百七十七号）</p>
+    </div>
+
+    <div class="block">
+      <h2 class="h-sec">目次</h2>
+      <div class="terms-body">
+        <ol>
+          <li>第一章　総則（第一条・第二条）</li>
+          <li>第二章　見積り（第三条）</li>
+          <li>第三章　運送の引受け（第四条・第五条）</li>
+          <li>第四章　荷物の受取（第六条－第八条）</li>
+          <li>第五章　荷物の引渡し（第九条－第十二条）</li>
+          <li>第六章　指図（第十三条・第十四条）</li>
+          <li>第七章　事故（第十五条－第十七条）</li>
+          <li>第八章　運賃等（第十八条－第二十一条）</li>
+          <li>第九章　責任（第二十二条－第二十九条）</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2 class="h-sec">約款全文</h2>
+      <div class="notice-box green" style="margin-bottom:20px;">
+        <h4>PDFでご確認いただけます</h4>
+        <p>下記のビューアでご覧いただけます。表示されない場合は、<a href="https://docs.google.com/viewerng/viewer?url=http://naniwa-h.com/wp/wp-content/uploads/2025/06/f1ddc198ba61d3329bbcb039dec62b98.pdf" target="_blank" rel="noopener" style="color:var(--green-600);font-weight:700;text-decoration:underline;">PDFを別ウィンドウで開く</a>をご利用ください。</p>
+      </div>
+      <iframe class="pdf-frame" src="https://docs.google.com/viewerng/viewer?url=http://naniwa-h.com/wp/wp-content/uploads/2025/06/f1ddc198ba61d3329bbcb039dec62b98.pdf&amp;embedded=true" title="標準引越運送約款PDF" loading="lazy"></iframe>
+      <p class="center-more" style="margin-top:24px;">
+        <a class="btn btn-outline" href="https://docs.google.com/viewerng/viewer?url=http://naniwa-h.com/wp/wp-content/uploads/2025/06/f1ddc198ba61d3329bbcb039dec62b98.pdf" target="_blank" rel="noopener">PDFを別ウィンドウで開く</a>
+      </p>
+      <p class="note" style="margin-top:20px;">※ ご不明な点はお気軽にお問い合わせください。</p>
+    </div>
+
+  </div>
+</div>
+
+<?php
+get_footer();
