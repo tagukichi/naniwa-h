@@ -79,7 +79,7 @@ def convert_links(text):
         if target in SPECIAL_LINKS:
             return f'{attr}="{SPECIAL_LINKS[target]}"'
         slug = target[:-5]
-        return f"{attr}=\"<?php echo esc_url( home_url( '/{slug}/' ) ); ?>\""
+        return f"{attr}=\"<?php echo esc_url( naniwa_page_url( '{slug}' ) ); ?>\""
 
     text = re.sub(r'(href|action)="([a-z0-9\-]+\.html)"', link, text)
     return text
@@ -87,7 +87,7 @@ def convert_links(text):
 
 def page_url(slug):
     """固定ページのURLを出力する PHP 断片を返す。"""
-    return f"<?php echo esc_url( home_url( '/{slug}/' ) ); ?>"
+    return f"<?php echo esc_url( naniwa_page_url( '{slug}' ) ); ?>"
 
 
 def parse_meta(text):
@@ -467,7 +467,7 @@ def build_confirm_body(body):
         "\t$naniwa_printed = true;\n"
         "\t?>\n"
         '\t\t<h3 class="h-sub"><?php echo esc_html( $naniwa_step[\'title\'] ); ?>\n'
-        '\t\t\t<button type="submit" formaction="<?php echo esc_url( home_url( \'/\' . $naniwa_slug . \'/\' ) ); ?>" formnovalidate class="confirm-edit">修正する</button>\n'
+        '\t\t\t<button type="submit" formaction="<?php echo esc_url( naniwa_page_url( $naniwa_slug ) ); ?>" formnovalidate class="confirm-edit">修正する</button>\n'
         "\t\t</h3>\n"
         '\t\t<table class="confirm-table" style="margin-bottom:30px;">\n'
         "\t\t\t<tbody>\n"

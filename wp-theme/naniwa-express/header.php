@@ -28,7 +28,7 @@
       </p>
       <div class="header-cta">
         <a class="btn btn-line btn-line-h" href="https://page.line.me/168xzwvo" target="_blank" rel="noopener">LINEで相談</a>
-        <a class="btn btn-primary" href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>">無料お見積もり</a>
+        <a class="btn btn-primary" href="<?php echo esc_url( naniwa_page_url( 'estimate-step1' ) ); ?>">無料お見積もり</a>
       </div>
       <button class="nav-toggle" aria-expanded="false" aria-controls="drawer" aria-label="メニューを開く">
         <span></span><span></span><span></span>
@@ -52,23 +52,23 @@
       <div class="drawer-group">
         <h3>引越プランを探す</h3>
         <ul class="drawer-plans">
-          <li><a href="<?php echo esc_url( home_url( '/single/' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-single.svg' ) ); ?>" alt="" loading="lazy"></span>単身<em>の引越</em></a></li>
-          <li><a href="<?php echo esc_url( home_url( '/family/' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-family.svg' ) ); ?>" alt="" loading="lazy"></span>ご家族<em>の引越</em></a></li>
-          <li><a href="<?php echo esc_url( home_url( '/couple/' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-couple.svg' ) ); ?>" alt="" loading="lazy"></span>カップル<em>の引越</em></a></li>
-          <li><a href="<?php echo esc_url( home_url( '/now/' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-now.svg' ) ); ?>" alt="" loading="lazy"></span>今すぐ<em>の引越</em></a></li>
-          <li><a href="<?php echo esc_url( home_url( '/office/' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-office.svg' ) ); ?>" alt="" loading="lazy"></span>オフィス<em>の引越</em></a></li>
-          <li><a href="<?php echo esc_url( home_url( '/disused/' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-disused.svg' ) ); ?>" alt="" loading="lazy"></span>不用品処分</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'single' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-single.svg' ) ); ?>" alt="" loading="lazy"></span>単身<em>の引越</em></a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'family' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-family.svg' ) ); ?>" alt="" loading="lazy"></span>ご家族<em>の引越</em></a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'couple' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-couple.svg' ) ); ?>" alt="" loading="lazy"></span>カップル<em>の引越</em></a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'now' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-now.svg' ) ); ?>" alt="" loading="lazy"></span>今すぐ<em>の引越</em></a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'office' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-office.svg' ) ); ?>" alt="" loading="lazy"></span>オフィス<em>の引越</em></a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'disused' ) ); ?>"><span class="ico"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/ico-disused.svg' ) ); ?>" alt="" loading="lazy"></span>不用品処分</a></li>
         </ul>
       </div>
 
       <div class="drawer-group">
         <h3>引越安心ガイド</h3>
         <ul class="drawer-links">
-          <li><a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">引越全体の流れ</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/packing/' ) ); ?>">梱包の仕方</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/others/' ) ); ?>">電気工事、ペット、貴重品 その他</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>">よくあるご質問</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>">引越前後やることリスト</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>">引越全体の流れ</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'packing' ) ); ?>">梱包の仕方</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'others' ) ); ?>">電気工事、ペット、貴重品 その他</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'faq' ) ); ?>">よくあるご質問</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'checklist' ) ); ?>">引越前後やることリスト</a></li>
         </ul>
       </div>
 
@@ -76,16 +76,16 @@
         <h3>なにわ引越センターについて</h3>
         <ul class="drawer-links">
           <li><a href="<?php echo esc_url( get_post_type_archive_link( 'voice' ) ); ?>">お客様の声</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">なにわ引越センターについて</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'company' ) ); ?>">なにわ引越センターについて</a></li>
           <li><a href="<?php echo esc_url( naniwa_blog_url() ); ?>">ブログ</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/recruit/' ) ); ?>">求人情報</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/kiyaku/' ) ); ?>">運送約款</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'recruit' ) ); ?>">求人情報</a></li>
+          <li><a href="<?php echo esc_url( naniwa_page_url( 'kiyaku' ) ); ?>">運送約款</a></li>
         </ul>
       </div>
     </nav>
 
     <div class="drawer-foot">
-      <a class="btn btn-primary" href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>">
+      <a class="btn btn-primary" href="<?php echo esc_url( naniwa_page_url( 'estimate-step1' ) ); ?>">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         無料お見積もり</a>
       <a class="drawer-tel" href="tel:0120562728">

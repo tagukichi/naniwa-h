@@ -55,15 +55,15 @@ get_header();
     <div class="block">
       <h2 class="h-sec">お引越しまでにご確認ください</h2>
       <div class="card-grid">
-        <a class="info-card" href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">
+        <a class="info-card" href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>">
           <h3>引越全体の流れ →</h3>
           <p>お申し込みから当日の作業、アフターフォローまでの流れをご確認いただけます。</p>
         </a>
-        <a class="info-card" href="<?php echo esc_url( home_url( '/packing/' ) ); ?>">
+        <a class="info-card" href="<?php echo esc_url( naniwa_page_url( 'packing' ) ); ?>">
           <h3>梱包の仕方 →</h3>
           <p>段ボールの選び方から食器の包み方まで、正しい荷造りの方法をご紹介します。</p>
         </a>
-        <a class="info-card" href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>">
+        <a class="info-card" href="<?php echo esc_url( naniwa_page_url( 'checklist' ) ); ?>">
           <h3>引越前後やることリスト →</h3>
           <p>役所・学校・ライフラインなど、各種お手続きをまとめています。</p>
         </a>

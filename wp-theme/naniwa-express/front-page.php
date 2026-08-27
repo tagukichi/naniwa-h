@@ -22,7 +22,7 @@ get_header();
           <li>梱包資材<strong>無料</strong>段ボール・テープ</li>
         </ul>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>">
+          <a class="btn btn-primary" href="<?php echo esc_url( naniwa_page_url( 'estimate-step1' ) ); ?>">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             無料お見積もり（条件入力で仮見積）</a>
           <a class="btn-tel" href="tel:0120562728">
@@ -43,7 +43,7 @@ get_header();
         <p class="lead">お引越しの人数やご事情に合わせて、最適なプランをご用意しています。</p>
       </div>
       <div class="plan-grid">
-        <a class="plan-card" href="<?php echo esc_url( home_url( '/single/' ) ); ?>">
+        <a class="plan-card" href="<?php echo esc_url( naniwa_page_url( 'single' ) ); ?>">
           <span class="icon-img">
             <svg class="pi pi-single" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
@@ -68,7 +68,7 @@ get_header();
           <p>お値段安くて当たりまえ！仕事もサービスも充実の単身プラン。</p>
           <span class="more">詳しくみる →</span>
         </a>
-        <a class="plan-card" href="<?php echo esc_url( home_url( '/family/' ) ); ?>">
+        <a class="plan-card" href="<?php echo esc_url( naniwa_page_url( 'family' ) ); ?>">
           <span class="icon-img">
             <svg class="pi pi-family" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
@@ -108,7 +108,7 @@ get_header();
           <p>小家族から大家族まで、引越サービスも充実！</p>
           <span class="more">詳しくみる →</span>
         </a>
-        <a class="plan-card" href="<?php echo esc_url( home_url( '/couple/' ) ); ?>">
+        <a class="plan-card" href="<?php echo esc_url( naniwa_page_url( 'couple' ) ); ?>">
           <span class="icon-img">
             <svg class="pi pi-couple" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
@@ -123,7 +123,7 @@ get_header();
           <p>新生活を応援！お2人の新しい門出をお祝いします。</p>
           <span class="more">詳しくみる →</span>
         </a>
-        <a class="plan-card" href="<?php echo esc_url( home_url( '/now/' ) ); ?>">
+        <a class="plan-card" href="<?php echo esc_url( naniwa_page_url( 'now' ) ); ?>">
           <span class="icon-img">
             <svg class="pi pi-now" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
@@ -147,7 +147,7 @@ get_header();
           <p>急だ！時間がない！とにかく急いでいる方に。当日対応可。</p>
           <span class="more">詳しくみる →</span>
         </a>
-        <a class="plan-card" href="<?php echo esc_url( home_url( '/office/' ) ); ?>">
+        <a class="plan-card" href="<?php echo esc_url( naniwa_page_url( 'office' ) ); ?>">
           <span class="icon-img">
             <svg class="pi pi-office" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
@@ -172,7 +172,7 @@ get_header();
           <p>大きなオフィスからSOHOまで、スムーズに移転！</p>
           <span class="more">詳しくみる →</span>
         </a>
-        <a class="plan-card" href="<?php echo esc_url( home_url( '/disused/' ) ); ?>">
+        <a class="plan-card" href="<?php echo esc_url( naniwa_page_url( 'disused' ) ); ?>">
           <span class="icon-img">
             <svg class="pi pi-disused" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="#e4f2ea"/>
@@ -263,7 +263,7 @@ get_header();
           <h3>不用品処分もお任せください</h3>
           <p>事前にご提示した処分料金のみで対応。引越しとあわせてスムーズに片付けが可能です。</p>
         </div>
-        <a class="btn" href="<?php echo esc_url( home_url( '/disused/' ) ); ?>">詳しくみる →</a>
+        <a class="btn" href="<?php echo esc_url( naniwa_page_url( 'disused' ) ); ?>">詳しくみる →</a>
       </div>
     </div>
   </section>
@@ -333,23 +333,23 @@ get_header();
         <p class="lead">引っ越しをもっと楽しく、わかりやすく。</p>
       </div>
       <div class="guide-grid">
-        <a class="guide-card" href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">
+        <a class="guide-card" href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
           引越全体の流れ
         </a>
-        <a class="guide-card" href="<?php echo esc_url( home_url( '/packing/' ) ); ?>">
+        <a class="guide-card" href="<?php echo esc_url( naniwa_page_url( 'packing' ) ); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/></svg>
           梱包の仕方
         </a>
-        <a class="guide-card" href="<?php echo esc_url( home_url( '/others/' ) ); ?>">
+        <a class="guide-card" href="<?php echo esc_url( naniwa_page_url( 'others' ) ); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8H20l-4.9 3.6 1.9 5.8-5-3.6-5 3.6 1.9-5.8L4 8.8h6.1z"/></svg>
           電気工事・ペット・貴重品
         </a>
-        <a class="guide-card" href="<?php echo esc_url( home_url( '/faq/' ) ); ?>">
+        <a class="guide-card" href="<?php echo esc_url( naniwa_page_url( 'faq' ) ); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1 1-1.1 1.8v.5"/><path d="M12 17h.01"/></svg>
           よくあるご質問
         </a>
-        <a class="guide-card" href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>">
+        <a class="guide-card" href="<?php echo esc_url( naniwa_page_url( 'checklist' ) ); ?>">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
           引越前後やることリスト
         </a>
@@ -399,7 +399,7 @@ get_header();
             <li>直行・直帰OK</li>
             <li>シフト自由</li>
           </ul>
-          <p class="rb-cta"><a class="btn btn-primary" href="<?php echo esc_url( home_url( '/recruit/' ) ); ?>">求人情報を見る　→</a></p>
+          <p class="rb-cta"><a class="btn btn-primary" href="<?php echo esc_url( naniwa_page_url( 'recruit' ) ); ?>">求人情報を見る　→</a></p>
         </div>
         <p class="rb-visual"><img src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/eagle.png' ) ); ?>" alt="" width="300" height="300" loading="lazy"></p>
       </div>

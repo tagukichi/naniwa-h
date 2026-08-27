@@ -45,7 +45,7 @@ get_header();
             <h3>お見積り無料！パソコン・またはお電話で簡単にお見積り依頼！</h3>
 
             <h4>(1) インターネット（パソコン）からのご依頼</h4>
-            <p>パソコンからご依頼のお客様は、<a href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">お見積りフォーム</a>からお問い合わせください。インターネットでのお見積りは24時間受け付けております。ご依頼いただくと、24時間以内に引越料金記載のメールをお送りいたします。</p>
+            <p>パソコンからご依頼のお客様は、<a href="<?php echo esc_url( naniwa_page_url( 'estimate-step1' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">お見積りフォーム</a>からお問い合わせください。インターネットでのお見積りは24時間受け付けております。ご依頼いただくと、24時間以内に引越料金記載のメールをお送りいたします。</p>
             <p>引越の内容を入力する際は、引越先の間取りや道幅、エレベーターの有無、エアコン設置の有無など詳しい情報を入力していただきますと、より詳しい料金を提案することができます。</p>
             <p class="note">※入力内容で確認しきれない点がある場合、概算でのお見積りになることがございます。<br>※まれに休業日などをはさみ、お見積もりを24時間以内にお送りできない事がございます。</p>
 
@@ -62,7 +62,7 @@ get_header();
           <div class="step-body">
             <h3>正式なお申し込み・梱包資材のお届け</h3>
             <p>正式なお申し込みは、お電話またはメールで承ります。お申し込みいただきましたら、梱包材および契約書をお客様のご希望日にお送りします。</p>
-            <p>スタンダードプランのお客様は、引越当日までに小物の荷造りをお願いいたします。荷造りを行う際には<a href="<?php echo esc_url( home_url( '/packing/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご参考にしてください。</p>
+            <p>スタンダードプランのお客様は、引越当日までに小物の荷造りをお願いいたします。荷造りを行う際には<a href="<?php echo esc_url( naniwa_page_url( 'packing' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご参考にしてください。</p>
             <div class="notice-box green" style="margin-top:16px;">
               <p><strong>段ボールとガムテープ、食器梱包用紙</strong>を無料で提供しております（提供できる量は引越の量によって違います。ご提供できない場合もございますのでご了承ください）。</p>
             </div>

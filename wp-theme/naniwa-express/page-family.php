@@ -83,7 +83,7 @@ get_header();
         </div>
         <div class="info-card">
           <h3>不用品処分もまとめて</h3>
-          <p>引越しで出た不用品も、事前にご提示した処分料金のみで対応。<a href="<?php echo esc_url( home_url( '/disused/' ) ); ?>" style="color:var(--green-600);font-weight:700;">料金表はこちら</a></p>
+          <p>引越しで出た不用品も、事前にご提示した処分料金のみで対応。<a href="<?php echo esc_url( naniwa_page_url( 'disused' ) ); ?>" style="color:var(--green-600);font-weight:700;">料金表はこちら</a></p>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@ get_header();
     <div class="block">
       <div class="notice-box green">
         <h4>お引越しの準備でお困りの方へ</h4>
-        <p>役所や学校の手続きは<a href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">引越前後やることリスト</a>にまとめています。荷造りの方法は<a href="<?php echo esc_url( home_url( '/packing/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご覧ください。</p>
+        <p>役所や学校の手続きは<a href="<?php echo esc_url( naniwa_page_url( 'checklist' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">引越前後やることリスト</a>にまとめています。荷造りの方法は<a href="<?php echo esc_url( naniwa_page_url( 'packing' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご覧ください。</p>
       </div>
     </div>
 

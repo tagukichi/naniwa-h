@@ -85,7 +85,7 @@ get_header();
 
         <details class="faq-item">
           <summary>お見積りを依頼したいんですが。</summary>
-          <div class="faq-answer"><p class="txt">当社へお見積りをご依頼いただく際には2つの方法がございます。パソコンからのご依頼、お電話でのご依頼です。詳しくは、なにわの<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">引越の流れ</a>をご覧ください。</p></div>
+          <div class="faq-answer"><p class="txt">当社へお見積りをご依頼いただく際には2つの方法がございます。パソコンからのご依頼、お電話でのご依頼です。詳しくは、なにわの<a href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>">引越の流れ</a>をご覧ください。</p></div>
         </details>
 
         <details class="faq-item">
@@ -95,17 +95,17 @@ get_header();
 
         <details class="faq-item">
           <summary>引越日までに何をすればいいのかわからないのですが。</summary>
-          <div class="faq-answer"><p class="txt">お客様が選ばれたプランによります。詳しくは<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">引越全体のながれ</a>をご覧ください。各種お手続きは<a href="<?php echo esc_url( home_url( '/checklist/' ) ); ?>">引越前後やることリスト</a>にまとめています。</p></div>
+          <div class="faq-answer"><p class="txt">お客様が選ばれたプランによります。詳しくは<a href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>">引越全体のながれ</a>をご覧ください。各種お手続きは<a href="<?php echo esc_url( naniwa_page_url( 'checklist' ) ); ?>">引越前後やることリスト</a>にまとめています。</p></div>
         </details>
 
         <details class="faq-item">
           <summary>新居が新築なのですが、引越作業で建物に傷がつかないか心配です。</summary>
-          <div class="faq-answer"><p class="txt">当社では専用の資材を使用して、しっかりと建物を養生してから搬入を行います。お客様の大事な住居に傷がつかないよう、細心の注意を払って作業を行っておりますので、ご心配は無用です。詳しくは<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>">こちら</a>をご覧ください。</p></div>
+          <div class="faq-answer"><p class="txt">当社では専用の資材を使用して、しっかりと建物を養生してから搬入を行います。お客様の大事な住居に傷がつかないよう、細心の注意を払って作業を行っておりますので、ご心配は無用です。詳しくは<a href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>">こちら</a>をご覧ください。</p></div>
         </details>
 
         <details class="faq-item">
           <summary>運んでもらえないものを教えてください。</summary>
-          <div class="faq-answer"><p class="txt">貴重品、危険物、生ゴミ、生物、骨董品・美術品はお運びできません。なお、上記以外のものに関しても状況によってはお客様に保管をお願いすることがございます。詳しくは<a href="<?php echo esc_url( home_url( '/others/' ) ); ?>">電気工事、ペット、貴重品 その他</a>をご覧ください。</p></div>
+          <div class="faq-answer"><p class="txt">貴重品、危険物、生ゴミ、生物、骨董品・美術品はお運びできません。なお、上記以外のものに関しても状況によってはお客様に保管をお願いすることがございます。詳しくは<a href="<?php echo esc_url( naniwa_page_url( 'others' ) ); ?>">電気工事、ペット、貴重品 その他</a>をご覧ください。</p></div>
         </details>
 
         <details class="faq-item">
@@ -120,7 +120,7 @@ get_header();
 
         <details class="faq-item">
           <summary>夜間の引越は可能ですか？</summary>
-          <div class="faq-answer"><p class="txt">できる限りお客様のご要望通りにお応えいたします。お気軽に<a href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>">お問い合せ</a>ください。</p></div>
+          <div class="faq-answer"><p class="txt">できる限りお客様のご要望通りにお応えいたします。お気軽に<a href="<?php echo esc_url( naniwa_page_url( 'estimate-step1' ) ); ?>">お問い合せ</a>ください。</p></div>
         </details>
 
         <details class="faq-item">
@@ -130,7 +130,7 @@ get_header();
 
         <details class="faq-item">
           <summary>個人情報の管理はどうなっていますか？</summary>
-          <div class="faq-answer"><p class="txt">お見積り時やお問い合わせ時に入力していただく個人情報は、当社が責任をもって管理しております。詳しくはプライバシーポリシー（※<a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">会社概要ページ</a>内）をご覧ください。</p></div>
+          <div class="faq-answer"><p class="txt">お見積り時やお問い合わせ時に入力していただく個人情報は、当社が責任をもって管理しております。詳しくはプライバシーポリシー（※<a href="<?php echo esc_url( naniwa_page_url( 'company' ) ); ?>">会社概要ページ</a>内）をご覧ください。</p></div>
         </details>
 
       </div>
@@ -142,7 +142,7 @@ get_header();
 
         <details class="faq-item">
           <summary>不用品は引き取ってもらえますか？</summary>
-          <div class="faq-answer"><p class="txt">はい、もちろんです。有料になりますが、当社でお引取りする際は、リサイクル券の購入など面倒な手続きを行う必要がないのでご好評をいただいております。詳しくは不用品処分ページの<a href="<?php echo esc_url( home_url( '/disused/' ) ); ?>">料金表</a>をご覧ください。</p></div>
+          <div class="faq-answer"><p class="txt">はい、もちろんです。有料になりますが、当社でお引取りする際は、リサイクル券の購入など面倒な手続きを行う必要がないのでご好評をいただいております。詳しくは不用品処分ページの<a href="<?php echo esc_url( naniwa_page_url( 'disused' ) ); ?>">料金表</a>をご覧ください。</p></div>
         </details>
 
         <details class="faq-item">
@@ -161,7 +161,7 @@ get_header();
     <div class="block">
       <div class="notice-box green">
         <h4>解決しない場合は、お気軽にお問い合わせください</h4>
-        <p>こちらに載っていないご質問は、お電話（<a href="tel:0120562728" style="color:var(--green-600);font-weight:700;">0120-562-728</a>／9:00〜20:00 年中無休）または<a href="<?php echo esc_url( home_url( '/estimate-step1/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">お見積りフォーム</a>よりご連絡ください。</p>
+        <p>こちらに載っていないご質問は、お電話（<a href="tel:0120562728" style="color:var(--green-600);font-weight:700;">0120-562-728</a>／9:00〜20:00 年中無休）または<a href="<?php echo esc_url( naniwa_page_url( 'estimate-step1' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">お見積りフォーム</a>よりご連絡ください。</p>
       </div>
     </div>
 

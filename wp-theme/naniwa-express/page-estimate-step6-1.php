@@ -41,7 +41,7 @@ get_header();
       <li>Step7<br><span style="font-size:10.5px;font-weight:600;opacity:.9">オプション</span></li>
     </ol>
 
-    <form class="form-card" action="<?php echo esc_url( home_url( '/estimate-step6-2/' ) ); ?>" method="post" novalidate>
+    <form class="form-card" action="<?php echo esc_url( naniwa_page_url( 'estimate-step6-2' ) ); ?>" method="post" novalidate>
       <h2>荷物情報について（1/3）家電</h2>
       <div class="form-inner">
 <?php
@@ -221,7 +221,7 @@ naniwa_estimate_carry_over( array( 'item' ) );
         </div>
       </div>
       <div class="form-actions">
-      <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( home_url( '/estimate-step5/' ) ); ?>" formnovalidate>←　戻る</button>
+      <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( naniwa_page_url( 'estimate-step5' ) ); ?>" formnovalidate>←　戻る</button>
       <button class="btn btn-primary" type="submit">次へ　→</button>
       </div>
     </form>

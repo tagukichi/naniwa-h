@@ -90,7 +90,7 @@ get_header();
     <div class="block">
       <div class="notice-box green">
         <h4>お引越しの流れを知りたい方へ</h4>
-        <p>お見積りから当日の作業、アフターフォローまでの流れは<a href="<?php echo esc_url( home_url( '/flow/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">引越全体の流れ</a>でご確認いただけます。荷造りの方法は<a href="<?php echo esc_url( home_url( '/packing/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご覧ください。</p>
+        <p>お見積りから当日の作業、アフターフォローまでの流れは<a href="<?php echo esc_url( naniwa_page_url( 'flow' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">引越全体の流れ</a>でご確認いただけます。荷造りの方法は<a href="<?php echo esc_url( naniwa_page_url( 'packing' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">梱包の仕方</a>をご覧ください。</p>
       </div>
     </div>
 

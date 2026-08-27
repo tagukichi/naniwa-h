@@ -41,7 +41,7 @@ get_header();
       <li>Step7<br><span style="font-size:10.5px;font-weight:600;opacity:.9">オプション</span></li>
     </ol>
 
-    <form class="form-card" action="<?php echo esc_url( home_url( '/estimate-step2/' ) ); ?>" method="post" novalidate>
+    <form class="form-card" action="<?php echo esc_url( naniwa_page_url( 'estimate-step2' ) ); ?>" method="post" novalidate>
       <h2>お客様情報</h2>
       <div class="form-inner">
 <?php

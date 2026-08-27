@@ -89,7 +89,7 @@ get_header();
     <div class="block">
       <div class="notice-box">
         <h4>不用品・什器の処分もあわせて承ります</h4>
-        <p>移転にともなうOA機器やオフィス什器の処分も対応可能です。事前にご提示した処分料金のみで承ります。詳しくは<a href="<?php echo esc_url( home_url( '/disused/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">不用品処分</a>をご覧ください。</p>
+        <p>移転にともなうOA機器やオフィス什器の処分も対応可能です。事前にご提示した処分料金のみで承ります。詳しくは<a href="<?php echo esc_url( naniwa_page_url( 'disused' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">不用品処分</a>をご覧ください。</p>
       </div>
     </div>
 

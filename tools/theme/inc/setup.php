@@ -115,6 +115,19 @@ function naniwa_setup_page() {
 
 		if ( 'create' === $action ) {
 			$result = naniwa_setup_create_pages();
+		} elseif ( 'map' === $action ) {
+			$map = array();
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$raw = isset( $_POST['naniwa_map'] ) ? (array) wp_unslash( $_POST['naniwa_map'] ) : array();
+			foreach ( $raw as $key => $page_id ) {
+				$page_id = (int) $page_id;
+				if ( $page_id > 0 ) {
+					$map[ sanitize_key( $key ) ] = $page_id;
+				}
+			}
+			update_option( NANIWA_PAGE_MAP_OPTION, $map );
+			flush_rewrite_rules();
+			$result = 'mapped';
 		} elseif ( 'flush' === $action ) {
 			flush_rewrite_rules();
 			$result = 'flushed';
@@ -144,65 +157,93 @@ function naniwa_setup_page() {
 					<p>作成: <code><?php echo esc_html( implode( '</code>, <code>', $result['created'] ) ); ?></code></p>
 				<?php endif; ?>
 			</div>
+		<?php elseif ( 'mapped' === $result ) : ?>
+			<div class="notice notice-success"><p>ページの割り当てを保存しました。</p></div>
 		<?php elseif ( 'flushed' === $result ) : ?>
 			<div class="notice notice-success"><p>パーマリンクを再構築しました。</p></div>
 		<?php endif; ?>
 
 		<h2>必要な固定ページ</h2>
-		<table class="widefat striped">
-			<thead>
-				<tr>
-					<th style="width:22%;">スラッグ</th>
-					<th style="width:26%;">ページ名</th>
-					<th style="width:16%;">状態</th>
-					<th style="width:22%;">使われるテンプレート</th>
-					<th>確認</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				foreach ( $required as $slug => $title ) :
-					$page     = get_page_by_path( $slug );
-					$template = 'page-' . $slug . '.php';
-					$has_tpl  = file_exists( get_theme_file_path( '/' . $template ) );
-					if ( ! $page ) {
-						++$missing;
-					}
-					?>
+		<p class="description">スラッグが違っていても自動で対応するページを探します（例：<code>estimate-step1</code> → <code>step1</code>、<code>recruit</code> → <code>recruit2</code>）。<br>
+			自動で見つからない場合や、意図と違うページが割り当たっている場合は、右の欄で手動で指定してください。</p>
+
+		<?php
+		$all_pages = get_posts(
+			array(
+				'post_type'      => 'page',
+				'post_status'    => array( 'publish', 'draft', 'private' ),
+				'posts_per_page' => 300,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+			)
+		);
+		$map = (array) get_option( NANIWA_PAGE_MAP_OPTION, array() );
+		?>
+
+		<form method="post">
+			<?php wp_nonce_field( 'naniwa_setup' ); ?>
+			<input type="hidden" name="naniwa_setup_action" value="map">
+			<table class="widefat striped">
+				<thead>
 					<tr>
-						<td><code><?php echo esc_html( $slug ); ?></code></td>
-						<td><?php echo esc_html( $title ); ?></td>
-						<td>
-							<?php if ( $page ) : ?>
-								<span style="color:#146c43;font-weight:600;">✓ 作成済み</span>
-							<?php else : ?>
-								<span style="color:#b32d2e;font-weight:600;">✗ 未作成（404になります）</span>
-							<?php endif; ?>
-						</td>
-						<td>
-							<?php if ( $has_tpl ) : ?>
-								<code><?php echo esc_html( $template ); ?></code>
-							<?php else : ?>
-								<span style="color:#b32d2e;">テンプレートなし</span>
-							<?php endif; ?>
-						</td>
-						<td>
-							<?php if ( $page ) : ?>
-								<a href="<?php echo esc_url( get_permalink( $page ) ); ?>" target="_blank">表示</a>　
-								<a href="<?php echo esc_url( get_edit_post_link( $page->ID ) ); ?>">編集</a>
-							<?php endif; ?>
-						</td>
+						<th style="width:18%;">想定スラッグ</th>
+						<th style="width:20%;">ページ名</th>
+						<th style="width:14%;">状態</th>
+						<th style="width:26%;">割り当てられているページ</th>
+						<th>手動で指定</th>
 					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<?php
+					foreach ( $required as $slug => $title ) :
+						$page_id = naniwa_page_id( $slug );
+						if ( ! $page_id ) {
+							++$missing;
+						}
+						?>
+						<tr>
+							<td><code><?php echo esc_html( $slug ); ?></code></td>
+							<td><?php echo esc_html( $title ); ?></td>
+							<td>
+								<?php if ( $page_id ) : ?>
+									<span style="color:#146c43;font-weight:600;">✓ OK</span>
+								<?php else : ?>
+									<span style="color:#b32d2e;font-weight:600;">✗ 404</span>
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php if ( $page_id ) : ?>
+									<?php echo esc_html( get_the_title( $page_id ) ); ?>
+									<code>/<?php echo esc_html( urldecode( get_post_field( 'post_name', $page_id ) ) ); ?>/</code><br>
+									<a href="<?php echo esc_url( get_permalink( $page_id ) ); ?>" target="_blank">表示</a>　
+									<a href="<?php echo esc_url( get_edit_post_link( $page_id ) ); ?>">編集</a>
+								<?php else : ?>
+									<span style="color:#b32d2e;">見つかりません</span>
+								<?php endif; ?>
+							</td>
+							<td>
+								<select name="naniwa_map[<?php echo esc_attr( $slug ); ?>]" style="max-width:100%;">
+									<option value="0">（自動で判定）</option>
+									<?php foreach ( $all_pages as $one ) : ?>
+										<option value="<?php echo esc_attr( $one->ID ); ?>" <?php selected( isset( $map[ $slug ] ) ? (int) $map[ $slug ] : 0, $one->ID ); ?>>
+											<?php echo esc_html( get_the_title( $one ) . '（' . urldecode( $one->post_name ) . '）' ); ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+			<?php submit_button( '割り当てを保存する', 'primary' ); ?>
+		</form>
 
 		<form method="post" style="margin:22px 0;">
 			<?php wp_nonce_field( 'naniwa_setup' ); ?>
 			<input type="hidden" name="naniwa_setup_action" value="create">
 			<?php
 			submit_button(
-				$missing ? sprintf( '不足している %d 件のページを作成する', $missing ) : 'ページはすべて揃っています',
+				$missing ? sprintf( '見つからない %d 件のページを新規作成する', $missing ) : 'ページはすべて揃っています',
 				'primary',
 				'submit',
 				false,
@@ -211,46 +252,6 @@ function naniwa_setup_page() {
 			?>
 			<p class="description">既にあるページは変更しません。本文は空で作成され、デザインはテンプレート側から出力されます。</p>
 		</form>
-
-		<h2>いま存在する固定ページのスラッグ</h2>
-		<p class="description">意図したスラッグになっていないページがないか確認してください。日本語タイトルのまま作成すると、スラッグも日本語になり、テンプレートが割り当たりません。</p>
-		<?php
-		$all = get_posts(
-			array(
-				'post_type'      => 'page',
-				'post_status'    => array( 'publish', 'draft', 'private' ),
-				'posts_per_page' => 200,
-				'orderby'        => 'title',
-				'order'          => 'ASC',
-			)
-		);
-		?>
-		<table class="widefat striped">
-			<thead><tr><th style="width:30%;">タイトル</th><th style="width:26%;">スラッグ</th><th style="width:14%;">状態</th><th>テンプレート判定</th></tr></thead>
-			<tbody>
-				<?php foreach ( $all as $one ) : ?>
-					<?php
-					$slug     = $one->post_name;
-					$expected = isset( $required[ $slug ] );
-					$has_tpl  = file_exists( get_theme_file_path( '/page-' . $slug . '.php' ) );
-					?>
-					<tr>
-						<td><a href="<?php echo esc_url( get_edit_post_link( $one->ID ) ); ?>"><?php echo esc_html( get_the_title( $one ) ); ?></a></td>
-						<td><code><?php echo esc_html( urldecode( $slug ) ); ?></code></td>
-						<td><?php echo esc_html( get_post_status( $one ) ); ?></td>
-						<td>
-							<?php if ( $has_tpl ) : ?>
-								<span style="color:#146c43;">専用テンプレート適用</span>
-							<?php elseif ( $expected ) : ?>
-								<span style="color:#b32d2e;">テンプレートなし</span>
-							<?php else : ?>
-								<span style="color:#8a6d00;">page.php（汎用）</span>
-							<?php endif; ?>
-						</td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
 
 		<h2>その他</h2>
 		<form method="post">

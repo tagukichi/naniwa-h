@@ -70,7 +70,7 @@ get_header();
     <div class="block">
       <div class="notice-box green">
         <h4>ほかにもご不明な点がありましたら</h4>
-        <p>お運びできないものや料金など、よくいただくご質問は<a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">よくある質問</a>にまとめています。記載のない内容は、お電話またはお見積りフォームよりお気軽にお問い合わせください。</p>
+        <p>お運びできないものや料金など、よくいただくご質問は<a href="<?php echo esc_url( naniwa_page_url( 'faq' ) ); ?>" style="color:var(--green-600);font-weight:700;text-decoration:underline;">よくある質問</a>にまとめています。記載のない内容は、お電話またはお見積りフォームよりお気軽にお問い合わせください。</p>
       </div>
     </div>
 

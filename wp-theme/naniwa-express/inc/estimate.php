@@ -190,7 +190,7 @@ function naniwa_handle_estimate_submit() {
 
 	wp_mail( $to, $subject, $body, $headers );
 
-	wp_safe_redirect( home_url( '/estimate-thanks/' ) );
+	wp_safe_redirect( naniwa_page_url( 'estimate-thanks' ) );
 	exit;
 }
 add_action( 'template_redirect', 'naniwa_handle_estimate_submit' );

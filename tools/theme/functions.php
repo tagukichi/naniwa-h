@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'NANIWA_VERSION', '1.0.0' );
 
 require_once get_theme_file_path( '/inc/pages.php' );
+require_once get_theme_file_path( '/inc/page-map.php' );
 require_once get_theme_file_path( '/inc/setup.php' );
 require_once get_theme_file_path( '/inc/cpt.php' );
 require_once get_theme_file_path( '/inc/meta-voice.php' );
