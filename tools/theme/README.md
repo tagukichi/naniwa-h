@@ -146,11 +146,12 @@ naniwa-express/
 ├── page-{slug}.php            固定ページ（スラッグで自動割り当て）
 ├── home.php / single.php      ブログ一覧・詳細
 ├── archive-voice.php / single-voice.php   お客様の声
-├── archive-news.php / single-news.php     お知らせ
+├── archive-topics.php / single-topics.php  お知らせ
 ├── archive.php / search.php / 404.php / page.php
 ├── inc/
 │   ├── cpt.php                カスタム投稿タイプ
-│   ├── meta-voice.php         お客様の声のカスタムフィールド
+│   ├── meta-voice.php         お客様の声の入力欄（ACF非導入時のみ）
+│   ├── voice-fields.php       お客様の声のフィールド取得
 │   ├── template-tags.php      テンプレート用ヘルパー
 │   ├── estimate-fields.php    見積フォームの項目定義（自動生成）
 │   └── estimate.php           見積フォームの送信処理
