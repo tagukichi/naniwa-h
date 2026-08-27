@@ -185,7 +185,7 @@ def build_page_templates():
         content = php_header(f"固定ページ：{title}（スラッグ: {slug}）", title)
         content += "\n" + body + "\n\n<?php\nget_footer();\n"
         (OUT / f"page-{slug}.php").write_text(content, encoding="utf-8")
-        written.append(slug)
+        written.append((slug, title))
     return written
 
 
@@ -498,6 +498,34 @@ def build_confirm_body(body):
 
     return body[:start] + form + body[end + len("</form>"):]
 
+
+def build_pages_php(slug_titles):
+    """テーマの初期設定画面が使う「必要な固定ページ」一覧を書き出す。"""
+    rows = "".join(
+        f"\t\t'{slug}' => '{title}',\n" for slug, title in slug_titles
+    )
+    php = (
+        "<?php\n"
+        "/**\n"
+        " * このテーマが必要とする固定ページの一覧\n"
+        " *\n"
+        " * tools/build_theme.py が自動生成する。直接編集しないこと。\n"
+        " *\n"
+        " * @package naniwa\n"
+        " */\n\n"
+        "defined( 'ABSPATH' ) || exit;\n\n"
+        "/**\n"
+        " * スラッグ => ページ名。\n"
+        " *\n"
+        " * @return array<string, string>\n"
+        " */\n"
+        "function naniwa_required_pages() {\n"
+        "\treturn array(\n" + rows + "\t);\n"
+        "}\n"
+    )
+    (OUT / "inc" / "pages.php").write_text(php, encoding="utf-8")
+
+
 def build_front_page():
     """TOPページ。ブログ・お知らせ・お客様の声はループに差し替える。"""
     meta, body = parse_meta((SRC / "pages" / "index.html").read_text(encoding="utf-8"))
@@ -644,8 +672,9 @@ def build():
     build_estimate_fields_php()
     build_front_page()
     slugs = build_page_templates()
+    build_pages_php(slugs)
 
-    for slug in slugs:
+    for slug, _title in slugs:
         print(f"  built  page-{slug}.php")
     print(f"  built  front-page.php / header.php / footer.php")
 

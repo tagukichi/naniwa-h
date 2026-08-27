@@ -14,33 +14,28 @@
 
 ---
 
-## 2. 固定ページを作る
+## 2. 固定ページを作る（自動）
 
 このテーマは **固定ページのスラッグ**でテンプレートを自動的に割り当てます。
-下記のスラッグで固定ページを作成してください（タイトルは自由です）。
-本文は空のままで構いません。デザインはテンプレート側に入っています。
+スラッグが一致しないページは 404 になるか、デザインが当たらない素の状態で表示されます。
 
-| スラッグ | ページ |
-|---|---|
-| `single` | 単身の引越 |
-| `family` | ご家族の引越 |
-| `couple` | カップルの引越 |
-| `now` | 今すぐの引越 |
-| `office` | オフィスの引越 |
-| `disused` | 不用品処分 |
-| `flow` | 引越全体の流れ |
-| `packing` | 梱包の仕方 |
-| `others` | 電気工事、ペット、貴重品 |
-| `faq` | よくあるご質問 |
-| `checklist` | 引越前後やることリスト |
-| `company` | 会社案内 |
-| `kiyaku` | 運送約款 |
-| `recruit` | 求人情報 |
-| `estimate-step1` 〜 `estimate-step5` | web見積 STEP1〜5 |
-| `estimate-step6-1` / `estimate-step6-2` / `estimate-step6-3` | web見積 荷物情報 |
-| `estimate-step7` | web見積 STEP7 |
-| `estimate-confirm` | web見積 確認画面 |
-| `estimate-thanks` | web見積 完了 |
+テーマを有効化したら、**ツール → なにわ：初期設定** を開いてください。
+
+- 必要なページ25件が揃っているかを一覧で確認できます
+- 「不足しているページを作成する」ボタンで、正しいスラッグのまま**まとめて作成**されます
+- 既にあるページは変更しません
+- いま存在する固定ページのスラッグ一覧も表示されるので、日本語スラッグになっているページを見つけられます
+
+> 日本語タイトルのまま固定ページを作ると、スラッグも日本語になります。
+> その場合はテンプレートが割り当たらないので、必ず上のボタンから作成するか、
+> スラッグを手動で英字に直してください。
+
+作成されるページ（スラッグ）：
+
+`single` `family` `couple` `now` `office` `disused` `flow` `packing` `others`
+`faq` `checklist` `company` `kiyaku` `recruit`
+`estimate-step1`〜`estimate-step5` `estimate-step6-1`〜`estimate-step6-3`
+`estimate-step7` `estimate-confirm` `estimate-thanks`
 
 さらに、ブログ用に固定ページを1つ（例：スラッグ `blog`、タイトル「ブログ」）作り、
 **設定 → 表示設定** で以下を指定してください。
@@ -149,6 +144,8 @@ naniwa-express/
 ├── archive-topics.php / single-topics.php  お知らせ
 ├── archive.php / search.php / 404.php / page.php
 ├── inc/
+│   ├── setup.php              初期設定・診断画面
+│   ├── pages.php              必要な固定ページ一覧（自動生成）
 │   ├── cpt.php                カスタム投稿タイプ
 │   ├── meta-voice.php         お客様の声の入力欄（ACF非導入時のみ）
 │   ├── voice-fields.php       お客様の声のフィールド取得
