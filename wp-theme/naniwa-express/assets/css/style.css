@@ -87,7 +87,7 @@ ul, ol { list-style: none; }
   padding: clamp(16px, 2vw, 40px) 0;
   align-items: center;
   color: var(--white);
-  background: url("../assets/img/hero-pc.png") center bottom / cover no-repeat, #016a34;
+  background: url("../img/hero-pc.png") center bottom / cover no-repeat, #016a34;
   aspect-ratio: 1360 / 610;
   min-height: 540px;
   display: flex;

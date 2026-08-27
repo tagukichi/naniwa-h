@@ -596,7 +596,15 @@ def copy_assets():
         shutil.rmtree(dest)
     (dest / "css").mkdir(parents=True)
     (dest / "js").mkdir(parents=True)
-    shutil.copy2(STATIC / "css" / "style.css", dest / "css" / "style.css")
+
+    # 静的サイトは css/ と assets/img/ が兄弟だが、テーマでは assets/css/ と
+    # assets/img/ が兄弟になる。CSS 内の相対パスを階層のズレに合わせて直す。
+    css = (STATIC / "css" / "style.css").read_text(encoding="utf-8")
+    css = css.replace('url("../assets/img/', 'url("../img/')
+    css = css.replace("url('../assets/img/", "url('../img/")
+    css = css.replace("url(../assets/img/", "url(../img/")
+    (dest / "css" / "style.css").write_text(css, encoding="utf-8")
+
     shutil.copy2(STATIC / "js" / "main.js", dest / "js" / "main.js")
     shutil.copytree(STATIC / "assets" / "img", dest / "img")
 
