@@ -11,6 +11,7 @@ define( 'NANIWA_VERSION', '1.0.0' );
 
 require_once get_theme_file_path( '/inc/cpt.php' );
 require_once get_theme_file_path( '/inc/meta-voice.php' );
+require_once get_theme_file_path( '/inc/voice-fields.php' );
 require_once get_theme_file_path( '/inc/template-tags.php' );
 require_once get_theme_file_path( '/inc/estimate-fields.php' );
 require_once get_theme_file_path( '/inc/estimate.php' );

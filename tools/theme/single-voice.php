@@ -22,56 +22,94 @@ naniwa_breadcrumb(
 		while ( have_posts() ) :
 			the_post();
 
-			$naniwa_rating = (int) get_post_meta( get_the_ID(), '_naniwa_rating', true );
-			$naniwa_plan   = get_post_meta( get_the_ID(), '_naniwa_plan', true );
-			$naniwa_route  = get_post_meta( get_the_ID(), '_naniwa_route', true );
-			$naniwa_who    = get_post_meta( get_the_ID(), '_naniwa_who', true );
-			$naniwa_reply  = get_post_meta( get_the_ID(), '_naniwa_reply', true );
+			$naniwa_data = naniwa_voice_data( get_the_ID() );
+			$naniwa_s    = naniwa_voice_summary( get_the_ID() );
+			$naniwa_tag  = naniwa_voice_tag_text( $naniwa_s );
 			?>
-			<article>
+			<article class="voice-single">
 				<div class="article-meta">
-					<?php if ( $naniwa_rating ) : ?>
-						<img class="voice-face" src="<?php echo esc_url( naniwa_voice_face_url( $naniwa_rating ) ); ?>" alt="<?php echo esc_attr( '評価' . $naniwa_rating ); ?>" width="56" height="56">
+					<?php if ( null !== $naniwa_s['rating'] ) : ?>
+						<img class="voice-face" src="<?php echo esc_url( naniwa_voice_face_url( $naniwa_s['rating'] ) ); ?>" alt="<?php echo esc_attr( '評価' . round( $naniwa_s['rating'] ) ); ?>" width="56" height="56">
 					<?php endif; ?>
-					<?php if ( $naniwa_plan ) : ?>
-						<span class="cat"><?php echo esc_html( $naniwa_plan ); ?></span>
+					<?php if ( $naniwa_tag ) : ?>
+						<span class="cat"><?php echo esc_html( $naniwa_tag ); ?></span>
 					<?php endif; ?>
-					<?php if ( $naniwa_rating ) : ?>
-						<span class="stars"><?php echo esc_html( naniwa_stars( $naniwa_rating ) ); ?></span>
+					<?php if ( null !== $naniwa_s['rating'] ) : ?>
+						<span class="stars"><?php echo esc_html( naniwa_stars( $naniwa_s['rating'] ) ); ?></span>
+						<span class="score"><?php echo esc_html( number_format( (float) $naniwa_s['rating'], 1 ) ); ?></span>
 					<?php endif; ?>
 				</div>
 
 				<h2 class="h-sec"><?php the_title(); ?></h2>
 
-				<div class="table-wrap" style="margin-bottom:28px;">
-					<table class="data">
-						<tbody>
-							<?php if ( $naniwa_plan ) : ?>
-								<tr><th>ご利用プラン</th><td><?php echo esc_html( $naniwa_plan ); ?></td></tr>
-							<?php endif; ?>
-							<?php if ( $naniwa_route ) : ?>
-								<tr><th>お引越し区間</th><td><?php echo esc_html( $naniwa_route ); ?></td></tr>
-							<?php endif; ?>
-							<?php if ( $naniwa_who ) : ?>
-								<tr><th>年代・性別</th><td><?php echo esc_html( $naniwa_who ); ?></td></tr>
-							<?php endif; ?>
-							<?php if ( $naniwa_rating ) : ?>
-								<tr><th>ご満足度</th><td><span class="stars"><?php echo esc_html( naniwa_stars( $naniwa_rating ) ); ?></span> <?php echo esc_html( number_format( $naniwa_rating, 1 ) ); ?></td></tr>
-							<?php endif; ?>
-						</tbody>
-					</table>
-				</div>
+				<?php
+				// 概要テーブル。値のある行だけを出す。
+				$naniwa_rows = array_filter(
+					array(
+						'引越プラン'  => $naniwa_tag,
+						'地域'        => $naniwa_s['area'],
+						'年代・性別'  => trim( $naniwa_s['age'] . ( $naniwa_s['age'] && $naniwa_s['gender'] ? '／' : '' ) . $naniwa_s['gender'] ),
+						'作業日'      => $naniwa_s['date'],
+						'料金'        => $naniwa_s['price'],
+						'評価日'      => $naniwa_s['rated'],
+					)
+				);
+				?>
+				<?php if ( $naniwa_rows ) : ?>
+					<div class="table-wrap" style="margin-bottom:28px;">
+						<table class="data">
+							<tbody>
+								<?php foreach ( $naniwa_rows as $naniwa_label => $naniwa_value ) : ?>
+									<tr><th><?php echo esc_html( $naniwa_label ); ?></th><td><?php echo esc_html( $naniwa_value ); ?></td></tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+				<?php endif; ?>
 
-				<div class="article-body">
-					<?php the_content(); ?>
-				</div>
+				<?php
+				// 7軸の評価。1つでも値があれば表示する。
+				$naniwa_axes = array();
+				foreach ( naniwa_voice_axes() as $naniwa_axis ) {
+					$naniwa_value = naniwa_voice_rating( $naniwa_data, $naniwa_axis['aliases'] );
+					if ( null !== $naniwa_value ) {
+						$naniwa_axes[ $naniwa_axis['label'] ] = $naniwa_value;
+					}
+				}
+				?>
+				<?php if ( $naniwa_axes ) : ?>
+					<h3 class="h-sub">項目別のご評価</h3>
+					<ul class="voice-scores">
+						<?php foreach ( $naniwa_axes as $naniwa_label => $naniwa_value ) : ?>
+							<li<?php echo ( 0.0 === (float) $naniwa_value ) ? ' class="is-none"' : ''; ?>>
+								<span class="name"><?php echo esc_html( $naniwa_label ); ?></span>
+								<span class="stars" aria-label="<?php echo esc_attr( '5点満点中' . $naniwa_value . '点' ); ?>"><?php echo esc_html( naniwa_stars( $naniwa_value ) ); ?></span>
+								<span class="num"><?php echo esc_html( 0.0 === (float) $naniwa_value ? '—' : number_format( (float) $naniwa_value, 1 ) ); ?></span>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
 
-				<?php if ( $naniwa_reply ) : ?>
+				<?php if ( $naniwa_s['good'] ) : ?>
+					<h3 class="h-sub">良かった点</h3>
+					<div class="article-body"><p><?php echo nl2br( esc_html( $naniwa_s['good'] ) ); ?></p></div>
+				<?php endif; ?>
+
+				<?php if ( $naniwa_s['bad'] ) : ?>
+					<h3 class="h-sub">悪かった点</h3>
+					<div class="article-body"><p><?php echo nl2br( esc_html( $naniwa_s['bad'] ) ); ?></p></div>
+				<?php endif; ?>
+
+				<?php if ( trim( wp_strip_all_tags( get_the_content() ) ) ) : ?>
+					<div class="article-body"><?php the_content(); ?></div>
+				<?php endif; ?>
+
+				<?php if ( $naniwa_s['reply'] ) : ?>
 					<div class="reply-box">
 						<p class="reply-head">なにわ引越センターより</p>
 						<div class="reply-body">
 							<img class="reply-mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/eagle-mark.svg' ) ); ?>" alt="" width="120" height="120" loading="lazy">
-							<p><?php echo nl2br( esc_html( $naniwa_reply ) ); ?></p>
+							<p><?php echo nl2br( esc_html( $naniwa_s['reply'] ) ); ?></p>
 						</div>
 					</div>
 				<?php endif; ?>

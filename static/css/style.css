@@ -1430,3 +1430,35 @@ body.no-estimate-cta .fixed-cta { display: none; }
   font-family: inherit;
 }
 .confirm-edit:hover { color: var(--green-700); }
+
+/* ---------- お客様の声：項目別評価 ---------- */
+.voice-single .article-meta .score {
+  font-weight: 800; color: var(--orange-600); font-size: 17px;
+}
+.voice-scores {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 2px 28px; margin: 0 0 30px;
+  border-top: 1px solid var(--line);
+}
+.voice-scores li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 4px; border-bottom: 1px solid var(--line);
+}
+.voice-scores .name {
+  flex: 1; font-size: 14.5px; font-weight: 700; color: var(--green-900);
+}
+.voice-scores .stars { color: #f5a623; letter-spacing: 2px; font-size: 15px; }
+.voice-scores .num {
+  min-width: 2.6em; text-align: right;
+  font-size: 14px; font-weight: 800; color: var(--ink-soft);
+}
+.voice-scores .is-none .stars { color: var(--line); }
+.voice-scores .is-none .name { color: var(--ink-soft); font-weight: 600; }
+
+.voice-single .h-sub { margin-top: 30px; }
+
+@media (max-width: 720px) {
+  .voice-scores { grid-template-columns: 1fr; gap: 0; }
+  .voice-scores .name { font-size: 13.5px; }
+  .voice-scores .stars { font-size: 14px; }
+}

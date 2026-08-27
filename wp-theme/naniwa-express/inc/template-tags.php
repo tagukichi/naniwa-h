@@ -28,7 +28,7 @@ function naniwa_blog_url() {
  * @return string
  */
 function naniwa_voice_face_url( $rating ) {
-	$file = ( (int) $rating >= 5 ) ? 'face-5.png' : 'face-4.png';
+	$file = ( round( (float) $rating ) >= 5 ) ? 'face-5.png' : 'face-4.png';
 	return get_theme_file_uri( '/assets/img/chars/' . $file );
 }
 
@@ -39,36 +39,40 @@ function naniwa_voice_face_url( $rating ) {
  * @return string
  */
 function naniwa_stars( $rating ) {
-	$rating = max( 0, min( 5, (int) $rating ) );
-	return str_repeat( '★', $rating ) . str_repeat( '☆', 5 - $rating );
+	$filled = (int) round( max( 0, min( 5, (float) $rating ) ) );
+	return str_repeat( '★', $filled ) . str_repeat( '☆', 5 - $filled );
 }
 
 /**
- * お客様の声カードを1枚출力する。voice-grid / voice-archive の両方で使う。
+ * お客様の声カードを1枚出力する。voice-grid / voice-archive の両方で使う。
  *
  * @param int $excerpt_length 抜粋の文字数。0 で全文.
  */
 function naniwa_voice_card( $excerpt_length = 0 ) {
-	$rating = (int) get_post_meta( get_the_ID(), '_naniwa_rating', true );
-	$plan   = get_post_meta( get_the_ID(), '_naniwa_plan', true );
-	$who    = get_post_meta( get_the_ID(), '_naniwa_who', true );
+	$summary = naniwa_voice_summary( get_the_ID() );
+	$rating  = $summary['rating'];
+	$tag     = naniwa_voice_tag_text( $summary );
+	$who     = naniwa_voice_who_text( $summary );
 
 	$body = has_excerpt() ? get_the_excerpt() : wp_strip_all_tags( get_the_content() );
+	if ( '' === trim( $body ) ) {
+		$body = $summary['good'];
+	}
 	if ( $excerpt_length > 0 ) {
 		$body = wp_trim_words( $body, $excerpt_length, '…' );
 	}
 	?>
 	<a class="voice-card" href="<?php the_permalink(); ?>">
 		<div class="voice-head">
-			<?php if ( $rating ) : ?>
-				<img class="voice-face" src="<?php echo esc_url( naniwa_voice_face_url( $rating ) ); ?>" alt="<?php echo esc_attr( '評価' . $rating ); ?>" width="64" height="64" loading="lazy">
+			<?php if ( null !== $rating ) : ?>
+				<img class="voice-face" src="<?php echo esc_url( naniwa_voice_face_url( $rating ) ); ?>" alt="<?php echo esc_attr( '評価' . round( $rating ) ); ?>" width="64" height="64" loading="lazy">
 			<?php endif; ?>
 			<div>
-				<?php if ( $rating ) : ?>
-					<span class="stars" aria-label="<?php echo esc_attr( '評価' . $rating ); ?>"><?php echo esc_html( naniwa_stars( $rating ) ); ?></span>
+				<?php if ( null !== $rating ) : ?>
+					<span class="stars" aria-label="<?php echo esc_attr( '5点満点中' . round( $rating, 1 ) . '点' ); ?>"><?php echo esc_html( naniwa_stars( $rating ) ); ?></span>
 				<?php endif; ?>
 				<p class="meta">
-					<?php if ( $plan ) : ?><span class="tag"><?php echo esc_html( $plan ); ?></span><?php endif; ?>
+					<?php if ( $tag ) : ?><span class="tag"><?php echo esc_html( $tag ); ?></span><?php endif; ?>
 					<?php if ( $who ) : ?><span class="who"><?php echo esc_html( $who ); ?></span><?php endif; ?>
 				</p>
 			</div>
