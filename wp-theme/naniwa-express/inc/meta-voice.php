@@ -43,8 +43,14 @@ function naniwa_voice_fields() {
 
 /**
  * メタボックスを追加する。
+ *
+ * ACF が同じ項目を管理している環境では出さない（入力欄が二重になるため）。
  */
 function naniwa_add_voice_meta_box() {
+	if ( function_exists( 'get_field_objects' ) ) {
+		return;
+	}
+
 	add_meta_box(
 		'naniwa-voice-detail',
 		'お客様の声の詳細',

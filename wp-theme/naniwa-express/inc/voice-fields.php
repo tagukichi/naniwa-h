@@ -2,8 +2,8 @@
 /**
  * お客様の声のフィールド取得
  *
- * 旧サイトは ACF で項目を持っており、meta_key が環境によって異なる可能性があるため、
- * フィールド名ではなく「ラベル」で照合する。ACF が無い環境では生の postmeta を見る。
+ * 旧サイトの ACF 定義（docs/acf-export-2026-08-27.json）に合わせている。
+ * フィールド名で直接引き、取れない場合はラベルで照合するフォールバックを持つ。
  *
  * @package naniwa
  */
@@ -13,22 +13,50 @@ defined( 'ABSPATH' ) || exit;
 /**
  * 評価の7軸（表示順）。
  *
- * @return array<int, array{label:string, aliases:array<int, string>}>
+ * @return array<int, array{label:string, name:string, aliases:array<int, string>}>
  */
 function naniwa_voice_axes() {
 	return array(
-		array( 'label' => '受付時の対応', 'aliases' => array( '受付時の対応', '受付の対応' ) ),
-		array( 'label' => '訪問見積り時', 'aliases' => array( '訪問見積り時', '訪問見積時', '見積り時の対応' ) ),
-		array( 'label' => '作業員の対応', 'aliases' => array( '作業員の対応', 'スタッフの対応' ) ),
-		array( 'label' => 'スムーズさ', 'aliases' => array( 'スムーズさ', '手際' ) ),
-		array( 'label' => 'サービス', 'aliases' => array( 'サービス' ) ),
-		array( 'label' => '料金', 'aliases' => array( '料　金', '料金' ) ),
-		array( 'label' => '満足度', 'aliases' => array( '満足度', '総合満足度' ) ),
+		array(
+			'label'   => '受付時の対応',
+			'name'    => 'rating_reception',
+			'aliases' => array( '受付時の対応（星の数を入力します）', '受付時の対応' ),
+		),
+		array(
+			'label'   => '訪問見積り時',
+			'name'    => 'rating_estimate',
+			'aliases' => array( '訪問見積り時（星の数を入力します）', '訪問見積り時' ),
+		),
+		array(
+			'label'   => '作業員の対応',
+			'name'    => 'rating_staff',
+			'aliases' => array( '作業員の対応（星の数を入力します）', '作業員の対応' ),
+		),
+		array(
+			'label'   => 'スムーズさ',
+			'name'    => 'rating_speed',
+			'aliases' => array( 'スムーズさ（星の数を入力します）', 'スムーズさ' ),
+		),
+		array(
+			'label'   => 'サービス',
+			'name'    => 'rating_service',
+			'aliases' => array( 'サービス（星の数を入力します）', 'サービス' ),
+		),
+		array(
+			'label'   => '料金',
+			'name'    => 'rating_price',
+			'aliases' => array( '料金（星の数を入力します）', '料　金' ),
+		),
+		array(
+			'label'   => '満足度',
+			'name'    => 'rating_total',
+			'aliases' => array( '満足度（星の数を入力します）', '満足度' ),
+		),
 	);
 }
 
 /**
- * 1件分のフィールドを「ラベル => 値」で返す。
+ * 1件分のフィールドを「ラベル => 値」で返す（フォールバック用）。
  *
  * @param int $post_id 投稿ID.
  * @return array<string, mixed>
@@ -52,132 +80,119 @@ function naniwa_voice_data( $post_id ) {
 		}
 	}
 
-	// ACF が無い、または値が取れない場合は生の postmeta で補う。
-	foreach ( get_post_meta( $post_id ) as $key => $values ) {
-		if ( '_' === substr( $key, 0, 1 ) || isset( $data[ $key ] ) ) {
-			continue;
-		}
-		$data[ $key ] = count( $values ) > 1 ? $values : reset( $values );
-	}
-
 	$cache[ $post_id ] = $data;
 	return $data;
 }
 
 /**
- * ラベル（別名可）で値を取り出す。
+ * フィールド名で値を取り出す。取れなければラベルで探す。
  *
- * @param array<string, mixed> $data    naniwa_voice_data() の戻り値.
- * @param array<int, string>   $aliases 候補ラベル.
- * @param string               $default 見つからないときの値.
+ * @param int                $post_id 投稿ID.
+ * @param string             $name    ACF のフィールド名.
+ * @param array<int, string> $aliases 代替のラベル.
  * @return string
  */
-function naniwa_voice_get( $data, $aliases, $default = '' ) {
-	foreach ( (array) $aliases as $label ) {
-		if ( ! isset( $data[ $label ] ) ) {
-			continue;
-		}
-		$value = $data[ $label ];
-		if ( is_array( $value ) ) {
-			$value = implode( '、', array_filter( array_map( 'strval', $value ) ) );
-		}
-		$value = trim( (string) $value );
-		if ( '' !== $value ) {
-			return $value;
+function naniwa_voice_field( $post_id, $name, $aliases = array() ) {
+	$value = null;
+
+	if ( function_exists( 'get_field' ) ) {
+		$value = get_field( $name, $post_id );
+	}
+	if ( null === $value || '' === $value || false === $value ) {
+		$value = get_post_meta( $post_id, $name, true );
+	}
+	if ( '' === $value || null === $value || false === $value ) {
+		$data = naniwa_voice_data( $post_id );
+		foreach ( (array) $aliases as $label ) {
+			if ( isset( $data[ $label ] ) && '' !== $data[ $label ] ) {
+				$value = $data[ $label ];
+				break;
+			}
 		}
 	}
-	return $default;
+
+	if ( is_array( $value ) ) {
+		$value = implode( '、', array_filter( array_map( 'strval', $value ) ) );
+	}
+	return trim( (string) $value );
 }
 
 /**
- * 0〜5 の評価値として取り出す。範囲外・非数値なら null。
+ * 0〜5 の評価値として取り出す。範囲外・未入力なら null。
  *
- * @param array<string, mixed> $data    naniwa_voice_data() の戻り値.
- * @param array<int, string>   $aliases 候補ラベル.
+ * @param int                $post_id 投稿ID.
+ * @param string             $name    ACF のフィールド名.
+ * @param array<int, string> $aliases 代替のラベル.
  * @return float|null
  */
-function naniwa_voice_rating( $data, $aliases ) {
-	foreach ( (array) $aliases as $label ) {
-		if ( ! isset( $data[ $label ] ) || is_array( $data[ $label ] ) ) {
-			continue;
-		}
-		$value = trim( (string) $data[ $label ] );
-		if ( '' === $value || ! is_numeric( $value ) ) {
-			continue;
-		}
-		$value = (float) $value;
-		if ( $value >= 0 && $value <= 5 ) {
-			return $value;
-		}
+function naniwa_voice_rating( $post_id, $name, $aliases = array() ) {
+	$value = naniwa_voice_field( $post_id, $name, $aliases );
+	if ( '' === $value || ! is_numeric( $value ) ) {
+		return null;
 	}
-	return null;
+	$value = (float) $value;
+	return ( $value >= 0 && $value <= 5 ) ? $value : null;
 }
 
 /**
- * 料金（金額）を取り出す。評価軸の「料　金」と混同しないよう 0〜5 の値は除外する。
+ * 料金（金額）を整形して返す。
  *
- * @param array<string, mixed> $data naniwa_voice_data() の戻り値.
+ * @param int $post_id 投稿ID.
  * @return string
  */
-function naniwa_voice_price( $data ) {
-	foreach ( array( '料金', 'ご料金', '金額', '料　金' ) as $label ) {
-		if ( ! isset( $data[ $label ] ) || is_array( $data[ $label ] ) ) {
-			continue;
-		}
-		$value = trim( (string) $data[ $label ] );
-		if ( '' === $value ) {
-			continue;
-		}
-		// 0〜5 の数値は評価軸なので金額としては扱わない。
-		if ( is_numeric( $value ) && (float) $value >= 0 && (float) $value <= 5 ) {
-			continue;
-		}
-		if ( is_numeric( str_replace( ',', '', $value ) ) ) {
-			return number_format( (float) str_replace( ',', '', $value ) ) . '円';
-		}
-		return $value;
+function naniwa_voice_price( $post_id ) {
+	$value = naniwa_voice_field( $post_id, 'fee', array( '料金' ) );
+	if ( '' === $value ) {
+		return '';
 	}
-	return '';
+	$digits = str_replace( array( ',', '円', '￥', '¥' ), '', $value );
+	if ( is_numeric( $digits ) ) {
+		return number_format( (float) $digits ) . '円';
+	}
+	return $value;
 }
 
 /**
- * カード・詳細で共通して使う代表値をまとめて返す。
+ * カード・詳細で共通して使う値をまとめて返す。
  *
  * @param int $post_id 投稿ID.
  * @return array<string, string|float|null>
  */
 function naniwa_voice_summary( $post_id ) {
-	$data = naniwa_voice_data( $post_id );
+	// 顔アイコン用の総合評価。「評価画像」が無ければ満足度で代用する。
+	$rating = naniwa_voice_rating( $post_id, 'rating', array( '評価画像' ) );
+	if ( null === $rating ) {
+		$rating = naniwa_voice_rating( $post_id, 'rating_total', array( '満足度（星の数を入力します）', '満足度' ) );
+	}
 
-	$overall = naniwa_voice_rating( $data, array( '満足度', '総合満足度', '評価' ) );
-
-	// 満足度が無い場合は他の軸の平均で代用する。
-	if ( null === $overall ) {
+	// それも無ければ、値の入っている軸の平均で代用する。
+	if ( null === $rating ) {
 		$values = array();
 		foreach ( naniwa_voice_axes() as $axis ) {
-			$one = naniwa_voice_rating( $data, $axis['aliases'] );
+			$one = naniwa_voice_rating( $post_id, $axis['name'], $axis['aliases'] );
 			if ( null !== $one && $one > 0 ) {
 				$values[] = $one;
 			}
 		}
 		if ( $values ) {
-			$overall = array_sum( $values ) / count( $values );
+			$rating = array_sum( $values ) / count( $values );
 		}
 	}
 
 	return array(
-		'rating'  => $overall,
-		'kind'    => naniwa_voice_get( $data, array( '引越種別', '種別', 'コース', '引越プラン種別' ) ),
-		'plan'    => naniwa_voice_get( $data, array( '引越プラン', 'プラン' ) ),
-		'area'    => naniwa_voice_get( $data, array( '地域', '区間', 'お引越し区間', 'エリア' ) ),
-		'age'     => naniwa_voice_get( $data, array( '年代', '年齢' ) ),
-		'gender'  => naniwa_voice_get( $data, array( '性別' ) ),
-		'date'    => naniwa_voice_get( $data, array( '作業日', '引越日' ) ),
-		'rated'   => naniwa_voice_get( $data, array( '評価日', '投稿日' ) ),
-		'price'   => naniwa_voice_price( $data ),
-		'good'    => naniwa_voice_get( $data, array( '良かった点', 'よかった点' ) ),
-		'bad'     => naniwa_voice_get( $data, array( '悪かった点', 'わるかった点' ) ),
-		'reply'   => naniwa_voice_get( $data, array( 'なにわ引越センターより', '返信', '弊社より', 'コメント返信' ) ),
+		'rating'  => $rating,
+		'kind'    => naniwa_voice_field( $post_id, 'kinds', array( '引越の種別' ) ),
+		'grade'   => naniwa_voice_field( $post_id, 'grade', array( 'グレード' ) ),
+		'area'    => naniwa_voice_field( $post_id, 'place', array( '地域（例：磯子区→中区）', '地域' ) ),
+		'lead'    => naniwa_voice_field( $post_id, 'introduction', array( '冒頭文章' ) ),
+		'age'     => naniwa_voice_field( $post_id, 'age', array( '年代' ) ),
+		'gender'  => naniwa_voice_field( $post_id, 'gender', array( '性別' ) ),
+		'workday' => naniwa_voice_field( $post_id, 'sagyoubi', array( '作業日' ) ),
+		'rated'   => naniwa_voice_field( $post_id, 'date', array( '評価日' ) ),
+		'price'   => naniwa_voice_price( $post_id ),
+		'good'    => naniwa_voice_field( $post_id, 'good', array( '良かった点' ) ),
+		'bad'     => naniwa_voice_field( $post_id, 'bad', array( '悪かった点' ) ),
+		'reply'   => naniwa_voice_field( $post_id, 'message', array( 'メッセージ' ) ),
 	);
 }
 
@@ -188,7 +203,7 @@ function naniwa_voice_summary( $post_id ) {
  * @return string
  */
 function naniwa_voice_tag_text( $s ) {
-	return trim( $s['kind'] . ( $s['kind'] && $s['plan'] ? ' ' : '' ) . $s['plan'] );
+	return trim( $s['kind'] . ( $s['kind'] && $s['grade'] ? ' ' : '' ) . $s['grade'] );
 }
 
 /**
@@ -198,6 +213,5 @@ function naniwa_voice_tag_text( $s ) {
  * @return string
  */
 function naniwa_voice_who_text( $s ) {
-	$parts = array_filter( array( $s['area'], $s['age'], $s['gender'] ) );
-	return implode( '／', $parts );
+	return implode( '／', array_filter( array( $s['area'], $s['age'], $s['gender'] ) ) );
 }

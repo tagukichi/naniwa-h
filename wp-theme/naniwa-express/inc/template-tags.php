@@ -54,7 +54,11 @@ function naniwa_voice_card( $excerpt_length = 0 ) {
 	$tag     = naniwa_voice_tag_text( $summary );
 	$who     = naniwa_voice_who_text( $summary );
 
-	$body = has_excerpt() ? get_the_excerpt() : wp_strip_all_tags( get_the_content() );
+	// 一覧に出す本文は「冒頭文章」を最優先で使う（既存サイトと同じ挙動）。
+	$body = $summary['lead'];
+	if ( '' === $body ) {
+		$body = has_excerpt() ? get_the_excerpt() : wp_strip_all_tags( get_the_content() );
+	}
 	if ( '' === trim( $body ) ) {
 		$body = $summary['good'];
 	}

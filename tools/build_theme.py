@@ -553,7 +553,7 @@ VOICE_LOOP = """\t\t\t<?php
 NEWS_LOOP = """\t\t\t<?php
 \t\t\t$naniwa_news = new WP_Query(
 \t\t\t\tarray(
-\t\t\t\t\t'post_type'           => 'news',
+\t\t\t\t\t'post_type'           => 'topics',
 \t\t\t\t\t'posts_per_page'      => 5,
 \t\t\t\t\t'ignore_sticky_posts' => true,
 \t\t\t\t)

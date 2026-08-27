@@ -10,7 +10,7 @@ get_header();
 naniwa_page_head( 'NEWS', 'お知らせ', '', 'chars/ico-calendar-white.svg' );
 naniwa_breadcrumb(
 	array(
-		array( 'label' => 'お知らせ', 'url' => get_post_type_archive_link( 'news' ) ),
+		array( 'label' => 'お知らせ', 'url' => get_post_type_archive_link( 'topics' ) ),
 		array( 'label' => get_the_title() ),
 	)
 );
@@ -26,7 +26,7 @@ naniwa_breadcrumb(
 				<h2 class="h-sec"><?php the_title(); ?></h2>
 				<div class="article-body"><?php the_content(); ?></div>
 				<p class="center-more" style="margin-top:40px;">
-					<a class="btn btn-outline" href="<?php echo esc_url( get_post_type_archive_link( 'news' ) ); ?>">← お知らせ一覧へ戻る</a>
+					<a class="btn btn-outline" href="<?php echo esc_url( get_post_type_archive_link( 'topics' ) ); ?>">← お知らせ一覧へ戻る</a>
 				</p>
 			</article>
 		<?php endwhile; ?>

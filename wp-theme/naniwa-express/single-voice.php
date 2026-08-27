@@ -22,8 +22,8 @@ naniwa_breadcrumb(
 		while ( have_posts() ) :
 			the_post();
 
-			$naniwa_data = naniwa_voice_data( get_the_ID() );
-			$naniwa_s    = naniwa_voice_summary( get_the_ID() );
+			$naniwa_id = get_the_ID();
+			$naniwa_s  = naniwa_voice_summary( $naniwa_id );
 			$naniwa_tag  = naniwa_voice_tag_text( $naniwa_s );
 			?>
 			<article class="voice-single">
@@ -42,6 +42,10 @@ naniwa_breadcrumb(
 
 				<h2 class="h-sec"><?php the_title(); ?></h2>
 
+				<?php if ( $naniwa_s['lead'] ) : ?>
+					<div class="article-body voice-lead"><p><?php echo nl2br( esc_html( $naniwa_s['lead'] ) ); ?></p></div>
+				<?php endif; ?>
+
 				<?php
 				// 概要テーブル。値のある行だけを出す。
 				$naniwa_rows = array_filter(
@@ -49,7 +53,7 @@ naniwa_breadcrumb(
 						'引越プラン'  => $naniwa_tag,
 						'地域'        => $naniwa_s['area'],
 						'年代・性別'  => trim( $naniwa_s['age'] . ( $naniwa_s['age'] && $naniwa_s['gender'] ? '／' : '' ) . $naniwa_s['gender'] ),
-						'作業日'      => $naniwa_s['date'],
+						'作業日'      => $naniwa_s['workday'],
 						'料金'        => $naniwa_s['price'],
 						'評価日'      => $naniwa_s['rated'],
 					)
@@ -71,7 +75,7 @@ naniwa_breadcrumb(
 				// 7軸の評価。1つでも値があれば表示する。
 				$naniwa_axes = array();
 				foreach ( naniwa_voice_axes() as $naniwa_axis ) {
-					$naniwa_value = naniwa_voice_rating( $naniwa_data, $naniwa_axis['aliases'] );
+					$naniwa_value = naniwa_voice_rating( $naniwa_id, $naniwa_axis['name'], $naniwa_axis['aliases'] );
 					if ( null !== $naniwa_value ) {
 						$naniwa_axes[ $naniwa_axis['label'] ] = $naniwa_value;
 					}
@@ -109,7 +113,7 @@ naniwa_breadcrumb(
 						<p class="reply-head">なにわ引越センターより</p>
 						<div class="reply-body">
 							<img class="reply-mark" src="<?php echo esc_url( get_theme_file_uri( '/assets/img/chars/eagle-mark.svg' ) ); ?>" alt="" width="120" height="120" loading="lazy">
-							<p><?php echo nl2br( esc_html( $naniwa_s['reply'] ) ); ?></p>
+							<?php echo wp_kses_post( wpautop( $naniwa_s['reply'] ) ); ?>
 						</div>
 					</div>
 				<?php endif; ?>

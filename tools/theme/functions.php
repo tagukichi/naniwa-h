@@ -119,7 +119,7 @@ function naniwa_pre_get_posts( $query ) {
 	if ( $query->is_post_type_archive( 'voice' ) ) {
 		$query->set( 'posts_per_page', 12 );
 	}
-	if ( $query->is_post_type_archive( 'news' ) ) {
+	if ( $query->is_post_type_archive( 'topics' ) ) {
 		$query->set( 'posts_per_page', 20 );
 	}
 }
