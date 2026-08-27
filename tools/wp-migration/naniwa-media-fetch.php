@@ -2,7 +2,7 @@
 /**
  * Plugin Name: なにわ メディア取り込み
  * Description: 旧サイトからメディアファイルだけを HTTP 経由で取得する移行用ツール。DB（添付ファイルの登録情報）は取り込み済みで、実ファイルだけが無い状態を想定しています。移行が終わったらこのファイルを削除してください。
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: なにわ引越センター
  *
  * 使い方:
@@ -34,6 +34,23 @@ function naniwa_mf_menu() {
 	);
 }
 add_action( 'admin_menu', 'naniwa_mf_menu' );
+
+/**
+ * 入力されたベースURLを整える。
+ *
+ * 以前のバージョンが二重エンコードした値を保存している場合があるため、
+ * %3A / %2F が残っていたらデコードしてから扱う。
+ *
+ * @param string $raw 入力値.
+ * @return string
+ */
+function naniwa_mf_clean_base( $raw ) {
+	$raw = (string) $raw;
+	if ( false !== strpos( $raw, '%3A' ) || false !== strpos( $raw, '%2F' ) ) {
+		$raw = rawurldecode( $raw );
+	}
+	return untrailingslashit( esc_url_raw( $raw ) );
+}
 
 /**
  * 添付ファイルの総数を返す。
@@ -159,7 +176,7 @@ function naniwa_mf_page() {
 	}
 
 	$total  = naniwa_mf_total();
-	$base   = get_option( NANIWA_MF_OPTION, '' );
+	$base   = naniwa_mf_clean_base( get_option( NANIWA_MF_OPTION, '' ) );
 	$limit  = 20;
 	$offset = 0;
 	$result = null;
@@ -169,7 +186,7 @@ function naniwa_mf_page() {
 	if ( $running ) {
 		check_admin_referer( 'naniwa_mf_run' );
 
-		$base   = isset( $_GET['base'] ) ? esc_url_raw( wp_unslash( $_GET['base'] ) ) : $base;
+		$base   = isset( $_GET['base'] ) ? naniwa_mf_clean_base( wp_unslash( $_GET['base'] ) ) : $base;
 		$offset = isset( $_GET['offset'] ) ? max( 0, (int) $_GET['offset'] ) : 0;
 		$limit  = isset( $_GET['limit'] ) ? max( 1, min( 200, (int) $_GET['limit'] ) ) : 20;
 
@@ -181,20 +198,22 @@ function naniwa_mf_page() {
 	}
 	// phpcs:enable
 
-	$next_url = '';
-	if ( $result && $result['done'] >= $limit ) {
-		$next_url = wp_nonce_url(
-			add_query_arg(
-				array(
-					'page'   => NANIWA_MF_SLUG,
-					'run'    => 1,
-					'base'   => rawurlencode( $base ),
-					'offset' => $offset + $limit,
-					'limit'  => $limit,
-				),
-				admin_url( 'tools.php' )
+	$next_offset = $offset + $limit;
+	$next_url    = '';
+
+	if ( $result && $result['done'] >= $limit && $next_offset < $total ) {
+		// wp_nonce_url() は戻り値を esc_html するため & が &#038; になり、
+		// JavaScript の遷移先として使うとクエリが壊れる。ここでは自前で組み立てる。
+		$next_url = add_query_arg(
+			array(
+				'page'     => NANIWA_MF_SLUG,
+				'run'      => 1,
+				'base'     => $base,
+				'offset'   => $next_offset,
+				'limit'    => $limit,
+				'_wpnonce' => wp_create_nonce( 'naniwa_mf_run' ),
 			),
-			'naniwa_mf_run'
+			admin_url( 'tools.php' )
 		);
 	}
 	?>
@@ -233,8 +252,8 @@ function naniwa_mf_page() {
 			<?php endif; ?>
 
 			<?php if ( $next_url ) : ?>
-				<p><strong>続きを処理しています。このページを閉じないでください…</strong></p>
-				<p><a class="button" href="<?php echo esc_url( $next_url ); ?>">自動で進まない場合はこちら</a></p>
+				<p><strong>続きを処理しています（<?php echo esc_html( number_format_i18n( $next_offset ) . ' / ' . number_format_i18n( $total ) ); ?>）。このページを閉じないでください…</strong></p>
+				<p><a class="button button-primary" href="<?php echo esc_url( $next_url ); ?>">自動で進まない場合はこちらをクリック</a></p>
 				<script>setTimeout(function () { location.href = <?php echo wp_json_encode( $next_url ); ?>; }, 800);</script>
 			<?php else : ?>
 				<div class="notice notice-success"><p><strong>すべての処理が完了しました。</strong></p></div>
