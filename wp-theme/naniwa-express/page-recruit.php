@@ -57,7 +57,7 @@ get_header();
         <li>
           <p class="rc-label">途中休憩時間</p>
           <span class="rc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h14v7a4.5 4.5 0 0 1-4.5 4.5h-5A4.5 4.5 0 0 1 3 16V9z"/><path d="M17 11h1.5a2.75 2.75 0 0 1 0 5.5H17"/><path d="M6.5 3v2.5M10 3v2.5M13.5 3v2.5"/></svg></span>
-          <p class="rc-value">約2<small>時間</small></p>
+          <p class="rc-value">1<small>時間</small></p>
         </li>
         <li>
           <p class="rc-label">正社員登用</p>
@@ -119,19 +119,19 @@ get_header();
           <div class="qa-list">
             <details class="faq-item" open>
               <summary>入社のきっかけ</summary>
-              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。入社前に何をしていたか、なにわ引越センターを知ったきっかけ、決め手になったポイントなどを2〜4行程度で。）</p></div>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります）</p></div>
             </details>
             <details class="faq-item">
-              <summary>会社の雰囲気・魅力</summary>
-              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。職場の雰囲気、スタッフ同士の関係、働きやすいと感じる点などを2〜4行程度で。）</p></div>
+              <summary>やりがい</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります）</p></div>
             </details>
             <details class="faq-item">
-              <summary>仕事のやりがい</summary>
-              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。お客様から言われて嬉しかった言葉、達成感を感じる瞬間などを2〜4行程度で。）</p></div>
+              <summary>仕事を通じての思い出</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります）</p></div>
             </details>
             <details class="faq-item">
-              <summary>応募を考えている方へ</summary>
-              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります。未経験の方への一言、こんな人と一緒に働きたい、などを2〜4行程度で。）</p></div>
+              <summary>入社を考えている方々にメッセージ</summary>
+              <div class="faq-answer"><p class="txt">（Sさんの回答が入ります）</p></div>
             </details>
           </div>
         </div>
@@ -148,20 +148,20 @@ get_header();
           </div>
           <div class="qa-list">
             <details class="faq-item" open>
-              <summary>入社のきっかけ</summary>
-              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。入社前に何をしていたか、なにわ引越センターを知ったきっかけ、決め手になったポイントなどを2〜4行程度で。）</p></div>
+              <summary>入社動機とこの会社に決めた理由</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります）</p></div>
             </details>
             <details class="faq-item">
-              <summary>会社の雰囲気・魅力</summary>
-              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。職場の雰囲気、スタッフ同士の関係、働きやすいと感じる点などを2〜4行程度で。）</p></div>
+              <summary>入社後の感想</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります）</p></div>
             </details>
             <details class="faq-item">
-              <summary>仕事のやりがい</summary>
-              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。お客様から言われて嬉しかった言葉、達成感を感じる瞬間などを2〜4行程度で。）</p></div>
+              <summary>目標</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります）</p></div>
             </details>
             <details class="faq-item">
-              <summary>応募を考えている方へ</summary>
-              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります。未経験の方への一言、こんな人と一緒に働きたい、などを2〜4行程度で。）</p></div>
+              <summary>入社を考えている方々にメッセージ</summary>
+              <div class="faq-answer"><p class="txt">（Nさんの回答が入ります）</p></div>
             </details>
           </div>
         </div>
@@ -199,7 +199,13 @@ get_header();
           <tbody>
             <tr>
               <th>職種</th>
-              <td>引越助手・ドライバー</td>
+              <td>
+                <ul class="dot-list">
+                  <li>1t、2tドライバー（AT限定可）</li>
+                  <li>引越しのお手伝い（荷物の運搬）</li>
+                </ul>
+                <p class="note">※適性や希望を考慮して配属先を決定します</p>
+              </td>
             </tr>
             <tr>
               <th>雇用形態</th>
@@ -226,14 +232,35 @@ get_header();
                   <li>固定残業代：あり<br>
                     1日あたり 3,125円（固定残業時間：1日あたり2時間）<br>
                     固定残業時間を超えた勤務時間については、別途残業代を支給します。</li>
-                  <li>【一律手当】全員に一律で支払われる精勤・皆勤・家族手当金額：1日あたり 1,875円</li>
+                  <li>【一律手当】<br>
+                    全員に一律で支払われる通勤・皆勤・家族手当金額：なし<br>
+                    全員に一律で支払われるその他手当金額：あり（1日あたり 1,875円）</li>
                 </ul>
-                <p class="note">※上記は運転手（ドライバー）の場合の金額です。</p>
+                <p class="note">
+                  ※一律手当は運転手当になります。<br>
+                  ※実働8時間を超えた勤務には残業手当を支給します。<br>
+                  ※経験・スキルを考慮し決定します。<br>
+                  ※試用・研修期間なし
+                </p>
+                <ul class="rc-checks">
+                  <li>繁忙期には最大日給 25,000円も！</li>
+                  <li>2月・6月・10月はプチボーナス支給♪（業績連動型）</li>
+                  <li>昇給あり</li>
+                  <li>各種手当あり<br><span class="sub">繁忙期手当／精勤手当／残業手当／運転手当／無事故手当／家族手当／営業手当／管理者手当／責任者手当</span></li>
+                  <li>日払い・週払いや、給与の手渡し支給もOK！</li>
+                </ul>
+                <p class="note">お気軽にご相談ください♪</p>
+                <p class="cond-head">月収例</p>
+                <ul class="dot-list">
+                  <li>【高校3年生】週1日勤務／月収6万円</li>
+                  <li>【20代学生】週3日勤務／月収18万円</li>
+                  <li>【30代フリーター】週5日勤務／月収30万円</li>
+                </ul>
               </td>
             </tr>
             <tr>
               <th>試用期間</th>
-              <td>あり<br>※期間・条件は面談時にご説明します。</td>
+              <td>なし<br><span class="note">※試用・研修期間なし</span></td>
             </tr>
             <tr>
               <th>勤務時間</th>
@@ -256,8 +283,17 @@ get_header();
               <td>シフト制<br>※ご希望の休日を伺ったうえでシフトを組みます。</td>
             </tr>
             <tr>
-              <th>待遇・福利厚生</th>
-              <td>運転免許取得支援（費用は全額支給）</td>
+              <th>社会保険</th>
+              <td><span class="placeholder">（社会保険の内容が入ります。資料をいただき次第差し替えます）</span></td>
+            </tr>
+            <tr>
+              <th>福利厚生</th>
+              <td>
+                <ul class="dot-list">
+                  <li>運転免許取得支援（費用は全額支給）</li>
+                </ul>
+                <p class="placeholder">（その他の福利厚生が入ります。資料をいただき次第追記します）</p>
+              </td>
             </tr>
             <tr>
               <th>応募条件</th>
