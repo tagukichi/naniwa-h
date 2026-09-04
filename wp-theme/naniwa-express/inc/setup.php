@@ -114,7 +114,7 @@ function naniwa_setup_page() {
 		$action = sanitize_key( wp_unslash( $_POST['naniwa_setup_action'] ) );
 
 		if ( 'create' === $action ) {
-			$result = naniwa_setup_create_pages();
+			$result = array( 'type' => 'created' ) + naniwa_setup_create_pages();
 		} elseif ( 'map' === $action ) {
 			$map = array();
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -127,12 +127,12 @@ function naniwa_setup_page() {
 			}
 			update_option( NANIWA_PAGE_MAP_OPTION, $map );
 			flush_rewrite_rules();
-			$result = 'mapped';
+			$result = array( 'type' => 'mapped' );
 		} elseif ( 'probe' === $action ) {
-			$result = naniwa_setup_probe();
+			$result = array( 'type' => 'probe', 'rows' => naniwa_setup_probe() );
 		} elseif ( 'flush' === $action ) {
 			flush_rewrite_rules();
-			$result = 'flushed';
+			$result = array( 'type' => 'flushed' );
 		}
 	}
 
@@ -144,7 +144,8 @@ function naniwa_setup_page() {
 		<p>このテーマは<strong>固定ページのスラッグ</strong>でデザインを割り当てます。<br>
 			スラッグが一致していないと、そのページは 404 になるか、デザインが当たらない素の状態で表示されます。</p>
 
-		<?php if ( is_array( $result ) ) : ?>
+		<?php $naniwa_type = is_array( $result ) && isset( $result['type'] ) ? $result['type'] : ''; ?>
+		<?php if ( 'created' === $naniwa_type ) : ?>
 			<div class="notice notice-success">
 				<p>
 					<?php
@@ -159,9 +160,9 @@ function naniwa_setup_page() {
 					<p>作成: <code><?php echo esc_html( implode( '</code>, <code>', $result['created'] ) ); ?></code></p>
 				<?php endif; ?>
 			</div>
-		<?php elseif ( 'mapped' === $result ) : ?>
+		<?php elseif ( 'mapped' === $naniwa_type ) : ?>
 			<div class="notice notice-success"><p>ページの割り当てを保存しました。</p></div>
-		<?php elseif ( 'flushed' === $result ) : ?>
+		<?php elseif ( 'flushed' === $naniwa_type ) : ?>
 			<div class="notice notice-success"><p>パーマリンクを再構築しました。</p></div>
 		<?php endif; ?>
 
@@ -274,13 +275,13 @@ function naniwa_setup_page() {
 				<strong>下書きのままのページは 404 になります。</strong>その場合は「編集」から公開してください。</p>
 		</form>
 
-		<?php if ( is_array( $result ) && isset( $result[0]['status'] ) ) : ?>
+		<?php if ( 'probe' === $naniwa_type ) : ?>
 			<h2>URLの応答チェック結果</h2>
 			<p class="description">サーバーが実際に返したステータスです。<code>200</code> 以外は原因の切り分けに使えます。</p>
 			<table class="widefat striped" style="margin-bottom:24px;">
 				<thead><tr><th style="width:18%;">想定スラッグ</th><th style="width:30%;">URL</th><th style="width:12%;">応答</th><th>判定</th></tr></thead>
 				<tbody>
-					<?php foreach ( $result as $row ) : ?>
+					<?php foreach ( $result['rows'] as $row ) : ?>
 						<tr>
 							<td><code><?php echo esc_html( $row['key'] ); ?></code></td>
 							<td><code><?php echo esc_html( $row['path'] ); ?></code></td>
