@@ -43,8 +43,8 @@
 
 `single` `family` `couple` `now` `office` `disused` `flow` `packing` `others`
 `faq` `checklist` `company` `kiyaku` `recruit`
-`estimate-step1`〜`estimate-step5` `estimate-step6-1`〜`estimate-step6-3`
-`estimate-step7` `estimate-confirm` `estimate-thanks`
+`estimate-step1`〜`estimate-step7`
+`estimate-confirm` `estimate-thanks`
 
 ### ブログ
 
@@ -104,14 +104,19 @@ ACF が無効な環境では、テーマが簡易的な入力欄を代わりに�
 
 ### web見積フォーム（STEP1〜7）
 
-テーマ内で完結しています。プラグインは不要です。
+テーマ内で完結しています。Contact Form 7 等のプラグインは不要です。
 
 - 各ステップは POST で次のステップへ値を引き継ぎます
 - 確認画面で入力内容を一覧表示し、「修正する」で各ステップへ戻れます（入力内容は保持されます）
-- 送信すると `wp_mail()` で **管理者メールアドレス**（設定 → 一般）宛に通知し、
-  `/estimate-thanks/` へリダイレクトします
+- STEP6（荷物情報）は82項目を1ページにまとめ、カテゴリ内リンクで移動できます
 
-送信先を変えたい場合は、子テーマや functions.php で以下のフィルターを使ってください。
+送信すると、次の3つが実行されます。
+
+1. **管理者宛メール**（設定 → 一般 の管理者アドレス。Reply-To はお客様のアドレス）
+2. **お客様宛の自動返信メール**（入力内容の控え付き）
+3. **送信内容をDBに保存**（管理画面「web見積の送信」に一覧表示）
+
+管理者の宛先を変えたい場合：
 
 ```php
 add_filter( 'naniwa_estimate_mail_to', function () {
@@ -119,8 +124,30 @@ add_filter( 'naniwa_estimate_mail_to', function () {
 } );
 ```
 
+自動返信の件名・本文を変えたい場合：
+
+```php
+add_filter( 'naniwa_estimate_autoreply_subject', function ( $subject ) {
+	return '【なにわ引越センター】お見積りを承りました';
+} );
+
+add_filter( 'naniwa_estimate_autoreply_body', function ( $body, $name, $detail ) {
+	return $body;
+}, 10, 3 );
+```
+
+> **スパム対策はテーマに含めていません。** 本番では Cloudflare 側で対応する前提です。
+>
 > **本番前に必ず実機でテスト送信してください。** レンタルサーバーによっては
 > `wp_mail()` が届かないことがあるため、WP Mail SMTP などの導入を推奨します。
+
+### 送信内容の保存
+
+管理画面の **web見積の送信** に、受信日時・お名前・電話番号・メールアドレス・
+ご希望プランが一覧で表示されます。詳細を開くと入力内容の全文が読めます。
+
+新規追加はできない設定にしてあります（フォーム経由でのみ増えます）。
+不要になったものは通常どおり削除できます。
 
 ---
 
@@ -155,7 +182,7 @@ naniwa-express/
 │   ├── setup.php              初期設定・診断画面
 │   ├── page-map.php           固定ページの割り当て解決
 │   ├── pages.php              必要な固定ページ一覧（自動生成）
-│   ├── cpt.php                カスタム投稿タイプ
+│   ├── cpt.php                カスタム投稿タイプ（voice / topics / estimate）
 │   ├── meta-voice.php         お客様の声の入力欄（ACF非導入時のみ）
 │   ├── voice-fields.php       お客様の声のフィールド取得
 │   ├── template-tags.php      テンプレート用ヘルパー

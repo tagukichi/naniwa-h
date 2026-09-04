@@ -112,7 +112,7 @@ naniwa_estimate_carry_over( array( 'aircon_off', 'aircon_on', 'dishwasher_off', 
         </div>
       </div>
       <div class="form-actions">
-      <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( naniwa_page_url( 'estimate-step6-3' ) ); ?>" formnovalidate>←　戻る</button>
+      <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( naniwa_page_url( 'estimate-step6' ) ); ?>" formnovalidate>←　戻る</button>
       <button class="btn btn-primary" type="submit">入力内容を確認する　→</button>
       </div>
     </form>

@@ -1491,3 +1491,36 @@ body.no-estimate-cta .fixed-cta { display: none; }
 @media (max-width: 860px) {
   .rc-benefits { grid-template-columns: 1fr; gap: 4px; }
 }
+
+/* 見積STEP6：カテゴリ内リンクとリード文 */
+.item-nav {
+  margin: 0 32px 4px; padding: 16px 18px;
+  background: var(--green-050); border: 1px solid var(--green-100); border-radius: 12px;
+}
+.item-nav-title {
+  font-size: 12px; font-weight: 800; letter-spacing: .1em;
+  color: var(--green-700); margin-bottom: 10px;
+}
+.item-nav ul { display: flex; flex-wrap: wrap; gap: 8px; }
+.item-nav a {
+  display: block; padding: 7px 14px; border-radius: 999px;
+  background: var(--white); border: 1px solid var(--green-100);
+  font-size: 13px; font-weight: 700; color: var(--green-700);
+  transition: background .2s ease, border-color .2s ease;
+}
+.item-nav a:hover { background: var(--green-100); border-color: var(--green-500); }
+.item-lead { margin: 14px 32px 0; font-size: 13.5px; color: var(--ink-soft); }
+.sp-only { display: none; }
+
+/* カテゴリ見出しは追従ヘッダーに隠れないよう余白を確保する */
+.item-grid { scroll-margin-top: 140px; }
+.form-inner .label[id] { scroll-margin-top: 140px; }
+
+@media (max-width: 860px) {
+  .item-nav { margin: 0 16px 4px; padding: 12px 14px; }
+  .item-nav ul { gap: 6px; }
+  .item-nav a { padding: 6px 12px; font-size: 12.5px; }
+  .item-lead { margin: 12px 16px 0; font-size: 13px; }
+  .sp-only { display: inline; }
+  .form-inner .label[id] { scroll-margin-top: 120px; }
+}

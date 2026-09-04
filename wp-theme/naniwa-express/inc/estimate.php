@@ -178,19 +178,102 @@ function naniwa_handle_estimate_submit() {
 		$lines[] = '';
 	}
 
+	$detail = implode( "\n", $lines );
+	$email  = naniwa_estimate_value( 'email' );
+
+	// 送信内容を保存しておく（メールが届かなかった場合の控えになる）
+	naniwa_estimate_store( $name, $detail );
+
+	// 1通目：管理者宛
 	$to      = apply_filters( 'naniwa_estimate_mail_to', get_option( 'admin_email' ) );
 	$subject = '【web見積】' . ( '' !== $name ? $name . ' 様' : 'お問い合わせ' );
-	$body    = "web見積フォームから以下の内容で送信がありました。\n\n" . implode( "\n", $lines );
 	$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
 
-	$email = naniwa_estimate_value( 'email' );
 	if ( $email && is_email( $email ) ) {
 		$headers[] = 'Reply-To: ' . $email;
 	}
 
-	wp_mail( $to, $subject, $body, $headers );
+	wp_mail( $to, $subject, "web見積フォームから以下の内容で送信がありました。\n\n" . $detail, $headers );
+
+	// 2通目：お客様宛の自動返信
+	if ( $email && is_email( $email ) ) {
+		naniwa_estimate_send_autoreply( $email, $name, $detail );
+	}
 
 	wp_safe_redirect( naniwa_page_url( 'estimate-thanks' ) );
 	exit;
+}
+
+/**
+ * お客様宛の自動返信メールを送る。
+ *
+ * @param string $email  宛先.
+ * @param string $name   お名前.
+ * @param string $detail 入力内容.
+ */
+function naniwa_estimate_send_autoreply( $email, $name, $detail ) {
+	$site = get_bloginfo( 'name' );
+	$from = apply_filters( 'naniwa_estimate_mail_to', get_option( 'admin_email' ) );
+
+	$subject = apply_filters(
+		'naniwa_estimate_autoreply_subject',
+		'【' . $site . '】お見積りのご依頼ありがとうございます'
+	);
+
+	$body = ( '' !== $name ? $name . ' 様' : 'お客様' ) . "\n\n"
+		. "この度は" . $site . "へお見積りをご依頼いただき、誠にありがとうございます。\n"
+		. "以下の内容で承りました。担当者より折り返しご連絡いたしますので、恐れ入りますがしばらくお待ちください。\n"
+		. "※単身・カップルのお客様には24時間以内にご返信いたします。\n\n"
+		. "──────────────────────\n"
+		. $detail . "\n"
+		. "──────────────────────\n\n"
+		. "お急ぎの場合はお電話でも承っております。\n"
+		. "フリーダイヤル：0120-562-728（9:00〜20:00／年中無休）\n\n"
+		. $site . "\n"
+		. home_url( '/' ) . "\n\n"
+		. "※このメールは自動送信です。ご返信いただいてもお答えできない場合があります。\n";
+
+	$headers = array(
+		'Content-Type: text/plain; charset=UTF-8',
+		'Reply-To: ' . $from,
+	);
+
+	wp_mail(
+		$email,
+		$subject,
+		apply_filters( 'naniwa_estimate_autoreply_body', $body, $name, $detail ),
+		$headers
+	);
+}
+
+/**
+ * 送信内容を投稿として保存する。
+ *
+ * @param string $name   お名前.
+ * @param string $detail 入力内容.
+ * @return int 投稿ID.
+ */
+function naniwa_estimate_store( $name, $detail ) {
+	$post_id = wp_insert_post(
+		array(
+			'post_type'    => 'estimate',
+			'post_status'  => 'private',
+			'post_title'   => ( '' !== $name ? $name . ' 様' : 'お名前なし' ) . '（' . wp_date( 'Y-m-d H:i' ) . '）',
+			'post_content' => $detail,
+		)
+	);
+
+	if ( ! $post_id || is_wp_error( $post_id ) ) {
+		return 0;
+	}
+
+	foreach ( array( 'name', 'kana', 'tel', 'email', 'plan' ) as $key ) {
+		$value = naniwa_estimate_value( $key );
+		if ( '' !== $value ) {
+			update_post_meta( $post_id, '_naniwa_' . $key, $value );
+		}
+	}
+
+	return (int) $post_id;
 }
 add_action( 'template_redirect', 'naniwa_handle_estimate_submit' );
