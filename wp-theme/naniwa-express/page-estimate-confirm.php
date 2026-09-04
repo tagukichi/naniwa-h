@@ -41,12 +41,8 @@ get_header();
       <li class="current">確認<br><span style="font-size:10.5px;font-weight:600;opacity:.9">内容確認</span></li>
     </ol>
 
-    <form class="form-card" method="post" action="<?php echo esc_url( naniwa_page_url( 'estimate-confirm' ) ); ?>">
-<?php
-wp_nonce_field( 'naniwa_estimate', 'naniwa_estimate_nonce' );
-// 入力内容をすべて hidden で持ち回ってから送信する。
-naniwa_estimate_carry_over();
-?>
+    <form class="form-card" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+<?php naniwa_estimate_form_fields(); ?>
       <h2>入力内容の確認</h2>
       <div class="form-inner">
         <p style="margin-bottom:22px;">下記の内容で送信します。修正が必要な場合は、各項目の「修正する」からお戻りください。</p>
@@ -73,7 +69,7 @@ foreach ( naniwa_estimate_steps() as $naniwa_slug => $naniwa_step ) :
 	$naniwa_printed = true;
 	?>
 		<h3 class="h-sub"><?php echo esc_html( $naniwa_step['title'] ); ?>
-			<button type="submit" formaction="<?php echo esc_url( naniwa_page_url( $naniwa_slug ) ); ?>" formnovalidate class="confirm-edit">修正する</button>
+			<button type="submit" name="naniwa_next" value="<?php echo esc_attr( $naniwa_slug ); ?>" formnovalidate class="confirm-edit">修正する</button>
 		</h3>
 		<table class="confirm-table" style="margin-bottom:30px;">
 			<tbody>
@@ -96,7 +92,7 @@ endif;
 ?>
       </div>
       <div class="form-actions">
-        <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( naniwa_page_url( 'estimate-step7' ) ); ?>" formnovalidate>←　戻る</button>
+        <button class="btn btn-back" type="submit" name="naniwa_next" value="estimate-step7" formnovalidate>←　戻る</button>
         <button class="btn btn-primary" type="submit" name="naniwa_estimate_submit" value="1">この内容で送信する</button>
       </div>
     </form>

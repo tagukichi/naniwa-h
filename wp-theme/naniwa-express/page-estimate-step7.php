@@ -41,12 +41,12 @@ get_header();
       <li class="current">Step7<br><span style="font-size:10.5px;font-weight:600;opacity:.9">オプション</span></li>
     </ol>
 
-    <form class="form-card" action="<?php echo esc_url( naniwa_page_url( 'estimate-confirm' ) ); ?>" method="post" novalidate>
+    <form class="form-card" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" novalidate>
       <h2>オプション</h2>
       <div class="form-inner">
 <?php
-// このステップより前の入力内容を hidden で持ち回る。
-naniwa_estimate_carry_over( array( 'aircon_off', 'aircon_on', 'dishwasher_off', 'dishwasher_on', 'other_items', 'other_request', 'special_off', 'special_on', 'washlet_off', 'washlet_on' ) );
+// 送信先は admin-post.php に固定し、入力内容はサーバー側で保持する。
+naniwa_estimate_form_fields();
 ?>
         <div class="form-row">
           <span class="label">エアコン <span class="req any">任意</span></span>
@@ -112,8 +112,8 @@ naniwa_estimate_carry_over( array( 'aircon_off', 'aircon_on', 'dishwasher_off', 
         </div>
       </div>
       <div class="form-actions">
-      <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( naniwa_page_url( 'estimate-items' ) ); ?>" formnovalidate>←　戻る</button>
-      <button class="btn btn-primary" type="submit">入力内容を確認する　→</button>
+      <button class="btn btn-back" type="submit" name="naniwa_next" value="estimate-items" formnovalidate>←　戻る</button>
+      <button class="btn btn-primary" type="submit" name="naniwa_next" value="estimate-confirm">入力内容を確認する　→</button>
       </div>
     </form>
 

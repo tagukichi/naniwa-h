@@ -389,32 +389,59 @@ def prefill(body):
     return body
 
 
+def slug_from_php_url(fragment):
+    """naniwa_page_url( 'xxx' ) を含む断片からスラッグを取り出す。"""
+    m = re.search(r"naniwa_page_url\( '([a-z0-9-]+)' \)", fragment)
+    return m.group(1) if m else ""
+
+
 def estimate_form(body, stem):
-    """ステップのフォームを POST 化し、値の引き継ぎと送信ボタンを組み込む。"""
-    names = sorted({m.group(1) for m in re.finditer(r'name="([^"\[]+)(?:\[[^"]*\])?"', body)})
-    exclude = ", ".join(f"'{n}'" for n in names)
+    """ステップのフォームを admin-post.php 経由の送信に組み替える。
+
+    ページURLへ直接 POST するとサーバー側で弾かれる環境があるため、
+    送信先は WordPress 標準の admin-post.php に固定し、
+    遷移先は naniwa_next の値で指定する（POST/Redirect/GET）。
+    """
+    # 「次へ」の遷移先は、元のフォームの action から取る。
+    action_match = re.search(r'action="(?P<url>[^"]*)"', body)
+    next_slug = slug_from_php_url(action_match.group("url")) if action_match else ""
 
     body = body.replace('method="get"', 'method="post"')
+    body = re.sub(
+        r'action="[^"]*"',
+        'action="<?php echo esc_url( admin_url( \'admin-post.php\' ) ); ?>"',
+        body,
+        count=1,
+    )
 
-    carry = (
+    hidden = (
         "\n<?php\n"
-        "// このステップより前の入力内容を hidden で持ち回る。\n"
-        f"naniwa_estimate_carry_over( array( {exclude} ) );\n"
+        "// 送信先は admin-post.php に固定し、入力内容はサーバー側で保持する。\n"
+        "naniwa_estimate_form_fields();\n"
         "?>"
     )
-    # action 属性に PHP を埋め込んだ後だと <form> のタグ終端を正規表現で取れないため、
-    # hidden は form-inner の先頭に差し込む（input[type=hidden] はレイアウトに影響しない）。
-    body = re.sub(r'(<div class="form-inner">)', lambda m: m.group(1) + carry, body, count=1)
+    body = re.sub(r'(<div class="form-inner">)', lambda m: m.group(1) + hidden, body, count=1)
 
-    # 「次へ」「戻る」がリンクのままだと入力が送信されないため submit に変える。
+    # 「戻る」「次へ」はリンクのままだと送信されないので submit に変える。
+    # 遷移先はボタンの value で渡す。
+    def back_button(m):
+        slug = slug_from_php_url(m.group("url"))
+        return (
+            f'<button class="btn btn-back" type="submit" name="naniwa_next" '
+            f'value="{slug}" formnovalidate>{m.group("text")}</button>'
+        )
+
     body = re.sub(
         r'<a class="btn btn-back" href="(?P<url>[^"]*)"[^>]*>(?P<text>[^<]*)</a>',
-        lambda m: f'<button class="btn btn-back" type="submit" formaction="{m.group("url")}" formnovalidate>{m.group("text")}</button>',
+        back_button,
         body,
     )
     body = re.sub(
         r'<a class="btn btn-primary" href="[^"]*"[^>]*>(?P<text>[^<]*)</a>',
-        lambda m: f'<button class="btn btn-primary" type="submit">{m.group("text")}</button>',
+        lambda m: (
+            f'<button class="btn btn-primary" type="submit" name="naniwa_next" '
+            f'value="{next_slug}">{m.group("text")}</button>'
+        ),
         body,
     )
 
@@ -429,14 +456,8 @@ def build_confirm_body(body):
         raise SystemExit("estimate-confirm: form が見つかりません")
 
     form = (
-        '<form class="form-card" method="post" action="'
-        + page_url("estimate-confirm")
-        + '">\n'
-        "<?php\n"
-        "wp_nonce_field( 'naniwa_estimate', 'naniwa_estimate_nonce' );\n"
-        "// 入力内容をすべて hidden で持ち回ってから送信する。\n"
-        "naniwa_estimate_carry_over();\n"
-        "?>\n"
+        '<form class="form-card" method="post" action="<?php echo esc_url( admin_url( \'admin-post.php\' ) ); ?>">\n'
+        "<?php naniwa_estimate_form_fields(); ?>\n"
         "      <h2>入力内容の確認</h2>\n"
         '      <div class="form-inner">\n'
         '        <p style="margin-bottom:22px;">下記の内容で送信します。修正が必要な場合は、各項目の「修正する」からお戻りください。</p>\n'
@@ -463,7 +484,7 @@ def build_confirm_body(body):
         "\t$naniwa_printed = true;\n"
         "\t?>\n"
         '\t\t<h3 class="h-sub"><?php echo esc_html( $naniwa_step[\'title\'] ); ?>\n'
-        '\t\t\t<button type="submit" formaction="<?php echo esc_url( naniwa_page_url( $naniwa_slug ) ); ?>" formnovalidate class="confirm-edit">修正する</button>\n'
+        '\t\t\t<button type="submit" name="naniwa_next" value="<?php echo esc_attr( $naniwa_slug ); ?>" formnovalidate class="confirm-edit">修正する</button>\n'
         "\t\t</h3>\n"
         '\t\t<table class="confirm-table" style="margin-bottom:30px;">\n'
         "\t\t\t<tbody>\n"
@@ -486,7 +507,7 @@ def build_confirm_body(body):
         "?>\n"
         "      </div>\n"
         '      <div class="form-actions">\n'
-        '        <button class="btn btn-back" type="submit" formaction="' + page_url("estimate-step7") + '" formnovalidate>←　戻る</button>\n'
+        '        <button class="btn btn-back" type="submit" name="naniwa_next" value="estimate-step7" formnovalidate>←　戻る</button>\n'
         '        <button class="btn btn-primary" type="submit" name="naniwa_estimate_submit" value="1">この内容で送信する</button>\n'
         "      </div>\n"
         "    </form>"

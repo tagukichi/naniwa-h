@@ -2,8 +2,11 @@
 /**
  * web見積フォームの送信処理
  *
- * STEP1〜7 を POST でつないでいき、確認画面から送信された内容を
- * メールで通知して完了ページへリダイレクトする。
+ * 各ステップの送信先は WordPress 標準の admin-post.php に固定している。
+ * ページURLへ直接 POST するとサーバー側で弾かれる環境があるため。
+ *
+ * 入力内容はサーバー側（トランジェント）に保持し、処理後は次のステップへ
+ * リダイレクトする（POST/Redirect/GET）。再読み込みで再送信にならない。
  * 荷物の個数は name="item[ラベル]" で届く。
  *
  * @package naniwa
@@ -11,19 +14,102 @@
 
 defined( 'ABSPATH' ) || exit;
 
+const NANIWA_ESTIMATE_COOKIE = 'naniwa_estimate';
+const NANIWA_ESTIMATE_TTL    = 3 * HOUR_IN_SECONDS;
+
 /**
- * 送信されたリクエストを返す。
+ * 入力内容を保存するキーを返す。無ければ発行してCookieに載せる。
  *
- * ステップ間は POST だが、メールのリンクなどから GET で来ることも
- * 想定して両方を見る。
+ * @param bool $create 未発行のときに新しく作るか.
+ * @return string
+ */
+function naniwa_estimate_token( $create = false ) {
+	static $token = null;
+
+	if ( null !== $token ) {
+		return $token;
+	}
+
+	$token = '';
+	if ( ! empty( $_COOKIE[ NANIWA_ESTIMATE_COOKIE ] ) ) {
+		$candidate = sanitize_key( wp_unslash( $_COOKIE[ NANIWA_ESTIMATE_COOKIE ] ) );
+		if ( 32 === strlen( $candidate ) ) {
+			$token = $candidate;
+		}
+	}
+
+	if ( ! $token && $create ) {
+		$token = wp_generate_password( 32, false, false );
+		setcookie(
+			NANIWA_ESTIMATE_COOKIE,
+			$token,
+			array(
+				'expires'  => time() + NANIWA_ESTIMATE_TTL,
+				'path'     => COOKIEPATH ? COOKIEPATH : '/',
+				'secure'   => is_ssl(),
+				'httponly' => true,
+				'samesite' => 'Lax',
+			)
+		);
+		$_COOKIE[ NANIWA_ESTIMATE_COOKIE ] = $token;
+	}
+
+	return $token;
+}
+
+/**
+ * これまでに入力された内容をすべて返す。
  *
  * @return array<string, mixed>
  */
 function naniwa_estimate_request() {
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended
-	$source = ! empty( $_POST ) ? $_POST : $_GET;
-	return wp_unslash( $source );
-	// phpcs:enable
+	$token = naniwa_estimate_token();
+	if ( ! $token ) {
+		return array();
+	}
+	$data = get_transient( 'naniwa_estimate_' . $token );
+	return is_array( $data ) ? $data : array();
+}
+
+/**
+ * 送信された値を保存済みの内容にマージする。
+ *
+ * @param array<string, mixed> $posted 今回のステップで送られた値.
+ */
+function naniwa_estimate_merge( $posted ) {
+	$token = naniwa_estimate_token( true );
+	$data  = naniwa_estimate_request();
+
+	$skip = array( 'action', 'naniwa_next', 'naniwa_estimate_nonce', 'naniwa_estimate_submit', '_wp_http_referer' );
+
+	foreach ( $posted as $key => $value ) {
+		if ( ! is_string( $key ) || in_array( $key, $skip, true ) ) {
+			continue;
+		}
+		$data[ $key ] = is_array( $value )
+			? array_map( 'sanitize_text_field', $value )
+			: sanitize_textarea_field( $value );
+	}
+
+	set_transient( 'naniwa_estimate_' . $token, $data, NANIWA_ESTIMATE_TTL );
+}
+
+/**
+ * 保存した入力内容を破棄する。
+ */
+function naniwa_estimate_clear() {
+	$token = naniwa_estimate_token();
+	if ( $token ) {
+		delete_transient( 'naniwa_estimate_' . $token );
+	}
+}
+
+/**
+ * 各ステップのフォームに必要な hidden を出力する。
+ */
+function naniwa_estimate_form_fields() {
+	wp_nonce_field( 'naniwa_estimate', 'naniwa_estimate_nonce' );
+	echo '<input type="hidden" name="action" value="naniwa_estimate">' . "\n";
 }
 
 /**
@@ -95,58 +181,36 @@ function naniwa_estimate_items() {
 }
 
 /**
- * これまでのステップで受け取った値を hidden で引き継ぐ。
+ * admin-post.php で受け取り、次のステップへリダイレクトする。
  *
- * @param array<int, string> $exclude この画面で入力させるため除外するキー.
+ * 送信ボタンが押されたときだけメール送信まで進む。
  */
-function naniwa_estimate_carry_over( $exclude = array() ) {
-	$exclude[] = 'naniwa_estimate_nonce';
-	$exclude[] = 'naniwa_estimate_submit';
-	$exclude[] = '_wp_http_referer';
-
-	foreach ( naniwa_estimate_request() as $key => $raw ) {
-		if ( ! is_string( $key ) || '' === $key || in_array( $key, $exclude, true ) ) {
-			continue;
-		}
-		naniwa_estimate_hidden_field( $key, $raw );
-	}
-}
-
-/**
- * hidden を1件（配列なら再帰的に）出力する。
- *
- * @param string       $name フィールド名.
- * @param mixed        $raw  値.
- */
-function naniwa_estimate_hidden_field( $name, $raw ) {
-	if ( is_array( $raw ) ) {
-		foreach ( $raw as $key => $one ) {
-			$child = is_int( $key ) ? $name . '[]' : $name . '[' . $key . ']';
-			naniwa_estimate_hidden_field( $child, $one );
-		}
-		return;
-	}
-
-	printf(
-		'<input type="hidden" name="%s" value="%s">' . "\n",
-		esc_attr( $name ),
-		esc_attr( sanitize_text_field( (string) $raw ) )
-	);
-}
-
-/**
- * 見積フォームの送信を処理する。
- */
-function naniwa_handle_estimate_submit() {
-	// phpcs:ignore WordPress.Security.NonceVerification.Missing
-	if ( ! isset( $_POST['naniwa_estimate_submit'] ) ) {
-		return;
-	}
+function naniwa_handle_estimate_post() {
 	if ( ! isset( $_POST['naniwa_estimate_nonce'] ) ||
 		! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['naniwa_estimate_nonce'] ) ), 'naniwa_estimate' ) ) {
 		wp_die( '送信内容を確認できませんでした。お手数ですが最初からやり直してください。' );
 	}
 
+	naniwa_estimate_merge( wp_unslash( $_POST ) );
+
+	// 送信ボタン以外は、指定されたステップへ戻す・進める。
+	if ( ! isset( $_POST['naniwa_estimate_submit'] ) ) {
+		$next = isset( $_POST['naniwa_next'] ) ? sanitize_key( wp_unslash( $_POST['naniwa_next'] ) ) : '';
+		$next = array_key_exists( $next, naniwa_required_pages() ) ? $next : 'estimate-step1';
+
+		wp_safe_redirect( naniwa_page_url( $next ) );
+		exit;
+	}
+
+	naniwa_estimate_send();
+}
+add_action( 'admin_post_naniwa_estimate', 'naniwa_handle_estimate_post' );
+add_action( 'admin_post_nopriv_naniwa_estimate', 'naniwa_handle_estimate_post' );
+
+/**
+ * 入力内容をメールで通知し、保存して完了ページへ送る。
+ */
+function naniwa_estimate_send() {
 	$lines = array();
 	$name  = '';
 
@@ -199,6 +263,8 @@ function naniwa_handle_estimate_submit() {
 	if ( $email && is_email( $email ) ) {
 		naniwa_estimate_send_autoreply( $email, $name, $detail );
 	}
+
+	naniwa_estimate_clear();
 
 	wp_safe_redirect( naniwa_page_url( 'estimate-thanks' ) );
 	exit;
@@ -276,4 +342,3 @@ function naniwa_estimate_store( $name, $detail ) {
 
 	return (int) $post_id;
 }
-add_action( 'template_redirect', 'naniwa_handle_estimate_submit' );

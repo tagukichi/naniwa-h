@@ -41,12 +41,12 @@ get_header();
       <li>Step7<br><span style="font-size:10.5px;font-weight:600;opacity:.9">オプション</span></li>
     </ol>
 
-    <form class="form-card" action="<?php echo esc_url( naniwa_page_url( 'estimate-step2' ) ); ?>" method="post" novalidate>
+    <form class="form-card" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" novalidate>
       <h2>お客様情報</h2>
       <div class="form-inner">
 <?php
-// このステップより前の入力内容を hidden で持ち回る。
-naniwa_estimate_carry_over( array( 'email', 'kana', 'name', 'request', 'tel' ) );
+// 送信先は admin-post.php に固定し、入力内容はサーバー側で保持する。
+naniwa_estimate_form_fields();
 ?>
         <div class="form-row">
           <label class="label" for="name">お名前 <span class="req">必須</span></label>
@@ -80,7 +80,7 @@ naniwa_estimate_carry_over( array( 'email', 'kana', 'name', 'request', 'tel' ) )
         </div>
       </div>
       <div class="form-actions">
-      <button class="btn btn-primary" type="submit">次へ　→</button>
+      <button class="btn btn-primary" type="submit" name="naniwa_next" value="estimate-step2">次へ　→</button>
       </div>
     </form>
 

@@ -41,12 +41,12 @@ get_header();
       <li>Step7<br><span style="font-size:10.5px;font-weight:600;opacity:.9">オプション</span></li>
     </ol>
 
-    <form class="form-card" action="<?php echo esc_url( naniwa_page_url( 'estimate-step5' ) ); ?>" method="post" novalidate>
+    <form class="form-card" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" novalidate>
       <h2>引越先の情報</h2>
       <div class="form-inner">
 <?php
-// このステップより前の入力内容を hidden で持ち回る。
-naniwa_estimate_carry_over( array( 'to_bldg', 'to_carry', 'to_city', 'to_elevator', 'to_floor', 'to_floors', 'to_layout', 'to_maisonette', 'to_parking', 'to_pref', 'to_street', 'to_type', 'to_zip' ) );
+// 送信先は admin-post.php に固定し、入力内容はサーバー側で保持する。
+naniwa_estimate_form_fields();
 ?>
         <div class="form-row">
           <label class="label" for="to-zip">郵便番号 <span class="req any">任意</span></label>
@@ -197,8 +197,8 @@ naniwa_estimate_carry_over( array( 'to_bldg', 'to_carry', 'to_city', 'to_elevato
         </div>
       </div>
       <div class="form-actions">
-      <button class="btn btn-back" type="submit" formaction="<?php echo esc_url( naniwa_page_url( 'estimate-step3' ) ); ?>" formnovalidate>←　戻る</button>
-      <button class="btn btn-primary" type="submit">次へ　→</button>
+      <button class="btn btn-back" type="submit" name="naniwa_next" value="estimate-step3" formnovalidate>←　戻る</button>
+      <button class="btn btn-primary" type="submit" name="naniwa_next" value="estimate-step5">次へ　→</button>
       </div>
     </form>
 
