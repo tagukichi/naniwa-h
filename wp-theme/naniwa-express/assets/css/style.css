@@ -1475,3 +1475,19 @@ body.no-estimate-cta .fixed-cta { display: none; }
 }
 .rc-checks .sub { display: block; font-weight: 500; font-size: 13.5px; color: var(--ink-soft); margin-top: 2px; }
 .placeholder { color: #b45309; background: #fff7e6; border: 1px dashed #f0b35c; border-radius: 6px; padding: 6px 10px; font-size: 13px; display: inline-block; }
+
+/* 求人：福利厚生の一覧（2カラム） */
+.rc-benefits {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 24px; margin: 4px 0 10px;
+}
+.rc-benefits li {
+  position: relative; padding-left: 22px; font-size: 14.5px; line-height: 1.7;
+}
+.rc-benefits li::before {
+  content: ""; position: absolute; left: 0; top: .38em; width: 14px; height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='7' r='7' fill='%23e4f2ea'/%3E%3Cpath d='M3.6 7.2l2.2 2.2 4.5-5' fill='none' stroke='%2312714a' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+@media (max-width: 860px) {
+  .rc-benefits { grid-template-columns: 1fr; gap: 4px; }
+}
