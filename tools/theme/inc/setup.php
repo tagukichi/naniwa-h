@@ -128,6 +128,8 @@ function naniwa_setup_page() {
 			update_option( NANIWA_PAGE_MAP_OPTION, $map );
 			flush_rewrite_rules();
 			$result = 'mapped';
+		} elseif ( 'probe' === $action ) {
+			$result = naniwa_setup_probe();
 		} elseif ( 'flush' === $action ) {
 			flush_rewrite_rules();
 			$result = 'flushed';
@@ -272,7 +274,36 @@ function naniwa_setup_page() {
 				<strong>下書きのままのページは 404 になります。</strong>その場合は「編集」から公開してください。</p>
 		</form>
 
+		<?php if ( is_array( $result ) && isset( $result[0]['status'] ) ) : ?>
+			<h2>URLの応答チェック結果</h2>
+			<p class="description">サーバーが実際に返したステータスです。<code>200</code> 以外は原因の切り分けに使えます。</p>
+			<table class="widefat striped" style="margin-bottom:24px;">
+				<thead><tr><th style="width:18%;">想定スラッグ</th><th style="width:30%;">URL</th><th style="width:12%;">応答</th><th>判定</th></tr></thead>
+				<tbody>
+					<?php foreach ( $result as $row ) : ?>
+						<tr>
+							<td><code><?php echo esc_html( $row['key'] ); ?></code></td>
+							<td><code><?php echo esc_html( $row['path'] ); ?></code></td>
+							<td>
+								<strong style="color:<?php echo 200 === (int) $row['status'] ? '#146c43' : '#b32d2e'; ?>">
+									<?php echo esc_html( $row['status'] ? $row['status'] : 'エラー' ); ?>
+								</strong>
+							</td>
+							<td><?php echo esc_html( $row['note'] ); ?></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+
 		<h2>その他</h2>
+		<form method="post" style="margin-bottom:20px;">
+			<?php wp_nonce_field( 'naniwa_setup' ); ?>
+			<input type="hidden" name="naniwa_setup_action" value="probe">
+			<?php submit_button( 'URLの応答を確認する', 'secondary', 'submit', false ); ?>
+			<p class="description">ログインしていない状態と同じ条件で各ページにアクセスし、200 / 301 / 404 などのステータスを確認します。<br>
+				リダイレクトプラグインやサーバー側の設定が原因かどうかを切り分けられます。</p>
+		</form>
 		<form method="post">
 			<?php wp_nonce_field( 'naniwa_setup' ); ?>
 			<input type="hidden" name="naniwa_setup_action" value="flush">
@@ -281,6 +312,71 @@ function naniwa_setup_page() {
 		</form>
 	</div>
 	<?php
+}
+
+/**
+ * 各ページのURLに実際にアクセスして、応答ステータスを調べる。
+ *
+ * ログインしていない状態と同じ条件で見るため、Cookie は送らない。
+ *
+ * @return array<int, array{key:string, path:string, status:int, note:string}>
+ */
+function naniwa_setup_probe() {
+	$rows = array();
+
+	foreach ( naniwa_required_pages() as $key => $title ) {
+		$page_id = naniwa_page_id( $key );
+		if ( ! $page_id ) {
+			continue;
+		}
+
+		$url      = get_permalink( $page_id );
+		$response = wp_remote_get(
+			$url,
+			array(
+				'timeout'     => 8,
+				'redirection' => 0,
+				'sslverify'   => false,
+				'cookies'     => array(),
+				'headers'     => array( 'Cache-Control' => 'no-cache' ),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			$rows[] = array(
+				'key'    => $key,
+				'path'   => str_replace( home_url(), '', $url ),
+				'status' => 0,
+				'note'   => '接続できませんでした：' . $response->get_error_message(),
+			);
+			continue;
+		}
+
+		$status = (int) wp_remote_retrieve_response_code( $response );
+
+		if ( 200 === $status ) {
+			$note = '正常';
+		} elseif ( in_array( $status, array( 301, 302, 307, 308 ), true ) ) {
+			$note = 'リダイレクトされています → ' . wp_remote_retrieve_header( $response, 'location' );
+		} elseif ( 404 === $status ) {
+			$note = 'ページが見つかりません。リダイレクト系プラグインの設定を確認してください。';
+		} elseif ( 410 === $status ) {
+			$note = '「削除済み」として扱われています。リダイレクト設定を確認してください。';
+		} elseif ( 403 === $status ) {
+			$note = 'サーバー側で拒否されています（WAF・Basic認証など）。';
+		} else {
+			$note = '想定外の応答です。';
+		}
+
+		$rows[] = array(
+			'key'    => $key,
+			'path'   => str_replace( home_url(), '', $url ),
+			'status' => $status,
+			'note'   => $note,
+		);
+	}
+
+	return $rows;
 }
 
 /**
