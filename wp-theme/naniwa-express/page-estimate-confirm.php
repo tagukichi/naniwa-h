@@ -62,7 +62,7 @@ foreach ( naniwa_estimate_steps() as $naniwa_slug => $naniwa_step ) :
 		}
 	}
 	// 荷物はステップが3つに分かれているが、確認画面では1つにまとめる。
-	if ( 'estimate-step6' === $naniwa_slug ) {
+	if ( 'estimate-items' === $naniwa_slug ) {
 		foreach ( naniwa_estimate_items() as $naniwa_label => $naniwa_count ) {
 			$naniwa_rows[ $naniwa_label ] = $naniwa_count . '個';
 		}

@@ -44,7 +44,7 @@ PAGE_SLUGS = {
     "estimate-step3": "estimate-step3",
     "estimate-step4": "estimate-step4",
     "estimate-step5": "estimate-step5",
-    "estimate-step6": "estimate-step6",
+    "estimate-items": "estimate-items",
     "estimate-step7": "estimate-step7",
     "estimate-confirm": "estimate-confirm",
     "estimate-thanks": "estimate-thanks",
@@ -177,7 +177,7 @@ def build_page_templates():
             body = inject_recruit_form(body)
         elif stem == "estimate-confirm":
             body = build_confirm_body(body)
-        elif stem.startswith("estimate-step"):
+        elif stem in {name for name, _title in ESTIMATE_STEPS}:
             body = estimate_form(body, stem)
 
         content = php_header(f"固定ページ：{title}（スラッグ: {slug}）", title)
@@ -225,7 +225,7 @@ ESTIMATE_STEPS = [
     ("estimate-step3", "現在のお住まい"),
     ("estimate-step4", "引越先"),
     ("estimate-step5", "道路状況"),
-    ("estimate-step6", "お荷物"),
+    ("estimate-items", "お荷物"),
     ("estimate-step7", "オプション"),
 ]
 
@@ -452,7 +452,7 @@ def build_confirm_body(body):
         "\t\t}\n"
         "\t}\n"
         "\t// 荷物はステップが3つに分かれているが、確認画面では1つにまとめる。\n"
-        "\tif ( 'estimate-step6' === $naniwa_slug ) {\n"
+        "\tif ( 'estimate-items' === $naniwa_slug ) {\n"
         "\t\tforeach ( naniwa_estimate_items() as $naniwa_label => $naniwa_count ) {\n"
         "\t\t\t$naniwa_rows[ $naniwa_label ] = $naniwa_count . '個';\n"
         "\t\t}\n"

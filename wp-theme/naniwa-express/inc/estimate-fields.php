@@ -78,7 +78,7 @@ function naniwa_estimate_steps() {
 					'distance' => '直前の道路から玄関までの距離',
 			),
 		),
-		'estimate-step6' => array(
+		'estimate-items' => array(
 			'title'  => 'お荷物',
 			'fields' => array(
 			),
