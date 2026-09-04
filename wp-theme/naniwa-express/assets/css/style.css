@@ -826,12 +826,24 @@ table.data td .price { font-weight: 800; color: var(--orange-600); }
 .choice:has(input:focus-visible) { box-shadow: 0 0 0 3px rgba(26, 138, 92, .25); }
 
 /* 荷物カウンター */
-.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 10px; }
+/* 荷物の選択カード（イラスト＋名称＋個数） */
+.item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 12px; }
 .item-row {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; background: var(--white);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 12px; padding: 12px 10px 14px;
+  background: var(--white); text-align: center;
+  transition: border-color .2s ease, box-shadow .2s ease;
 }
-.item-row .name { font-size: 14px; font-weight: 600; flex: 1; min-width: 0; line-height: 1.45; }
+.item-row:focus-within { border-color: var(--green-500); box-shadow: 0 0 0 3px rgba(26, 138, 92, .15); }
+.item-row .thumb {
+  display: block; width: 100%; max-width: 122px; aspect-ratio: 122 / 81;
+  border-radius: 8px; overflow: hidden; background: var(--green-050);
+}
+.item-row .thumb img { width: 100%; height: 100%; object-fit: contain; }
+.item-row .name {
+  font-size: 13px; font-weight: 700; line-height: 1.45; color: var(--green-900);
+  word-break: auto-phrase; text-wrap: balance;
+}
 .counter { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
 .counter button {
   width: 30px; height: 30px; flex-shrink: 0; border-radius: 8px; border: 1px solid var(--green-100);
@@ -898,7 +910,9 @@ table.data td .price { font-weight: 800; color: var(--orange-600); }
 
 @media (max-width: 480px) {
   .drawer-plans { grid-template-columns: 1fr; }
-  .item-grid { grid-template-columns: 1fr; }
+  .item-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .item-row { padding: 10px 6px 12px; }
+  .item-row .name { font-size: 12px; }
   .confirm-table th { width: 40%; }
 }
 

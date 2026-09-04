@@ -246,7 +246,7 @@ function naniwa_estimate_send() {
 	$email  = naniwa_estimate_value( 'email' );
 
 	// 送信内容を保存しておく（メールが届かなかった場合の控えになる）
-	naniwa_estimate_store( $name, $detail );
+	$post_id = naniwa_estimate_store( $name, $detail );
 
 	// 1通目：管理者宛
 	$to      = apply_filters( 'naniwa_estimate_mail_to', get_option( 'admin_email' ) );
@@ -257,11 +257,23 @@ function naniwa_estimate_send() {
 		$headers[] = 'Reply-To: ' . $email;
 	}
 
-	wp_mail( $to, $subject, "web見積フォームから以下の内容で送信がありました。\n\n" . $detail, $headers );
+	$admin_result = naniwa_estimate_mail( $to, $subject, "web見積フォームから以下の内容で送信がありました。\n\n" . $detail, $headers );
+	naniwa_estimate_log_mail( $post_id, 'admin', $to, $admin_result );
 
 	// 2通目：お客様宛の自動返信
 	if ( $email && is_email( $email ) ) {
-		naniwa_estimate_send_autoreply( $email, $name, $detail );
+		$reply_result = naniwa_estimate_send_autoreply( $email, $name, $detail );
+		naniwa_estimate_log_mail( $post_id, 'reply', $email, $reply_result );
+	} else {
+		naniwa_estimate_log_mail(
+			$post_id,
+			'reply',
+			$email,
+			array(
+				'sent'  => false,
+				'error' => '' === $email ? 'メールアドレスが入力されていません' : '入力されたメールアドレスの形式が正しくありません',
+			)
+		);
 	}
 
 	naniwa_estimate_clear();
@@ -271,11 +283,72 @@ function naniwa_estimate_send() {
 }
 
 /**
+ * wp_mail() を実行し、成否とエラー内容を返す。
+ *
+ * サーバーやSMTPプラグイン側で弾かれた場合、wp_mail() は false を返すだけで
+ * 理由が分からないため、wp_mail_failed の WP_Error を拾っておく。
+ *
+ * @param string|string[] $to      宛先.
+ * @param string          $subject 件名.
+ * @param string          $body    本文.
+ * @param string[]        $headers ヘッダー.
+ * @return array{sent:bool, error:string}
+ */
+function naniwa_estimate_mail( $to, $subject, $body, $headers ) {
+	$error = '';
+
+	$catch = function ( $wp_error ) use ( &$error ) {
+		if ( is_wp_error( $wp_error ) ) {
+			$error = $wp_error->get_error_message();
+		}
+	};
+
+	add_action( 'wp_mail_failed', $catch );
+	$sent = wp_mail( $to, $subject, $body, $headers );
+	remove_action( 'wp_mail_failed', $catch );
+
+	if ( ! $sent && '' === $error ) {
+		$error = '理由不明（wp_mail が false を返しました）';
+	}
+
+	return array(
+		'sent'  => (bool) $sent,
+		'error' => $error,
+	);
+}
+
+/**
+ * メールの送信結果を控えに記録する。
+ *
+ * @param int    $post_id 控えの投稿ID.
+ * @param string $kind    admin または reply.
+ * @param string $to      宛先.
+ * @param array  $result  naniwa_estimate_mail() の戻り値.
+ */
+function naniwa_estimate_log_mail( $post_id, $kind, $to, $result ) {
+	if ( ! $post_id ) {
+		return;
+	}
+
+	update_post_meta(
+		$post_id,
+		'_naniwa_mail_' . $kind,
+		array(
+			'to'    => (string) $to,
+			'sent'  => ! empty( $result['sent'] ),
+			'error' => isset( $result['error'] ) ? (string) $result['error'] : '',
+			'time'  => time(),
+		)
+	);
+}
+
+/**
  * お客様宛の自動返信メールを送る。
  *
  * @param string $email  宛先.
  * @param string $name   お名前.
  * @param string $detail 入力内容.
+ * @return array{sent:bool, error:string}
  */
 function naniwa_estimate_send_autoreply( $email, $name, $detail ) {
 	$site = get_bloginfo( 'name' );
@@ -304,7 +377,7 @@ function naniwa_estimate_send_autoreply( $email, $name, $detail ) {
 		'Reply-To: ' . $from,
 	);
 
-	wp_mail(
+	return naniwa_estimate_mail(
 		$email,
 		$subject,
 		apply_filters( 'naniwa_estimate_autoreply_body', $body, $name, $detail ),
@@ -342,3 +415,58 @@ function naniwa_estimate_store( $name, $detail ) {
 
 	return (int) $post_id;
 }
+
+/**
+ * 管理画面から自動返信メールを再送する。
+ */
+function naniwa_handle_estimate_resend() {
+	$post_id = isset( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( '権限がありません。' );
+	}
+
+	check_admin_referer( 'naniwa_estimate_resend_' . $post_id );
+
+	$post = get_post( $post_id );
+
+	if ( ! $post || 'estimate' !== $post->post_type ) {
+		wp_die( '対象の記録が見つかりませんでした。' );
+	}
+
+	$email = get_post_meta( $post_id, '_naniwa_email', true );
+	$name  = get_post_meta( $post_id, '_naniwa_name', true );
+
+	if ( ! $email || ! is_email( $email ) ) {
+		wp_die( 'メールアドレスが記録されていないため再送できません。' );
+	}
+
+	$result = naniwa_estimate_send_autoreply( $email, (string) $name, $post->post_content );
+	naniwa_estimate_log_mail( $post_id, 'reply', $email, $result );
+
+	wp_safe_redirect(
+		add_query_arg(
+			'naniwa_resent',
+			empty( $result['sent'] ) ? 'failed' : 'ok',
+			get_edit_post_link( $post_id, 'url' )
+		)
+	);
+	exit;
+}
+add_action( 'admin_post_naniwa_estimate_resend', 'naniwa_handle_estimate_resend' );
+
+/**
+ * 再送の結果を編集画面に知らせる。
+ */
+function naniwa_estimate_resend_notice() {
+	if ( ! isset( $_GET['naniwa_resent'] ) ) {
+		return;
+	}
+
+	if ( 'ok' === $_GET['naniwa_resent'] ) {
+		echo '<div class="notice notice-success is-dismissible"><p>自動返信メールを再送しました。</p></div>';
+	} else {
+		echo '<div class="notice notice-error is-dismissible"><p>自動返信メールを再送できませんでした。右の「メールの送信結果」に理由が出ていないか確認してください。</p></div>';
+	}
+}
+add_action( 'admin_notices', 'naniwa_estimate_resend_notice' );
