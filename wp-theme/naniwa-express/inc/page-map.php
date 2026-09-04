@@ -61,8 +61,10 @@ function naniwa_page_id( $key ) {
 		$found = (int) $map[ $key ];
 	}
 
+	$candidates = naniwa_page_slug_candidates( $key );
+
 	if ( ! $found ) {
-		foreach ( naniwa_page_slug_candidates( $key ) as $slug ) {
+		foreach ( $candidates as $slug ) {
 			$page = get_page_by_path( $slug );
 			if ( $page ) {
 				$found = (int) $page->ID;
@@ -71,13 +73,52 @@ function naniwa_page_id( $key ) {
 		}
 	}
 
+	// get_page_by_path() はルート直下のページしか拾えないため、
+	// 下層ページとして作られている場合はスラッグそのもので探し直す。
+	if ( ! $found ) {
+		$found = naniwa_page_id_by_name( $candidates );
+	}
+
 	// recruit → recruit2 のように、後ろに連番が付いてしまったページを拾う。
 	if ( ! $found ) {
-		$found = naniwa_page_id_by_numbered_slug( naniwa_page_slug_candidates( $key ) );
+		$found = naniwa_page_id_by_numbered_slug( $candidates );
 	}
 
 	$cache[ $key ] = $found;
 	return $found;
+}
+
+/**
+ * 「スラッグ＋連番」のページを探す。
+ *
+ * get_page_by_path() は「親/子」の完全なパスを要求するため、
+ * 下層ページとして作られていると見つけられない。ここでは階層を無視して探す。
+ * 公開 → 非公開 → 下書き の順に優先する。
+ *
+ * @param array<int, string> $slugs 候補スラッグ.
+ * @return int
+ */
+function naniwa_page_id_by_name( $slugs ) {
+	global $wpdb;
+
+	foreach ( $slugs as $slug ) {
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$id = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->posts}
+				 WHERE post_type = 'page'
+				   AND post_status IN ( 'publish', 'private', 'draft' )
+				   AND post_name = %s
+				 ORDER BY FIELD( post_status, 'publish', 'private', 'draft' ), ID ASC
+				 LIMIT 1",
+				$slug
+			)
+		);
+		if ( $id ) {
+			return (int) $id;
+		}
+	}
+	return 0;
 }
 
 /**

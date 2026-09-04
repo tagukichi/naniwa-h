@@ -197,24 +197,42 @@ function naniwa_setup_page() {
 					<?php
 					foreach ( $required as $slug => $title ) :
 						$page_id = naniwa_page_id( $slug );
-						if ( ! $page_id ) {
+						if ( ! $page_id || 'publish' !== get_post_status( $page_id ) ) {
 							++$missing;
 						}
 						?>
 						<tr>
 							<td><code><?php echo esc_html( $slug ); ?></code></td>
 							<td><?php echo esc_html( $title ); ?></td>
+							<?php
+							$status  = $page_id ? get_post_status( $page_id ) : '';
+							$is_live = ( 'publish' === $status );
+							?>
 							<td>
-								<?php if ( $page_id ) : ?>
+								<?php if ( ! $page_id ) : ?>
+									<span style="color:#b32d2e;font-weight:600;">✗ ページなし</span>
+								<?php elseif ( $is_live ) : ?>
 									<span style="color:#146c43;font-weight:600;">✓ OK</span>
 								<?php else : ?>
-									<span style="color:#b32d2e;font-weight:600;">✗ 404</span>
+									<span style="color:#b32d2e;font-weight:600;">✗ 404</span><br>
+									<span style="color:#b32d2e;font-size:11px;">
+										<?php echo esc_html( 'draft' === $status ? '下書きのまま' : '状態: ' . $status ); ?>
+									</span>
 								<?php endif; ?>
 							</td>
 							<td>
 								<?php if ( $page_id ) : ?>
-									<?php echo esc_html( get_the_title( $page_id ) ); ?>
-									<code>/<?php echo esc_html( urldecode( get_post_field( 'post_name', $page_id ) ) ); ?>/</code><br>
+									<?php echo esc_html( get_the_title( $page_id ) ); ?><br>
+									<code><?php echo esc_html( str_replace( home_url(), '', get_permalink( $page_id ) ) ); ?></code><br>
+									<?php
+									// 親ページの下にあると URL が変わるため注意を出す。
+									$parent = wp_get_post_parent_id( $page_id );
+									if ( $parent ) :
+										?>
+										<span style="color:#8a6d00;font-size:11px;">
+											親ページ「<?php echo esc_html( get_the_title( $parent ) ); ?>」の下にあります
+										</span><br>
+									<?php endif; ?>
 									<a href="<?php echo esc_url( get_permalink( $page_id ) ); ?>" target="_blank">表示</a>　
 									<a href="<?php echo esc_url( get_edit_post_link( $page_id ) ); ?>">編集</a>
 								<?php else : ?>
@@ -250,7 +268,8 @@ function naniwa_setup_page() {
 				$missing ? array() : array( 'disabled' => 'disabled' )
 			);
 			?>
-			<p class="description">既にあるページは変更しません。本文は空で作成され、デザインはテンプレート側から出力されます。</p>
+			<p class="description">既にあるページは変更しません。本文は空で作成され、デザインはテンプレート側から出力されます。<br>
+				<strong>下書きのままのページは 404 になります。</strong>その場合は「編集」から公開してください。</p>
 		</form>
 
 		<h2>その他</h2>
