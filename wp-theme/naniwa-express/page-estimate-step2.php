@@ -53,23 +53,23 @@ naniwa_estimate_form_fields();
           <div>
             <p class="h-sub" style="margin-bottom:10px;">単身の引越</p>
             <div class="choice-grid">
-              <label class="choice"><input type="radio" name="plan" value="単身：スタンダードプラン"<?php checked( naniwa_estimate_value( 'plan' ), '単身：スタンダードプラン' ); ?>><span>スタンダードプラン</span></label>
-              <label class="choice"><input type="radio" name="plan" value="単身：梱包プラスプラン"<?php checked( naniwa_estimate_value( 'plan' ), '単身：梱包プラスプラン' ); ?>><span>梱包プラスプラン</span></label>
-              <label class="choice"><input type="radio" name="plan" value="単身：フルコースプラン"<?php checked( naniwa_estimate_value( 'plan' ), '単身：フルコースプラン' ); ?>><span>フルコースプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="単身：スタンダードプラン"<?php checked( naniwa_estimate_value( 'plan' ), '単身：スタンダードプラン' ); ?> required><span>スタンダードプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="単身：梱包プラスプラン"<?php checked( naniwa_estimate_value( 'plan' ), '単身：梱包プラスプラン' ); ?> required><span>梱包プラスプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="単身：フルコースプラン"<?php checked( naniwa_estimate_value( 'plan' ), '単身：フルコースプラン' ); ?> required><span>フルコースプラン</span></label>
             </div>
 
             <p class="h-sub" style="margin:22px 0 10px;">ご家族の引越</p>
             <div class="choice-grid">
-              <label class="choice"><input type="radio" name="plan" value="家族：スタンダードプラン"<?php checked( naniwa_estimate_value( 'plan' ), '家族：スタンダードプラン' ); ?>><span>スタンダードプラン</span></label>
-              <label class="choice"><input type="radio" name="plan" value="家族：梱包プラスプラン"<?php checked( naniwa_estimate_value( 'plan' ), '家族：梱包プラスプラン' ); ?>><span>梱包プラスプラン</span></label>
-              <label class="choice"><input type="radio" name="plan" value="家族：フルコースプラン"<?php checked( naniwa_estimate_value( 'plan' ), '家族：フルコースプラン' ); ?>><span>フルコースプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="家族：スタンダードプラン"<?php checked( naniwa_estimate_value( 'plan' ), '家族：スタンダードプラン' ); ?> required><span>スタンダードプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="家族：梱包プラスプラン"<?php checked( naniwa_estimate_value( 'plan' ), '家族：梱包プラスプラン' ); ?> required><span>梱包プラスプラン</span></label>
+              <label class="choice"><input type="radio" name="plan" value="家族：フルコースプラン"<?php checked( naniwa_estimate_value( 'plan' ), '家族：フルコースプラン' ); ?> required><span>フルコースプラン</span></label>
             </div>
 
             <p class="h-sub" style="margin:22px 0 10px;">その他のプラン</p>
             <div class="choice-grid">
-              <label class="choice"><input type="radio" name="plan" value="カップルの引越"<?php checked( naniwa_estimate_value( 'plan' ), 'カップルの引越' ); ?>><span>カップルの引越</span></label>
-              <label class="choice"><input type="radio" name="plan" value="今すぐの引越"<?php checked( naniwa_estimate_value( 'plan' ), '今すぐの引越' ); ?>><span>今すぐの引越</span></label>
-              <label class="choice"><input type="radio" name="plan" value="オフィスの引越"<?php checked( naniwa_estimate_value( 'plan' ), 'オフィスの引越' ); ?>><span>オフィスの引越</span></label>
+              <label class="choice"><input type="radio" name="plan" value="カップルの引越"<?php checked( naniwa_estimate_value( 'plan' ), 'カップルの引越' ); ?> required><span>カップルの引越</span></label>
+              <label class="choice"><input type="radio" name="plan" value="今すぐの引越"<?php checked( naniwa_estimate_value( 'plan' ), '今すぐの引越' ); ?> required><span>今すぐの引越</span></label>
+              <label class="choice"><input type="radio" name="plan" value="オフィスの引越"<?php checked( naniwa_estimate_value( 'plan' ), 'オフィスの引越' ); ?> required><span>オフィスの引越</span></label>
             </div>
           </div>
         </div>

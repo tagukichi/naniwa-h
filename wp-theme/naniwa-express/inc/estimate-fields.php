@@ -43,8 +43,8 @@ function naniwa_estimate_steps() {
 					'from_street' => '番地・号',
 					'from_bldg' => '建物名など',
 					'from_type' => '建物の種類',
-					'from_floors' => '建物の階数／住居の階数',
-					'from_floor' => '建物の階数／住居の階数',
+					'from_floors' => '建物の階数／住居の階数（建物の階数）',
+					'from_floor' => '建物の階数／住居の階数（住居の階数）',
 					'from_elevator' => 'エレベーター',
 					'from_layout' => '間取り',
 					'from_maisonette' => 'メゾネットタイプですか？',
@@ -61,8 +61,8 @@ function naniwa_estimate_steps() {
 					'to_street' => '番地・号',
 					'to_bldg' => '建物名など',
 					'to_type' => '建物の種類',
-					'to_floors' => '建物の階数／住居の階数',
-					'to_floor' => '建物の階数／住居の階数',
+					'to_floors' => '建物の階数／住居の階数（建物の階数）',
+					'to_floor' => '建物の階数／住居の階数（住居の階数）',
 					'to_elevator' => 'エレベーター',
 					'to_layout' => '間取り',
 					'to_maisonette' => 'メゾネットタイプですか？',
@@ -97,6 +97,42 @@ function naniwa_estimate_steps() {
 					'other_items' => 'その他のお荷物',
 					'other_request' => 'その他、依頼したいこと',
 			),
+		),
+	);
+}
+
+/**
+ * 必須項目を返す（静的HTMLの required 属性から生成）。
+ *
+ * @return array<string, array<string, string>> ステップ => (name => ラベル)
+ */
+function naniwa_estimate_required() {
+	return array(
+		'estimate-step1' => array(
+			'name' => 'お名前',
+			'kana' => 'ふりがな',
+			'tel' => '電話番号',
+			'email' => 'メールアドレス',
+		),
+		'estimate-step2' => array(
+			'plan' => '引越プラン',
+		),
+		'estimate-step3' => array(
+			'from_zip' => '郵便番号',
+			'from_pref' => '都道府県',
+			'from_city' => '市区町村',
+			'from_type' => '建物の種類',
+			'from_floors' => '建物の階数／住居の階数（建物の階数）',
+			'from_floor' => '建物の階数／住居の階数（住居の階数）',
+			'from_elevator' => 'エレベーター',
+			'from_layout' => '間取り',
+		),
+		'estimate-step4' => array(
+			'to_type' => '建物の種類',
+			'to_floors' => '建物の階数／住居の階数（建物の階数）',
+			'to_floor' => '建物の階数／住居の階数（住居の階数）',
+			'to_elevator' => 'エレベーター',
+			'to_layout' => '間取り',
 		),
 	);
 }

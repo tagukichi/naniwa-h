@@ -105,11 +105,72 @@ function naniwa_estimate_clear() {
 }
 
 /**
- * 各ステップのフォームに必要な hidden を出力する。
+ * 各ステップのフォームに必要な hidden と、未入力の案内を出力する。
  */
 function naniwa_estimate_form_fields() {
 	wp_nonce_field( 'naniwa_estimate', 'naniwa_estimate_nonce' );
 	echo '<input type="hidden" name="action" value="naniwa_estimate">' . "\n";
+	naniwa_estimate_error_banner();
+}
+
+/**
+ * 未入力の必須項目を調べる。
+ *
+ * 通常はブラウザ側で止まるが、JavaScript が動かない環境でも
+ * 未入力のまま送信が通らないようにするための最終確認。
+ *
+ * @return array<string, array<int, string>> ステップ => 未入力のラベル
+ */
+function naniwa_estimate_missing() {
+	$missing = array();
+
+	if ( ! function_exists( 'naniwa_estimate_required' ) ) {
+		return $missing;
+	}
+
+	foreach ( naniwa_estimate_required() as $step => $fields ) {
+		foreach ( $fields as $key => $label ) {
+			if ( '' === naniwa_estimate_value( $key ) ) {
+				$missing[ $step ][] = $label;
+			}
+		}
+	}
+
+	return $missing;
+}
+
+/**
+ * 未入力があったことを控えておく（リダイレクト先で表示する）。
+ *
+ * @param array<int, string> $labels 未入力のラベル.
+ */
+function naniwa_estimate_set_errors( $labels ) {
+	$token = naniwa_estimate_token( true );
+	if ( ! $token ) {
+		return;
+	}
+	set_transient( 'naniwa_estimate_err_' . $token, array_values( array_unique( $labels ) ), NANIWA_ESTIMATE_TTL );
+}
+
+/**
+ * 未入力の案内を表示して、控えを消す。
+ */
+function naniwa_estimate_error_banner() {
+	$token = naniwa_estimate_token();
+	if ( ! $token ) {
+		return;
+	}
+
+	$labels = get_transient( 'naniwa_estimate_err_' . $token );
+	if ( empty( $labels ) || ! is_array( $labels ) ) {
+		return;
+	}
+
+	delete_transient( 'naniwa_estimate_err_' . $token );
+
+	echo '<div class="form-alert" role="alert">未入力の必須項目があります。';
+	echo esc_html( implode( '／', $labels ) );
+	echo ' をご入力のうえ、もう一度お進みください。</div>' . "\n";
 }
 
 /**
@@ -211,6 +272,16 @@ add_action( 'admin_post_nopriv_naniwa_estimate', 'naniwa_handle_estimate_post' )
  * 入力内容をメールで通知し、保存して完了ページへ送る。
  */
 function naniwa_estimate_send() {
+	// 必須が埋まっていなければ、その項目のあるステップへ戻す。
+	$missing = naniwa_estimate_missing();
+
+	if ( $missing ) {
+		$step = array_key_first( $missing );
+		naniwa_estimate_set_errors( $missing[ $step ] );
+		wp_safe_redirect( naniwa_page_url( $step ) );
+		exit;
+	}
+
 	$lines = array();
 	$name  = '';
 

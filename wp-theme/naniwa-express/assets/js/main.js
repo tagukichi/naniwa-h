@@ -97,6 +97,150 @@
 // ============================================
 
 // ============================================
+// 見積フォームの必須チェック
+// ブラウザ標準の吹き出しは環境差が大きいので、
+// 項目の下と先頭にこちらでメッセージを出す。
+// ============================================
+(function () {
+  const forms = document.querySelectorAll('form.form-card');
+  if (!forms.length) return;
+
+  // 「必須」ラベルから、メッセージに使う項目名を取り出す
+  function labelOf(row, control) {
+    const label = row && row.querySelector('.label');
+    let text = label ? label.textContent : '';
+    text = text.replace(/必須|任意/g, '').trim();
+
+    // 1行に複数の入力欄がある場合は、読み上げ用ラベルで区別する
+    if (control && control.id) {
+      const own = row.querySelector('label[for="' + control.id + '"].visually-hidden');
+      if (own) text += '（' + own.textContent.trim() + '）';
+    }
+    return text || 'この項目';
+  }
+
+  function isChoice(control) {
+    return control.tagName === 'SELECT' || control.type === 'radio' || control.type === 'checkbox';
+  }
+
+  function clearErrors(form) {
+    form.querySelectorAll('.form-row.is-error').forEach((r) => r.classList.remove('is-error'));
+    form.querySelectorAll('.field-error, .form-alert').forEach((e) => e.remove());
+  }
+
+  function showFieldError(row, control, message) {
+    row.classList.add('is-error');
+    const holder = control.closest('.form-row > div') || row;
+    if (holder.querySelector('.field-error')) return;
+    const p = document.createElement('p');
+    p.className = 'field-error';
+    p.textContent = message;
+    holder.appendChild(p);
+  }
+
+  function showSummary(form) {
+    // 1行に2つ入力欄がある項目（階数など）は1か所として数える
+    const count = form.querySelectorAll('.form-row.is-error').length;
+    const inner = form.querySelector('.form-inner') || form;
+    const box = document.createElement('div');
+    box.className = 'form-alert';
+    box.setAttribute('role', 'alert');
+    box.textContent = '未入力の必須項目が ' + count + ' か所あります。ご確認ください。';
+    inner.insertBefore(box, inner.firstChild);
+    return box;
+  }
+
+  forms.forEach((form) => {
+    // 入力し直したらその項目のエラー表示を消す
+    form.addEventListener('input', onFix);
+    form.addEventListener('change', onFix);
+
+    function onFix(e) {
+      const row = e.target.closest && e.target.closest('.form-row.is-error');
+      if (!row) return;
+      row.classList.remove('is-error');
+      row.querySelectorAll('.field-error').forEach((p) => p.remove());
+    }
+
+    // 未入力の項目を集める
+    function collect() {
+      const seen = {};
+      const invalid = [];
+
+      form.querySelectorAll('[required]').forEach((control) => {
+        // ラジオは同じ name でひとつの項目として扱う
+        if (control.type === 'radio') {
+          if (seen[control.name]) return;
+          seen[control.name] = true;
+          if (form.querySelector('input[name="' + control.name + '"]:checked')) return;
+        } else if (control.value.trim() !== '') {
+          // メールアドレスだけ形式も見る
+          if (control.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(control.value.trim())) {
+            invalid.push({ control: control, reason: 'format' });
+          }
+          return;
+        }
+        invalid.push({ control: control, reason: 'empty' });
+      });
+
+      return invalid;
+    }
+
+    // エラーを表示して、先頭の項目まで移動する
+    function report(invalid) {
+      invalid.forEach(({ control, reason }) => {
+        const row = control.closest('.form-row');
+        if (!row) return;
+        const message =
+          reason === 'format'
+            ? 'メールアドレスの形式が正しくありません。'
+            : labelOf(row, control) + 'を' + (isChoice(control) ? '選択' : '入力') + 'してください。';
+        showFieldError(row, control, message);
+      });
+
+      const box = showSummary(form);
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      const first = invalid[0].control;
+      if (first.type === 'radio') {
+        const row = first.closest('.form-row');
+        if (row) row.setAttribute('tabindex', '-1');
+      }
+      setTimeout(() => {
+        try {
+          first.focus({ preventScroll: true });
+        } catch (err) {
+          first.focus();
+        }
+      }, 400);
+    }
+
+    function check() {
+      clearErrors(form);
+      const invalid = collect();
+      if (!invalid.length) return true;
+      report(invalid);
+      return false;
+    }
+
+    // WordPress 側は submit ボタン
+    form.addEventListener('submit', (e) => {
+      // 「戻る」「修正する」は入力途中でも押せるようにする
+      const submitter = e.submitter || document.activeElement;
+      if (submitter && submitter.hasAttribute && submitter.hasAttribute('formnovalidate')) return;
+      if (!check()) e.preventDefault();
+    });
+
+    // 静的プレビューは「次へ」がリンクなので、そちらも同じように止める
+    form.addEventListener('click', (e) => {
+      const next = e.target.closest('.form-actions a.btn-primary');
+      if (!next || !form.contains(next)) return;
+      if (!check()) e.preventDefault();
+    });
+  });
+})();
+
+// ============================================
 // ページ内アンカーメニューの現在地ハイライト
 // ============================================
 (function () {

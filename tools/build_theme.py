@@ -253,7 +253,8 @@ def extract_fields(stem):
         sub_label = ""
         for m in re.finditer(
             r'<p class="h-sub"[^>]*>(?P<sub>.*?)</p>'
-            r'|<label for="[^"]*"[^>]*>(?P<sub2>[^<]*)</label>'
+            # 入力欄ごとの読み上げ用ラベル（属性の並び順は問わない。項目名の label は除く）
+            r'|<label(?![^>]*class="label")[^>]*\sfor="[^"]*"[^>]*>(?P<sub2>[^<]*)</label>'
             r'|name="(?P<name>[^"\[]+)(\[\])?"',
             chunk,
             re.S,
@@ -278,13 +279,37 @@ def extract_fields(stem):
     return fields
 
 
+def extract_required(stem):
+    """required が付いている入力欄の name を、本文の並び順で取り出す。"""
+    source = (SRC / "pages" / f"{stem}.html").read_text(encoding="utf-8")
+    names = []
+    for m in re.finditer(r"<(?:input|select|textarea)\b[^>]*>", source):
+        tag = m.group(0)
+        if not re.search(r"\srequired[\s/>]", tag):
+            continue
+        name = re.search(r'\sname="(?P<name>[^"\[]+)"', tag)
+        if name and name.group("name") not in names:
+            names.append(name.group("name"))
+    return names
+
+
 def build_estimate_fields_php():
     """ステップとフィールドの対応表を PHP として書き出す。"""
     blocks = []
+    required_blocks = []
     for stem, title in ESTIMATE_STEPS:
+        fields = extract_fields(stem)
+        labels = dict(fields)
         rows = "".join(
-            f"\t\t\t\t\t'{name}' => '{label}',\n" for name, label in extract_fields(stem)
+            f"\t\t\t\t\t'{name}' => '{label}',\n" for name, label in fields
         )
+
+        req = extract_required(stem)
+        if req:
+            req_rows = "".join(
+                f"\t\t\t'{name}' => '{labels.get(name, name)}',\n" for name in req
+            )
+            required_blocks.append(f"\t\t'{stem}' => array(\n{req_rows}\t\t),\n")
         blocks.append(
             f"\t\t'{stem}' => array(\n"
             f"\t\t\t'title'  => '{title}',\n"
@@ -310,6 +335,14 @@ def build_estimate_fields_php():
         " */\n"
         "function naniwa_estimate_steps() {\n"
         "\treturn array(\n" + "".join(blocks) + "\t);\n"
+        "}\n\n"
+        "/**\n"
+        " * 必須項目を返す（静的HTMLの required 属性から生成）。\n"
+        " *\n"
+        " * @return array<string, array<string, string>> ステップ => (name => ラベル)\n"
+        " */\n"
+        "function naniwa_estimate_required() {\n"
+        "\treturn array(\n" + "".join(required_blocks) + "\t);\n"
         "}\n"
     )
     (OUT / "inc" / "estimate-fields.php").write_text(php, encoding="utf-8")

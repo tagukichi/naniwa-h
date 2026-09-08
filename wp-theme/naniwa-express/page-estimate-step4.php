@@ -131,9 +131,9 @@ naniwa_estimate_form_fields();
         <div class="form-row">
           <span class="label">建物の種類 <span class="req">必須</span></span>
           <div class="choice-grid">
-            <label class="choice"><input type="radio" name="to_type" value="戸建て"<?php checked( naniwa_estimate_value( 'to_type' ), '戸建て' ); ?>><span>戸建て</span></label>
-            <label class="choice"><input type="radio" name="to_type" value="アパート"<?php checked( naniwa_estimate_value( 'to_type' ), 'アパート' ); ?>><span>アパート</span></label>
-            <label class="choice"><input type="radio" name="to_type" value="マンション"<?php checked( naniwa_estimate_value( 'to_type' ), 'マンション' ); ?>><span>マンション</span></label>
+            <label class="choice"><input type="radio" name="to_type" value="戸建て"<?php checked( naniwa_estimate_value( 'to_type' ), '戸建て' ); ?> required><span>戸建て</span></label>
+            <label class="choice"><input type="radio" name="to_type" value="アパート"<?php checked( naniwa_estimate_value( 'to_type' ), 'アパート' ); ?> required><span>アパート</span></label>
+            <label class="choice"><input type="radio" name="to_type" value="マンション"<?php checked( naniwa_estimate_value( 'to_type' ), 'マンション' ); ?> required><span>マンション</span></label>
           </div>
         </div>
 
@@ -141,10 +141,10 @@ naniwa_estimate_form_fields();
           <span class="label">建物の階数／住居の階数 <span class="req">必須</span></span>
           <div class="form-inline">
             <label class="visually-hidden" for="to-floors">建物の階数</label>
-            <input type="number" id="to-floors" name="to_floors" min="1" placeholder="建物の階数" value="<?php echo esc_attr( naniwa_estimate_value( 'to_floors', '0' ) ); ?>">
+            <input type="number" id="to-floors" name="to_floors" min="1" placeholder="建物の階数" required value="<?php echo esc_attr( naniwa_estimate_value( 'to_floors', '0' ) ); ?>">
             <span>階建の</span>
             <label class="visually-hidden" for="to-floor">住居の階数</label>
-            <input type="number" id="to-floor" name="to_floor" min="1" placeholder="住居の階数" value="<?php echo esc_attr( naniwa_estimate_value( 'to_floor', '0' ) ); ?>">
+            <input type="number" id="to-floor" name="to_floor" min="1" placeholder="住居の階数" required value="<?php echo esc_attr( naniwa_estimate_value( 'to_floor', '0' ) ); ?>">
             <span>階</span>
           </div>
         </div>
@@ -152,20 +152,20 @@ naniwa_estimate_form_fields();
         <div class="form-row">
           <span class="label">エレベーター <span class="req">必須</span></span>
           <div class="choice-grid">
-            <label class="choice"><input type="radio" name="to_elevator" value="有"<?php checked( naniwa_estimate_value( 'to_elevator' ), '有' ); ?>><span>有</span></label>
-            <label class="choice"><input type="radio" name="to_elevator" value="無"<?php checked( naniwa_estimate_value( 'to_elevator' ), '無' ); ?>><span>無</span></label>
+            <label class="choice"><input type="radio" name="to_elevator" value="有"<?php checked( naniwa_estimate_value( 'to_elevator' ), '有' ); ?> required><span>有</span></label>
+            <label class="choice"><input type="radio" name="to_elevator" value="無"<?php checked( naniwa_estimate_value( 'to_elevator' ), '無' ); ?> required><span>無</span></label>
           </div>
         </div>
 
         <div class="form-row">
           <span class="label">間取り <span class="req">必須</span></span>
           <div class="choice-grid">
-            <label class="choice"><input type="radio" name="to_layout" value="1R/1K"<?php checked( naniwa_estimate_value( 'to_layout' ), '1R/1K' ); ?>><span>1R/1K</span></label>
-            <label class="choice"><input type="radio" name="to_layout" value="1DK・2K"<?php checked( naniwa_estimate_value( 'to_layout' ), '1DK・2K' ); ?>><span>1DK・2K</span></label>
-            <label class="choice"><input type="radio" name="to_layout" value="1LDK・2DK"<?php checked( naniwa_estimate_value( 'to_layout' ), '1LDK・2DK' ); ?>><span>1LDK・2DK</span></label>
-            <label class="choice"><input type="radio" name="to_layout" value="2LDK・3K"<?php checked( naniwa_estimate_value( 'to_layout' ), '2LDK・3K' ); ?>><span>2LDK・3K</span></label>
-            <label class="choice"><input type="radio" name="to_layout" value="3LDK・4DK"<?php checked( naniwa_estimate_value( 'to_layout' ), '3LDK・4DK' ); ?>><span>3LDK・4DK</span></label>
-            <label class="choice"><input type="radio" name="to_layout" value="4LDK以上"<?php checked( naniwa_estimate_value( 'to_layout' ), '4LDK以上' ); ?>><span>4LDK以上</span></label>
+            <label class="choice"><input type="radio" name="to_layout" value="1R/1K"<?php checked( naniwa_estimate_value( 'to_layout' ), '1R/1K' ); ?> required><span>1R/1K</span></label>
+            <label class="choice"><input type="radio" name="to_layout" value="1DK・2K"<?php checked( naniwa_estimate_value( 'to_layout' ), '1DK・2K' ); ?> required><span>1DK・2K</span></label>
+            <label class="choice"><input type="radio" name="to_layout" value="1LDK・2DK"<?php checked( naniwa_estimate_value( 'to_layout' ), '1LDK・2DK' ); ?> required><span>1LDK・2DK</span></label>
+            <label class="choice"><input type="radio" name="to_layout" value="2LDK・3K"<?php checked( naniwa_estimate_value( 'to_layout' ), '2LDK・3K' ); ?> required><span>2LDK・3K</span></label>
+            <label class="choice"><input type="radio" name="to_layout" value="3LDK・4DK"<?php checked( naniwa_estimate_value( 'to_layout' ), '3LDK・4DK' ); ?> required><span>3LDK・4DK</span></label>
+            <label class="choice"><input type="radio" name="to_layout" value="4LDK以上"<?php checked( naniwa_estimate_value( 'to_layout' ), '4LDK以上' ); ?> required><span>4LDK以上</span></label>
           </div>
         </div>
 

@@ -811,6 +811,42 @@ table.data td .price { font-weight: 800; color: var(--orange-600); }
 .form-inline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .form-inline input { flex: 1; min-width: 120px; }
 
+/* 必須チェックのエラー表示 */
+.form-alert {
+  margin: 0 0 22px;
+  padding: 14px 16px;
+  border: 1px solid #e0b4b3;
+  border-left: 4px solid #b32d2e;
+  border-radius: 8px;
+  background: #fdf3f3;
+  color: #8f2321;
+  font-weight: 700;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.form-row { scroll-margin-top: 150px; }
+.form-row.is-error { background: #fdf6f6; border-radius: 8px; }
+.form-row.is-error > .label { color: #8f2321; }
+.form-row.is-error input[type="text"],
+.form-row.is-error input[type="tel"],
+.form-row.is-error input[type="email"],
+.form-row.is-error input[type="number"],
+.form-row.is-error input[type="date"],
+.form-row.is-error select,
+.form-row.is-error textarea { border-color: #c0413f; background: var(--white); }
+.form-row.is-error .choice { border-color: #c0413f; }
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  color: #b32d2e;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+.field-error::before { content: "!"; flex: none; width: 16px; height: 16px; border-radius: 50%; background: #b32d2e; color: var(--white); font-size: 11px; line-height: 16px; text-align: center; }
+
 /* ラジオ・チェックのカード化 */
 .choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 10px; }
 .choice {
