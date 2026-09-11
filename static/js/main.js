@@ -97,6 +97,21 @@
 // ============================================
 
 // ============================================
+// 日付欄の下限を今日にする（引越予定日）
+// ============================================
+(function () {
+  const fields = document.querySelectorAll('input[type="date"][data-min-today]');
+  if (!fields.length) return;
+
+  const d = new Date();
+  const today = d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
+
+  fields.forEach((f) => f.setAttribute('min', today));
+})();
+
+// ============================================
 // 見積フォームの必須チェック
 // ブラウザ標準の吹き出しは環境差が大きいので、
 // 項目の下と先頭にこちらでメッセージを出す。

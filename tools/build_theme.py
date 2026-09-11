@@ -246,7 +246,7 @@ ESTIMATE_STEPS = [
     ("estimate-step1", "お客様情報"),
     ("estimate-step2", "引越プラン"),
     ("estimate-step3", "現在のお住まい"),
-    ("estimate-step4", "引越先"),
+    ("estimate-step4", "引越先・引越予定"),
     ("estimate-step5", "道路状況"),
     ("estimate-items", "お荷物"),
     ("estimate-step7", "オプション"),
@@ -525,7 +525,7 @@ def build_confirm_body(body):
         "\tforeach ( $naniwa_step['fields'] as $naniwa_key => $naniwa_label ) {\n"
         "\t\t$naniwa_val = naniwa_estimate_value( $naniwa_key );\n"
         "\t\tif ( '' !== $naniwa_val && '0' !== $naniwa_val ) {\n"
-        "\t\t\t$naniwa_rows[ $naniwa_label ] = $naniwa_val;\n"
+        "\t\t\t$naniwa_rows[ $naniwa_label ] = naniwa_estimate_display( $naniwa_val );\n"
         "\t\t}\n"
         "\t}\n"
         "\t// 荷物はステップが3つに分かれているが、確認画面では1つにまとめる。\n"

@@ -195,6 +195,37 @@ naniwa_estimate_form_fields();
             <label class="choice"><input type="radio" name="to_parking" value="わからない"<?php checked( naniwa_estimate_value( 'to_parking' ), 'わからない' ); ?>><span>わからない</span></label>
           </div>
         </div>
+
+        <p class="h-sub" style="margin:26px 0 4px;">引越の予定</p>
+
+        <div class="form-row">
+          <span class="label">引越される人数 <span class="req">必須</span></span>
+          <div class="form-inline">
+            <label class="visually-hidden" for="adults">大人</label>
+            <input type="number" id="adults" name="adults" min="0" placeholder="大人0人" required value="<?php echo esc_attr( naniwa_estimate_value( 'adults', '0' ) ); ?>">
+            <span>人（大人）</span>
+            <label class="visually-hidden" for="children">子供</label>
+            <input type="number" id="children" name="children" min="0" placeholder="子供0人" value="<?php echo esc_attr( naniwa_estimate_value( 'children', '0' ) ); ?>">
+            <span>人（子供）</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="label" for="move-date">引越予定日 <span class="req">必須</span></label>
+          <div>
+            <input type="date" id="move-date" name="move_date" data-min-today required value="<?php echo esc_attr( naniwa_estimate_value( 'move_date', '' ) ); ?>">
+            <p class="hint">まだ確定していない場合は、おおよその日付をご入力ください。</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <span class="label">時間帯 <span class="req any">任意</span></span>
+          <div class="choice-grid">
+            <label class="choice"><input type="radio" name="move_time" value="午前"<?php checked( naniwa_estimate_value( 'move_time' ), '午前' ); ?>><span>午前</span></label>
+            <label class="choice"><input type="radio" name="move_time" value="午後"<?php checked( naniwa_estimate_value( 'move_time' ), '午後' ); ?>><span>午後</span></label>
+            <label class="choice"><input type="radio" name="move_time" value="いつでも"<?php checked( naniwa_estimate_value( 'move_time' ), 'いつでも' ); ?>><span>いつでも</span></label>
+          </div>
+        </div>
       </div>
       <div class="form-actions">
       <button class="btn btn-back" type="submit" name="naniwa_next" value="estimate-step3" formnovalidate>←　戻る</button>

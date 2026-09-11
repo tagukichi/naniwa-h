@@ -54,7 +54,7 @@ foreach ( naniwa_estimate_steps() as $naniwa_slug => $naniwa_step ) :
 	foreach ( $naniwa_step['fields'] as $naniwa_key => $naniwa_label ) {
 		$naniwa_val = naniwa_estimate_value( $naniwa_key );
 		if ( '' !== $naniwa_val && '0' !== $naniwa_val ) {
-			$naniwa_rows[ $naniwa_label ] = $naniwa_val;
+			$naniwa_rows[ $naniwa_label ] = naniwa_estimate_display( $naniwa_val );
 		}
 	}
 	// 荷物はステップが3つに分かれているが、確認画面では1つにまとめる。

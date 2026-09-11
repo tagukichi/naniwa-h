@@ -242,6 +242,28 @@ function naniwa_estimate_items() {
 }
 
 /**
+ * 表示用に値を整える。
+ *
+ * 日付欄は input[type=date] に合わせて Y-m-d で保持しているので、
+ * メールと確認画面では日本語の表記に直す。
+ *
+ * @param string $value 値.
+ * @return string
+ */
+function naniwa_estimate_display( $value ) {
+	if ( ! preg_match( '/^(\d{4})-(\d{2})-(\d{2})$/', (string) $value ) ) {
+		return $value;
+	}
+
+	$time = strtotime( $value );
+	if ( ! $time ) {
+		return $value;
+	}
+
+	return wp_date( 'Y年n月j日（D）', $time );
+}
+
+/**
  * カンマ・空白区切りの文字列から、有効なメールアドレスだけを取り出す。
  *
  * @param string $value 入力値.
@@ -328,7 +350,7 @@ function naniwa_estimate_send() {
 			if ( 'name' === $key ) {
 				$name = $value;
 			}
-			$section[] = $label . '：' . $value;
+			$section[] = $label . '：' . naniwa_estimate_display( $value );
 		}
 		if ( $section ) {
 			$lines[] = '【' . $step['title'] . '】';

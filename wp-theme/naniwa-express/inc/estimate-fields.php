@@ -53,7 +53,7 @@ function naniwa_estimate_steps() {
 			),
 		),
 		'estimate-step4' => array(
-			'title'  => '引越先',
+			'title'  => '引越先・引越予定',
 			'fields' => array(
 					'to_zip' => '郵便番号',
 					'to_pref' => '都道府県',
@@ -68,6 +68,10 @@ function naniwa_estimate_steps() {
 					'to_maisonette' => 'メゾネットタイプですか？',
 					'to_carry' => '一番大きな荷物の搬出方法',
 					'to_parking' => '住居入口での駐車',
+					'adults' => '引越される人数（大人）',
+					'children' => '引越される人数（子供）',
+					'move_date' => '引越予定日',
+					'move_time' => '時間帯',
 			),
 		),
 		'estimate-step5' => array(
@@ -133,6 +137,8 @@ function naniwa_estimate_required() {
 			'to_floor' => '建物の階数／住居の階数（住居の階数）',
 			'to_elevator' => 'エレベーター',
 			'to_layout' => '間取り',
+			'adults' => '引越される人数（大人）',
+			'move_date' => '引越予定日',
 		),
 	);
 }
