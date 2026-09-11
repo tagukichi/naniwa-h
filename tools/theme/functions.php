@@ -152,6 +152,10 @@ function naniwa_pre_get_posts( $query ) {
 	if ( is_admin() || ! $query->is_main_query() ) {
 		return;
 	}
+	// ブログ一覧（PC 3列 × 4行）
+	if ( $query->is_home() ) {
+		$query->set( 'posts_per_page', 12 );
+	}
 	if ( $query->is_post_type_archive( 'voice' ) ) {
 		$query->set( 'posts_per_page', 12 );
 	}

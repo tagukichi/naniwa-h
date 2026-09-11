@@ -94,7 +94,7 @@ function naniwa_blog_card() {
 	<a class="blog-card" href="<?php the_permalink(); ?>">
 		<span class="thumb">
 			<?php if ( has_post_thumbnail() ) : ?>
-				<?php the_post_thumbnail( 'medium', array( 'loading' => 'lazy' ) ); ?>
+				<?php the_post_thumbnail( 'medium_large', array( 'loading' => 'lazy' ) ); ?>
 			<?php else : ?>
 				<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
 			<?php endif; ?>
