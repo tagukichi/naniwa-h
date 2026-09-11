@@ -56,6 +56,39 @@ function naniwa_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'naniwa_enqueue_assets' );
 
 /**
+ * 求人ページで Contact Form 7 のアセットを確実に読み込ませる。
+ *
+ * 求人フォームのショートコードは固定ページ本文ではなくカスタマイザーから
+ * 出力している。本文を見てアセットの要否を判定する最適化（CF7の
+ * 「自動的に読み込まない」設定やキャッシュ系プラグイン）が入っていると、
+ * このページだけ CF7 の JS が読み込まれない。
+ *
+ * JS が無いと CF7 は Ajax ではなくページURLへ直接 POST するため、
+ * ページURLへの POST を弾くサーバーでは 404 になる。
+ */
+function naniwa_enqueue_cf7_on_recruit() {
+	if ( ! function_exists( 'wpcf7_enqueue_scripts' ) ) {
+		return;
+	}
+
+	$recruit_id = naniwa_page_id( 'recruit' );
+	if ( ! $recruit_id || ! is_page( $recruit_id ) ) {
+		return;
+	}
+
+	if ( ! get_theme_mod( 'naniwa_recruit_form', '' ) ) {
+		return;
+	}
+
+	wpcf7_enqueue_scripts();
+
+	if ( function_exists( 'wpcf7_enqueue_styles' ) ) {
+		wpcf7_enqueue_styles();
+	}
+}
+add_action( 'wp_enqueue_scripts', 'naniwa_enqueue_cf7_on_recruit', 20 );
+
+/**
  * 見積CTAを出さないページに body クラスを付ける。
  *
  * @param array<int, string> $classes body クラス.
