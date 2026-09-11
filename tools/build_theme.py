@@ -198,6 +198,28 @@ def inject_recruit_form(body):
     end += len("</form>")
     static_form = body[start:end]
 
+    # ショートコード未設定のときに出るのはデザイン確認用のダミー。
+    # 実際に送信できてしまうと本物のフォームと紛らわしいので、
+    # 送信を無効にしたうえで管理者向けの案内を出す。
+    demo = static_form.replace(
+        '<form class="form-card" action="#" method="post" novalidate>',
+        '<form class="form-card" action="#" method="post" novalidate onsubmit="return false;">',
+        1,
+    )
+    demo = demo.replace(
+        '<button type="submit" class="btn btn-primary">この内容で応募する</button>',
+        '<button type="button" class="btn btn-primary" disabled>この内容で応募する</button>',
+        1,
+    )
+    notice = (
+        '<div class="form-alert" role="alert">'
+        "【デザイン確認用のダミーフォームです。送信できません】"
+        "<br>外観 → カスタマイズ → なにわ：フォーム設定 に、"
+        "Contact Form 7 のショートコードを貼り付けて公開してください。"
+        "</div>"
+    )
+    demo = demo.replace('<div class="form-inner">', '<div class="form-inner">\n' + notice, 1)
+
     replacement = (
         "<?php\n"
         "\t\t$naniwa_form = get_theme_mod( 'naniwa_recruit_form', '' );\n"
@@ -206,7 +228,7 @@ def inject_recruit_form(body):
         "\t\t\techo '<div class=\"form-card form-card-plugin\">' . do_shortcode( $naniwa_form ) . '</div>';\n"
         "\t\telse :\n"
         "\t\t\t?>\n"
-        "\t\t\t" + static_form.replace("\n", "\n\t\t\t") + "\n"
+        "\t\t\t" + demo.replace("\n", "\n\t\t\t") + "\n"
         "\t\t\t<?php\n"
         "\t\tendif;\n"
         "\t\t?>"

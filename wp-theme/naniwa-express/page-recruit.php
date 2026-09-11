@@ -395,9 +395,10 @@ get_header();
 			echo '<div class="form-card form-card-plugin">' . do_shortcode( $naniwa_form ) . '</div>';
 		else :
 			?>
-			<form class="form-card" action="#" method="post" novalidate>
+			<form class="form-card" action="#" method="post" novalidate onsubmit="return false;">
 			        <h2>ご応募・お問い合わせ</h2>
 			        <div class="form-inner">
+			<div class="form-alert" role="alert">【デザイン確認用のダミーフォームです。送信できません】<br>外観 → カスタマイズ → なにわ：フォーム設定 に、Contact Form 7 のショートコードを貼り付けて公開してください。</div>
 			          <div class="form-row">
 			            <label class="label" for="rc-name">お名前 <span class="req">必須</span></label>
 			            <div><input type="text" id="rc-name" name="name" placeholder="例：浪花 太郎" required></div>
@@ -466,7 +467,7 @@ get_header();
 			          </div>
 			        </div>
 			        <div class="form-actions">
-			          <button type="submit" class="btn btn-primary">この内容で応募する</button>
+			          <button type="button" class="btn btn-primary" disabled>この内容で応募する</button>
 			        </div>
 			      </form>
 			<?php
