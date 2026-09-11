@@ -392,7 +392,8 @@ get_header();
 		$naniwa_form = get_theme_mod( 'naniwa_recruit_form', '' );
 		if ( $naniwa_form ) :
 			// カスタマイザーで設定された Contact Form 7 等のショートコードを出力する。
-			echo '<div class="form-card form-card-plugin">' . do_shortcode( $naniwa_form ) . '</div>';
+			echo '<div class="form-card form-card-plugin"><h2>ご応募・お問い合わせ</h2>'
+				. '<div class="form-inner">' . do_shortcode( $naniwa_form ) . '</div></div>';
 		else :
 			?>
 			<form class="form-card" action="#" method="post" novalidate onsubmit="return false;">
