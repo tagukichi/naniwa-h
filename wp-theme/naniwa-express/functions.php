@@ -191,5 +191,22 @@ function naniwa_customize_register( $wp_customize ) {
 			'type'        => 'textarea',
 		)
 	);
+
+	$wp_customize->add_setting(
+		'naniwa_estimate_mail_to',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'naniwa_clean_email_list',
+		)
+	);
+	$wp_customize->add_control(
+		'naniwa_estimate_mail_to',
+		array(
+			'label'       => 'web見積の通知先メールアドレス',
+			'description' => '見積フォームの送信を受け取るアドレス。複数指定する場合はカンマ区切り（例：info@example.com,info@example.jp）。空欄の場合は「設定 → 一般」の管理者アドレスに送ります。',
+			'section'     => 'naniwa_forms',
+			'type'        => 'text',
+		)
+	);
 }
 add_action( 'customize_register', 'naniwa_customize_register' );

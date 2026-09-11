@@ -242,6 +242,39 @@ function naniwa_estimate_items() {
 }
 
 /**
+ * カンマ・空白区切りの文字列から、有効なメールアドレスだけを取り出す。
+ *
+ * @param string $value 入力値.
+ * @return string カンマ区切りのアドレス。有効なものが無ければ空文字.
+ */
+function naniwa_clean_email_list( $value ) {
+	$out = array();
+
+	// 全角カンマ・読点・セミコロンで区切られていても拾う。
+	foreach ( preg_split( '/[,\s;、，；]+/u', (string) $value ) as $one ) {
+		$one = sanitize_email( trim( $one ) );
+		if ( $one && is_email( $one ) ) {
+			$out[] = $one;
+		}
+	}
+
+	return implode( ',', array_unique( $out ) );
+}
+
+/**
+ * web見積の通知先を返す。
+ *
+ * カスタマイザーで指定があればそれを使い、無ければ管理者アドレスに送る。
+ *
+ * @return string カンマ区切りのアドレス.
+ */
+function naniwa_estimate_mail_to() {
+	$custom = naniwa_clean_email_list( get_theme_mod( 'naniwa_estimate_mail_to', '' ) );
+
+	return '' !== $custom ? $custom : get_option( 'admin_email' );
+}
+
+/**
  * admin-post.php で受け取り、次のステップへリダイレクトする。
  *
  * 送信ボタンが押されたときだけメール送信まで進む。
@@ -320,7 +353,7 @@ function naniwa_estimate_send() {
 	$post_id = naniwa_estimate_store( $name, $detail );
 
 	// 1通目：管理者宛
-	$to      = apply_filters( 'naniwa_estimate_mail_to', get_option( 'admin_email' ) );
+	$to      = apply_filters( 'naniwa_estimate_mail_to', naniwa_estimate_mail_to() );
 	$subject = '【web見積】' . ( '' !== $name ? $name . ' 様' : 'お問い合わせ' );
 	$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
 
@@ -423,7 +456,9 @@ function naniwa_estimate_log_mail( $post_id, $kind, $to, $result ) {
  */
 function naniwa_estimate_send_autoreply( $email, $name, $detail ) {
 	$site = get_bloginfo( 'name' );
-	$from = apply_filters( 'naniwa_estimate_mail_to', get_option( 'admin_email' ) );
+	$to_list = (string) apply_filters( 'naniwa_estimate_mail_to', naniwa_estimate_mail_to() );
+	// Reply-To には1つしか入れられないので、先頭のアドレスを使う。
+	$from    = trim( explode( ',', $to_list )[0] );
 
 	$subject = apply_filters(
 		'naniwa_estimate_autoreply_subject',
