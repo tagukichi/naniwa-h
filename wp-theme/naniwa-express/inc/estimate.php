@@ -376,7 +376,12 @@ function naniwa_estimate_send() {
 
 	// 1通目：管理者宛
 	$to      = apply_filters( 'naniwa_estimate_mail_to', naniwa_estimate_mail_to() );
-	$subject = '【web見積】' . ( '' !== $name ? $name . ' 様' : 'お問い合わせ' );
+	// 件名はメールソフトの自動振り分けに使われているので、頭の【】は変えないこと。
+	$subject = apply_filters(
+		'naniwa_estimate_mail_subject',
+		'【なにわ見積受信】' . ( '' !== $name ? $name . ' 様' : 'お問い合わせ' ),
+		$name
+	);
 	$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
 
 	if ( $email && is_email( $email ) ) {

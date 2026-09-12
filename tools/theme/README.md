@@ -211,7 +211,9 @@ ACF が無効な環境では、テーマが簡易的な入力欄を代わりに�
 
 送信すると、次の3つが実行されます。
 
-1. **管理者宛メール**（設定 → 一般 の管理者アドレス。Reply-To はお客様のアドレス）
+1. **管理者宛メール**（下記「通知先メールアドレス」宛。Reply-To はお客様のアドレス）
+   件名は `【なにわ見積受信】お名前 様`。
+   **受信側でフォルダの自動振り分けに使っているので、頭の `【なにわ見積受信】` は変えないこと。**
 2. **お客様宛の自動返信メール**（入力内容の控え付き）
 3. **送信内容をDBに保存**（管理画面「web見積の送信」に一覧表示）
 
@@ -235,6 +237,14 @@ info@naniwa-h.com,info@example.jp
 add_filter( 'naniwa_estimate_mail_to', function () {
 	return 'info@naniwa-h.com,info@example.jp';
 } );
+```
+
+管理者宛の件名を変えたい場合（自動振り分けに影響するので要注意）：
+
+```php
+add_filter( 'naniwa_estimate_mail_subject', function ( $subject, $name ) {
+	return '【なにわ見積受信】' . $name . ' 様';
+}, 10, 2 );
 ```
 
 自動返信の件名・本文を変えたい場合：
