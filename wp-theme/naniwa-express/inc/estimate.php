@@ -242,6 +242,26 @@ function naniwa_estimate_items() {
 }
 
 /**
+ * メール・確認画面に載せない値かどうか。
+ *
+ * オプション欄などは初期値が 0 で、触らなくても「0」が送られてくる。
+ * 未入力と同じ扱いにして、メールにも確認画面にも出さない。
+ *
+ * @param string $value 値.
+ * @return bool
+ */
+function naniwa_estimate_is_blank( $value ) {
+	$value = trim( (string) $value );
+
+	if ( '' === $value ) {
+		return true;
+	}
+
+	// 「0」「00」「０」など、数量ゼロの入力
+	return (bool) preg_match( '/^[0\x{FF10}]+$/u', $value );
+}
+
+/**
  * 表示用に値を整える。
  *
  * 日付欄は input[type=date] に合わせて Y-m-d で保持しているので、
@@ -344,7 +364,7 @@ function naniwa_estimate_send() {
 		$section = array();
 		foreach ( $step['fields'] as $key => $label ) {
 			$value = naniwa_estimate_value( $key );
-			if ( '' === $value ) {
+			if ( naniwa_estimate_is_blank( $value ) ) {
 				continue;
 			}
 			if ( 'name' === $key ) {

@@ -524,7 +524,7 @@ def build_confirm_body(body):
         "\t$naniwa_rows = array();\n"
         "\tforeach ( $naniwa_step['fields'] as $naniwa_key => $naniwa_label ) {\n"
         "\t\t$naniwa_val = naniwa_estimate_value( $naniwa_key );\n"
-        "\t\tif ( '' !== $naniwa_val && '0' !== $naniwa_val ) {\n"
+        "\t\tif ( ! naniwa_estimate_is_blank( $naniwa_val ) ) {\n"
         "\t\t\t$naniwa_rows[ $naniwa_label ] = naniwa_estimate_display( $naniwa_val );\n"
         "\t\t}\n"
         "\t}\n"

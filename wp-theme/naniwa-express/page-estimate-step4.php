@@ -202,7 +202,7 @@ naniwa_estimate_form_fields();
           <span class="label">引越される人数 <span class="req">必須</span></span>
           <div class="form-inline">
             <label class="visually-hidden" for="adults">大人</label>
-            <input type="number" id="adults" name="adults" min="0" placeholder="大人0人" required value="<?php echo esc_attr( naniwa_estimate_value( 'adults', '0' ) ); ?>">
+            <input type="number" id="adults" name="adults" min="1" placeholder="大人0人" required value="<?php echo esc_attr( naniwa_estimate_value( 'adults', '0' ) ); ?>">
             <span>人（大人）</span>
             <label class="visually-hidden" for="children">子供</label>
             <input type="number" id="children" name="children" min="0" placeholder="子供0人" value="<?php echo esc_attr( naniwa_estimate_value( 'children', '0' ) ); ?>">
