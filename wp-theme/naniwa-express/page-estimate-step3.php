@@ -126,6 +126,87 @@ naniwa_estimate_form_fields();
           <div><input type="text" id="from-bldg" name="from_bldg" placeholder="例：なにわマンション101号室" value="<?php echo esc_attr( naniwa_estimate_value( 'from_bldg', '' ) ); ?>"></div>
         </div>
 
+        <p class="h-sub" style="margin:26px 0 4px;">もう1か所のお住まい</p>
+        <p class="hint" style="margin:0 0 6px;">カップルの引越など、2か所から荷物を運び出す場合にご入力ください。1か所の場合は空欄で構いません。</p>
+
+        <div class="form-row">
+          <label class="label" for="from-zip2">郵便番号（2か所目） <span class="req any">任意</span></label>
+          <div>
+            <input type="text" id="from-zip2" name="from_zip2" placeholder="例：230-0075" inputmode="numeric" value="<?php echo esc_attr( naniwa_estimate_value( 'from_zip2', '' ) ); ?>">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="label" for="from-pref2">都道府県（2か所目） <span class="req any">任意</span></label>
+          <div>
+            <select id="from-pref2" name="from_pref2">
+            <option value=""<?php selected( naniwa_estimate_value( 'from_pref2' ), '' ); ?>>—以下から選択してください—</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '北海道' ); ?>>北海道</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '青森県' ); ?>>青森県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '岩手県' ); ?>>岩手県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '宮城県' ); ?>>宮城県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '秋田県' ); ?>>秋田県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '山形県' ); ?>>山形県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '福島県' ); ?>>福島県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '茨城県' ); ?>>茨城県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '栃木県' ); ?>>栃木県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '群馬県' ); ?>>群馬県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '埼玉県' ); ?>>埼玉県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '千葉県' ); ?>>千葉県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '東京都' ); ?>>東京都</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '神奈川県' ); ?>>神奈川県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '新潟県' ); ?>>新潟県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '富山県' ); ?>>富山県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '石川県' ); ?>>石川県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '福井県' ); ?>>福井県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '山梨県' ); ?>>山梨県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '長野県' ); ?>>長野県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '岐阜県' ); ?>>岐阜県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '静岡県' ); ?>>静岡県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '愛知県' ); ?>>愛知県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '三重県' ); ?>>三重県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '滋賀県' ); ?>>滋賀県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '京都府' ); ?>>京都府</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '大阪府' ); ?>>大阪府</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '兵庫県' ); ?>>兵庫県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '奈良県' ); ?>>奈良県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '和歌山県' ); ?>>和歌山県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '鳥取県' ); ?>>鳥取県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '島根県' ); ?>>島根県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '岡山県' ); ?>>岡山県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '広島県' ); ?>>広島県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '山口県' ); ?>>山口県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '徳島県' ); ?>>徳島県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '香川県' ); ?>>香川県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '愛媛県' ); ?>>愛媛県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '高知県' ); ?>>高知県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '福岡県' ); ?>>福岡県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '佐賀県' ); ?>>佐賀県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '長崎県' ); ?>>長崎県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '熊本県' ); ?>>熊本県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '大分県' ); ?>>大分県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '宮崎県' ); ?>>宮崎県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '鹿児島県' ); ?>>鹿児島県</option>
+            <option<?php selected( naniwa_estimate_value( 'from_pref2' ), '沖縄県' ); ?>>沖縄県</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="label" for="from-city2">市区町村（2か所目） <span class="req any">任意</span></label>
+          <div><input type="text" id="from-city2" name="from_city2" placeholder="例：横浜市鶴見区" value="<?php echo esc_attr( naniwa_estimate_value( 'from_city2', '' ) ); ?>"></div>
+        </div>
+
+        <div class="form-row">
+          <label class="label" for="from-street2">番地・号（2か所目） <span class="req any">任意</span></label>
+          <div><input type="text" id="from-street2" name="from_street2" placeholder="例：上の宮2-19-25" value="<?php echo esc_attr( naniwa_estimate_value( 'from_street2', '' ) ); ?>"></div>
+        </div>
+
+        <div class="form-row">
+          <label class="label" for="from-bldg2">建物名など（2か所目） <span class="req any">任意</span></label>
+          <div><input type="text" id="from-bldg2" name="from_bldg2" placeholder="例：なにわマンション101号室" value="<?php echo esc_attr( naniwa_estimate_value( 'from_bldg2', '' ) ); ?>"></div>
+        </div>
+
         <p class="h-sub" style="margin:26px 0 4px;">住居形態</p>
 
         <div class="form-row">

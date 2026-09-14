@@ -71,13 +71,22 @@ naniwa_estimate_form_fields();
         </div>
 
         <div class="form-row">
-          <label class="label" for="distance">直前の道路から玄関までの距離 <span class="req any">任意</span></label>
+          <span class="label">直前の道路から玄関までの距離 <span class="req any">任意</span></span>
           <div>
+            <p class="hint" style="margin:0 0 14px;">現在と引越先をそれぞれご入力ください。マンションの場合、玄関先から階段・エレベーターまでの距離も加えてください。</p>
+            <p class="h-sub" style="margin-bottom:10px;">現在</p>
             <div class="form-inline">
-              <input type="number" id="distance" name="distance" min="0" placeholder="例：10" value="<?php echo esc_attr( naniwa_estimate_value( 'distance', '0' ) ); ?>">
+              <label class="visually-hidden" for="from-distance">現在</label>
+              <input type="number" id="from-distance" name="from_distance" min="0" placeholder="例：10" value="<?php echo esc_attr( naniwa_estimate_value( 'from_distance', '0' ) ); ?>">
               <span>m</span>
             </div>
-            <p class="hint">マンションの場合、玄関先から階段・エレベーターまでの距離も加えてください。</p>
+            <div style="margin-top:22px;"></div>
+            <p class="h-sub" style="margin-bottom:10px;">引越先</p>
+            <div class="form-inline">
+              <label class="visually-hidden" for="to-distance">引越先</label>
+              <input type="number" id="to-distance" name="to_distance" min="0" placeholder="例：10" value="<?php echo esc_attr( naniwa_estimate_value( 'to_distance', '0' ) ); ?>">
+              <span>m</span>
+            </div>
           </div>
         </div>
       </div>
