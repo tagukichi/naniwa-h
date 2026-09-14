@@ -153,3 +153,24 @@ function naniwa_estimate_required() {
 		),
 	);
 }
+
+/**
+ * 未入力のとき「無し」と表記する項目（静的HTMLから生成）。
+ *
+ * @return array<int, string> name の一覧
+ */
+function naniwa_estimate_nashi() {
+	return array(
+		'request',
+		'plan_note',
+		'from_maisonette',
+		'from_carry',
+		'from_parking',
+		'to_maisonette',
+		'to_carry',
+		'to_parking',
+		'move_time',
+		'from_road',
+		'to_road',
+	);
+}

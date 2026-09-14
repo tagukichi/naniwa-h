@@ -316,10 +316,28 @@ def extract_required(stem):
     return names
 
 
+def extract_kinds(stem):
+    """入力欄の name → 種類（text / number / radio / select / textarea ...）。"""
+    source = (SRC / "pages" / f"{stem}.html").read_text(encoding="utf-8")
+    kinds = {}
+    for m in re.finditer(r"<(input|select|textarea)\b[^>]*>", source):
+        tag = m.group(0)
+        name = re.search(r'\sname="(?P<name>[^"\[]+)"', tag)
+        if not name or name.group("name") in kinds:
+            continue
+        el = m.group(1)
+        if el == "input":
+            t = re.search(r'\stype="([^"]+)"', tag)
+            el = t.group(1) if t else "text"
+        kinds[name.group("name")] = el
+    return kinds
+
+
 def build_estimate_fields_php():
     """ステップとフィールドの対応表を PHP として書き出す。"""
     blocks = []
     required_blocks = []
+    nashi_names = []
     for stem, title in ESTIMATE_STEPS:
         fields = extract_fields(stem)
         labels = dict(fields)
@@ -328,6 +346,18 @@ def build_estimate_fields_php():
         )
 
         req = extract_required(stem)
+
+        # 未入力のとき「無し」と出す項目：任意の選択式（ラジオ）と自由記述。
+        # 数量欄・1行テキスト・2か所目の住所・STEP7オプションは対象外
+        # （空欄と 0 は載せない、という運用のため）。
+        if stem != "estimate-step7":
+            kinds = extract_kinds(stem)
+            for name, label in fields:
+                if name in req or "（2か所目）" in label:
+                    continue
+                if kinds.get(name) in ("radio", "textarea"):
+                    nashi_names.append(name)
+
         if req:
             req_rows = "".join(
                 f"\t\t\t'{name}' => '{labels.get(name, name)}',\n" for name in req
@@ -366,6 +396,16 @@ def build_estimate_fields_php():
         " */\n"
         "function naniwa_estimate_required() {\n"
         "\treturn array(\n" + "".join(required_blocks) + "\t);\n"
+        "}\n\n"
+        "/**\n"
+        " * 未入力のとき「無し」と表記する項目（静的HTMLから生成）。\n"
+        " *\n"
+        " * @return array<int, string> name の一覧\n"
+        " */\n"
+        "function naniwa_estimate_nashi() {\n"
+        "\treturn array(\n"
+        + "".join(f"\t\t'{n}',\n" for n in nashi_names)
+        + "\t);\n"
         "}\n"
     )
     (OUT / "inc" / "estimate-fields.php").write_text(php, encoding="utf-8")
@@ -524,8 +564,9 @@ def build_confirm_body(body):
         "\t$naniwa_rows = array();\n"
         "\tforeach ( $naniwa_step['fields'] as $naniwa_key => $naniwa_label ) {\n"
         "\t\t$naniwa_val = naniwa_estimate_value( $naniwa_key );\n"
-        "\t\tif ( ! naniwa_estimate_is_blank( $naniwa_val ) ) {\n"
-        "\t\t\t$naniwa_rows[ $naniwa_label ] = naniwa_estimate_display( $naniwa_val );\n"
+        "\t\t$naniwa_shown = naniwa_estimate_shown_value( $naniwa_key, $naniwa_val );\n"
+        "\t\tif ( null !== $naniwa_shown ) {\n"
+        "\t\t\t$naniwa_rows[ $naniwa_label ] = $naniwa_shown;\n"
         "\t\t}\n"
         "\t}\n"
         "\t// 荷物はステップが3つに分かれているが、確認画面では1つにまとめる。\n"

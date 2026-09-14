@@ -262,6 +262,27 @@ function naniwa_estimate_is_blank( $value ) {
 }
 
 /**
+ * メール・確認画面に載せる値を返す。載せない場合は null。
+ *
+ * 未入力は基本的に載せないが、任意の選択式・自由記述は
+ * 「選ばなかった」ことが分かるよう「無し」と表記する
+ * （対象は naniwa_estimate_nashi()、静的HTMLから自動生成）。
+ *
+ * @param string $key   name.
+ * @param string $value 値.
+ * @return string|null
+ */
+function naniwa_estimate_shown_value( $key, $value ) {
+	if ( ! naniwa_estimate_is_blank( $value ) ) {
+		return naniwa_estimate_display( $value );
+	}
+
+	$nashi = function_exists( 'naniwa_estimate_nashi' ) ? naniwa_estimate_nashi() : array();
+
+	return in_array( $key, $nashi, true ) ? '無し' : null;
+}
+
+/**
  * 表示用に値を整える。
  *
  * 日付欄は input[type=date] に合わせて Y-m-d で保持しているので、
@@ -364,13 +385,14 @@ function naniwa_estimate_send() {
 		$section = array();
 		foreach ( $step['fields'] as $key => $label ) {
 			$value = naniwa_estimate_value( $key );
-			if ( naniwa_estimate_is_blank( $value ) ) {
+			$shown = naniwa_estimate_shown_value( $key, $value );
+			if ( null === $shown ) {
 				continue;
 			}
 			if ( 'name' === $key ) {
 				$name = $value;
 			}
-			$section[] = $label . '：' . naniwa_estimate_display( $value );
+			$section[] = $label . '：' . $shown;
 		}
 		if ( $section ) {
 			$lines[] = '【' . $step['title'] . '】';
