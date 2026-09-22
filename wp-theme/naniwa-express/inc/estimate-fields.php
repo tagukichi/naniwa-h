@@ -159,6 +159,22 @@ function naniwa_estimate_required() {
  *
  * @return array<int, string> name の一覧
  */
+/**
+ * メール本文で直前に1行空ける項目（静的HTMLから生成）。
+ *
+ * @return array<int, string> name の一覧
+ */
+function naniwa_estimate_breaks() {
+	return array(
+		'from_zip2',
+		'from_type',
+		'to_zip2',
+		'to_type',
+		'adults',
+		'move_date',
+	);
+}
+
 function naniwa_estimate_nashi() {
 	return array(
 		'request',

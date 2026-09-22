@@ -381,6 +381,8 @@ function naniwa_estimate_send() {
 	$lines = array();
 	$name  = '';
 
+	$breaks = function_exists( 'naniwa_estimate_breaks' ) ? naniwa_estimate_breaks() : array();
+
 	foreach ( naniwa_estimate_steps() as $step ) {
 		$section = array();
 		foreach ( $step['fields'] as $key => $label ) {
@@ -391,6 +393,11 @@ function naniwa_estimate_send() {
 			}
 			if ( 'name' === $key ) {
 				$name = $value;
+			}
+			// 項目のかたまりが変わるところで1行空ける。
+			// 前のかたまりが空だったときは空行を入れない。
+			if ( $section && '' !== end( $section ) && in_array( $key, $breaks, true ) ) {
+				$section[] = '';
 			}
 			$section[] = $label . '：' . $shown;
 		}

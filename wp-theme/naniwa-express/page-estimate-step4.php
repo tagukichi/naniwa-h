@@ -291,7 +291,7 @@ naniwa_estimate_form_fields();
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" data-mail-break>
           <label class="label" for="move-date">引越予定日 <span class="req">必須</span></label>
           <div>
             <input type="date" id="move-date" name="move_date" data-min-today required value="<?php echo esc_attr( naniwa_estimate_value( 'move_date', '' ) ); ?>">

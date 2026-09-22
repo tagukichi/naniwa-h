@@ -263,7 +263,8 @@ def extract_fields(stem):
     source = (SRC / "pages" / f"{stem}.html").read_text(encoding="utf-8")
     fields = []
 
-    for chunk in source.split('<div class="form-row">')[1:]:
+    # data-mail-break など属性が付くことがあるので、完全一致では分割しない。
+    for chunk in re.split(r'<div class="form-row"[^>]*>', source)[1:]:
         chunk = chunk.split("</form>")[0]
 
         main = re.search(r'class="label"[^>]*>(.*?)(?=<div|</div)', chunk, re.S)
@@ -333,12 +334,56 @@ def extract_kinds(stem):
     return kinds
 
 
+def extract_breaks(stem):
+    """メール本文で直前に1行空ける項目の name を返す。
+
+    区切りの目印は2つ。
+      * <p class="h-sub"> のうち、次が .form-row のもの（フォームの小見出し）
+        行内の小見出し（次が .choice-grid など）は対象外。
+      * <div class="form-row" data-mail-break>（見出しは出さずに区切りたいとき）
+    """
+    source = (SRC / "pages" / f"{stem}.html").read_text(encoding="utf-8")
+    breaks, seen = [], set()
+    pending = False
+
+    for m in re.finditer(
+        r'<p class="h-sub"[^>]*>'
+        r'|<div class="form-row"(?P<attrs>[^>]*)>'
+        r'|<div class="(?P<other>[a-z-]+)"'
+        r'|\sname="(?P<name>[^"\[]+)"',
+        source,
+    ):
+        token = m.group(0)
+        if token.startswith('<p class="h-sub"'):
+            pending = "maybe"
+        elif m.group("attrs") is not None:
+            if pending == "maybe" or "data-mail-break" in m.group("attrs"):
+                pending = True
+        elif m.group("other") is not None:
+            # h-sub の直後が form-row 以外（行内の小見出し）なら区切りにしない。
+            # hint は h-sub と form-row のあいだに挟まることがあるので見送る。
+            if pending == "maybe" and m.group("other") not in ("hint",):
+                pending = False
+        elif m.group("name") is not None:
+            name = m.group("name")
+            if name in seen:
+                continue
+            seen.add(name)
+            if pending is True:
+                breaks.append(name)
+            pending = False
+
+    return breaks
+
+
 def build_estimate_fields_php():
     """ステップとフィールドの対応表を PHP として書き出す。"""
     blocks = []
     required_blocks = []
     nashi_names = []
+    break_names = []
     for stem, title in ESTIMATE_STEPS:
+        break_names.extend(extract_breaks(stem))
         fields = extract_fields(stem)
         labels = dict(fields)
         rows = "".join(
@@ -402,6 +447,16 @@ def build_estimate_fields_php():
         " *\n"
         " * @return array<int, string> name の一覧\n"
         " */\n"
+        "/**\n"
+        " * メール本文で直前に1行空ける項目（静的HTMLから生成）。\n"
+        " *\n"
+        " * @return array<int, string> name の一覧\n"
+        " */\n"
+        "function naniwa_estimate_breaks() {\n"
+        "\treturn array(\n"
+        + "".join(f"\t\t'{n}',\n" for n in break_names)
+        + "\t);\n"
+        "}\n\n"
         "function naniwa_estimate_nashi() {\n"
         "\treturn array(\n"
         + "".join(f"\t\t'{n}',\n" for n in nashi_names)
