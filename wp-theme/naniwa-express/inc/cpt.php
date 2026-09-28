@@ -202,6 +202,16 @@ function naniwa_estimate_mail_meta_box( $post ) {
 		echo '</p>';
 	}
 
+	// スパム対策（Turnstile）の検証結果
+	$turnstile = naniwa_turnstile_status_label( get_post_meta( $post->ID, '_naniwa_turnstile', true ) );
+	$ts_raw    = get_post_meta( $post->ID, '_naniwa_turnstile', true );
+	echo '<p style="margin:0 0 12px"><strong>スパム対策（Turnstile）</strong><br>';
+	echo '<span style="color:' . esc_attr( $turnstile['color'] ) . '">' . esc_html( $turnstile['label'] ) . '</span>';
+	if ( is_array( $ts_raw ) && ! empty( $ts_raw['error'] ) ) {
+		echo '<br><span style="color:#777">' . esc_html( $ts_raw['error'] ) . '</span>';
+	}
+	echo '</p>';
+
 	$email = get_post_meta( $post->ID, '_naniwa_email', true );
 
 	if ( $email && is_email( $email ) ) {

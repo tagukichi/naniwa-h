@@ -80,7 +80,7 @@ function naniwa_estimate_merge( $posted ) {
 	$token = naniwa_estimate_token( true );
 	$data  = naniwa_estimate_request();
 
-	$skip = array( 'action', 'naniwa_next', 'naniwa_estimate_nonce', 'naniwa_estimate_submit', '_wp_http_referer' );
+	$skip = array( 'action', 'naniwa_next', 'naniwa_estimate_nonce', 'naniwa_estimate_submit', '_wp_http_referer', 'cf-turnstile-response' );
 
 	foreach ( $posted as $key => $value ) {
 		if ( ! is_string( $key ) || in_array( $key, $skip, true ) ) {
@@ -106,11 +106,15 @@ function naniwa_estimate_clear() {
 
 /**
  * 各ステップのフォームに必要な hidden と、未入力の案内を出力する。
+ *
+ * @param bool $banner 案内もここで出すか（確認画面では本文の中に出すため false）.
  */
-function naniwa_estimate_form_fields() {
+function naniwa_estimate_form_fields( $banner = true ) {
 	wp_nonce_field( 'naniwa_estimate', 'naniwa_estimate_nonce' );
 	echo '<input type="hidden" name="action" value="naniwa_estimate">' . "\n";
-	naniwa_estimate_error_banner();
+	if ( $banner ) {
+		naniwa_estimate_error_banner();
+	}
 }
 
 /**
@@ -153,12 +157,31 @@ function naniwa_estimate_set_errors( $labels ) {
 }
 
 /**
+ * 任意の案内文を控えておく（リダイレクト先で表示する）。
+ *
+ * @param string $message 案内文.
+ */
+function naniwa_estimate_set_notice( $message ) {
+	$token = naniwa_estimate_token( true );
+	if ( ! $token ) {
+		return;
+	}
+	set_transient( 'naniwa_estimate_msg_' . $token, (string) $message, NANIWA_ESTIMATE_TTL );
+}
+
+/**
  * 未入力の案内を表示して、控えを消す。
  */
 function naniwa_estimate_error_banner() {
 	$token = naniwa_estimate_token();
 	if ( ! $token ) {
 		return;
+	}
+
+	$message = get_transient( 'naniwa_estimate_msg_' . $token );
+	if ( is_string( $message ) && '' !== $message ) {
+		delete_transient( 'naniwa_estimate_msg_' . $token );
+		echo '<div class="form-alert" role="alert">' . esc_html( $message ) . '</div>' . "\n";
 	}
 
 	$labels = get_transient( 'naniwa_estimate_err_' . $token );
@@ -368,6 +391,18 @@ add_action( 'admin_post_nopriv_naniwa_estimate', 'naniwa_handle_estimate_post' )
  * 入力内容をメールで通知し、保存して完了ページへ送る。
  */
 function naniwa_estimate_send() {
+	// スパム対策（Cloudflare Turnstile）。キー未登録なら何もしない。
+	$turnstile_token = isset( $_POST['cf-turnstile-response'] )
+		? sanitize_text_field( wp_unslash( $_POST['cf-turnstile-response'] ) )
+		: '';
+	$turnstile = naniwa_turnstile_verify( $turnstile_token );
+
+	if ( empty( $turnstile['ok'] ) ) {
+		naniwa_estimate_set_notice( naniwa_turnstile_message( $turnstile['status'] ) );
+		wp_safe_redirect( naniwa_page_url( 'estimate-confirm' ) );
+		exit;
+	}
+
 	// 必須が埋まっていなければ、その項目のあるステップへ戻す。
 	$missing = naniwa_estimate_missing();
 
@@ -422,6 +457,9 @@ function naniwa_estimate_send() {
 
 	// 送信内容を保存しておく（メールが届かなかった場合の控えになる）
 	$post_id = naniwa_estimate_store( $name, $detail );
+	if ( $post_id ) {
+		update_post_meta( $post_id, '_naniwa_turnstile', $turnstile );
+	}
 
 	// 1通目：管理者宛
 	$to      = apply_filters( 'naniwa_estimate_mail_to', naniwa_estimate_mail_to() );

@@ -18,6 +18,7 @@ require_once get_theme_file_path( '/inc/voice-fields.php' );
 require_once get_theme_file_path( '/inc/template-tags.php' );
 require_once get_theme_file_path( '/inc/estimate-fields.php' );
 require_once get_theme_file_path( '/inc/estimate.php' );
+require_once get_theme_file_path( '/inc/turnstile.php' );
 
 /**
  * テーマサポートの宣言。
@@ -210,6 +211,39 @@ function naniwa_customize_register( $wp_customize ) {
 			'description' => '見積フォームの送信を受け取るアドレス。複数指定する場合はカンマ区切り（例：info@example.com,info@example.jp）。空欄の場合は「設定 → 一般」の管理者アドレスに送ります。',
 			'section'     => 'naniwa_forms',
 			'type'        => 'text',
+		)
+	);
+
+	// web見積のスパム対策（Cloudflare Turnstile）
+	$wp_customize->add_setting(
+		'naniwa_turnstile_sitekey',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'naniwa_turnstile_sitekey',
+		array(
+			'label'       => 'web見積：Turnstile サイトキー',
+			'description' => 'Cloudflare ダッシュボード → Turnstile で発行したキー。サイトキーとシークレットキーの両方が空欄の場合は、Contact Form 7 のインテグレーションに登録済みのキーを使います。どちらにも無ければ Turnstile は表示されません。',
+			'section'     => 'naniwa_forms',
+			'type'        => 'text',
+		)
+	);
+	$wp_customize->add_setting(
+		'naniwa_turnstile_secret',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'naniwa_turnstile_secret',
+		array(
+			'label'   => 'web見積：Turnstile シークレットキー',
+			'section' => 'naniwa_forms',
+			'type'    => 'text',
 		)
 	);
 }

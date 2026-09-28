@@ -608,9 +608,10 @@ def build_confirm_body(body):
 
     form = (
         '<form class="form-card" method="post" action="<?php echo esc_url( admin_url( \'admin-post.php\' ) ); ?>">\n'
-        "<?php naniwa_estimate_form_fields(); ?>\n"
+        "<?php naniwa_estimate_form_fields( false ); ?>\n"
         "      <h2>入力内容の確認</h2>\n"
         '      <div class="form-inner">\n'
+        "<?php naniwa_estimate_error_banner(); ?>\n"
         '        <p style="margin-bottom:22px;">下記の内容で送信します。修正が必要な場合は、各項目の「修正する」からお戻りください。</p>\n'
         "\n"
         "<?php\n"
@@ -656,6 +657,9 @@ def build_confirm_body(body):
         "\t</div>\n"
         "\t<?php\n"
         "endif;\n"
+        "\n"
+        "// スパム対策（キー未登録なら何も出さない）\n"
+        "naniwa_turnstile_widget();\n"
         "?>\n"
         "      </div>\n"
         '      <div class="form-actions">\n'

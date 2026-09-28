@@ -857,6 +857,13 @@ table.data td .price { font-weight: 800; color: var(--orange-600); }
 }
 .field-error::before { content: "!"; flex: none; width: 16px; height: 16px; border-radius: 50%; background: #b32d2e; color: var(--white); font-size: 11px; line-height: 16px; text-align: center; }
 
+/* スパム対策（Turnstile）。確認画面の送信ボタンの直前に置く */
+.naniwa-turnstile {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  margin: 24px 0 0; min-height: 65px;
+}
+.naniwa-turnstile .field-error { justify-content: center; text-align: center; }
+
 /* ============================================
    Contact Form 7 を埋め込んだフォーム（求人応募）
    CF7側のフォーム定義で .form-row / .label / .req を使う前提。

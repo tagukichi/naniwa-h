@@ -256,6 +256,38 @@
 })();
 
 // ============================================
+// スパム対策（Turnstile）の確認が済む前に送信されたら止める
+// サーバー側でも検証するので、ここは取りこぼし防止の案内が目的。
+// ============================================
+(function () {
+  const box = document.querySelector('.naniwa-turnstile');
+  if (!box) return;
+  const form = box.closest('form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    // 「戻る」「修正する」は確認なしで通す
+    const submitter = e.submitter || document.activeElement;
+    if (submitter && submitter.hasAttribute && submitter.hasAttribute('formnovalidate')) return;
+
+    const token = form.querySelector('input[name="cf-turnstile-response"]');
+    if (token && token.value) return;
+
+    e.preventDefault();
+    let msg = box.querySelector('.field-error');
+    if (!msg) {
+      msg = document.createElement('p');
+      msg.className = 'field-error';
+      box.appendChild(msg);
+    }
+    msg.textContent = token
+      ? 'スパム対策の確認中です。チェックが付いてからもう一度押してください。'
+      : 'スパム対策の確認欄が読み込めませんでした。お手数ですがお電話（0120-562-728）でご依頼ください。';
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
+
+// ============================================
 // ページ内アンカーメニューの現在地ハイライト
 // ============================================
 (function () {

@@ -42,9 +42,10 @@ get_header();
     </ol>
 
     <form class="form-card" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-<?php naniwa_estimate_form_fields(); ?>
+<?php naniwa_estimate_form_fields( false ); ?>
       <h2>入力内容の確認</h2>
       <div class="form-inner">
+<?php naniwa_estimate_error_banner(); ?>
         <p style="margin-bottom:22px;">下記の内容で送信します。修正が必要な場合は、各項目の「修正する」からお戻りください。</p>
 
 <?php
@@ -90,6 +91,9 @@ if ( ! $naniwa_printed ) :
 	</div>
 	<?php
 endif;
+
+// スパム対策（キー未登録なら何も出さない）
+naniwa_turnstile_widget();
 ?>
       </div>
       <div class="form-actions">
