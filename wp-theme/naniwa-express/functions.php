@@ -109,20 +109,85 @@ add_filter( 'body_class', 'naniwa_body_class' );
  * @return bool
  */
 function naniwa_hides_estimate_cta() {
-	/**
-	 * 見積CTAを隠すページのスラッグ。
-	 *
-	 * @param array<int, string> $slugs スラッグの配列.
-	 */
-	$slugs = apply_filters( 'naniwa_no_estimate_cta_slugs', array( 'recruit' ) );
-
-	if ( is_page( $slugs ) ) {
-		return true;
+	if ( ! is_page() ) {
+		return false;
 	}
 
+	/**
+	 * 見積CTAを隠すページ。
+	 *
+	 * テーマ内のページキー（recruit など）でも、実際のスラッグでも指定できる。
+	 *
+	 * @param array<int, string> $slugs ページキーまたはスラッグの配列.
+	 */
+	$keys = (array) apply_filters( 'naniwa_no_estimate_cta_slugs', array( 'recruit' ) );
+
 	// 見積フォームの中では二重に見積CTAを出さない。
-	return is_page() && 0 === strpos( (string) get_post_field( 'post_name', get_queried_object_id() ), 'estimate-' );
+	foreach ( array_keys( naniwa_required_pages() ) as $key ) {
+		if ( 0 === strpos( $key, 'estimate-' ) ) {
+			$keys[] = $key;
+		}
+	}
+
+	// 実際のスラッグ（recruit2 / step1 など）が想定と違っていても
+	// 拾えるよう、割り当て済みのページIDで比べる。
+	$current = (int) get_queried_object_id();
+	foreach ( $keys as $key ) {
+		if ( $current && (int) naniwa_page_id( $key ) === $current ) {
+			return true;
+		}
+	}
+
+	// フィルターで実際のスラッグを直接指定された場合。
+	return is_page( $keys );
 }
+
+/**
+ * 固定ページの旧URLを新しいURLへ転送する。
+ *
+ * 固定ページはスラッグを変えても、投稿と違って WordPress が旧URLを
+ * 自動で転送しない。求人媒体や検索結果に残っている旧URLが 404 に
+ * ならないよう、ここで 301 転送する。旧URLが 404 のときだけ動く。
+ */
+function naniwa_legacy_redirect() {
+	if ( ! is_404() ) {
+		return;
+	}
+
+	/**
+	 * 旧スラッグ => ページキー。
+	 *
+	 * @param array<string, string> $map
+	 */
+	$map = (array) apply_filters(
+		'naniwa_legacy_slugs',
+		array(
+			'recruit2'  => 'recruit',
+			'recruit-2' => 'recruit',
+		)
+	);
+
+	$path = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) : '';
+	$last = basename( trim( $path, '/' ) );
+
+	if ( '' === $last || ! isset( $map[ $last ] ) ) {
+		return;
+	}
+
+	$id = naniwa_page_id( $map[ $last ] );
+	if ( ! $id || 'publish' !== get_post_status( $id ) ) {
+		return;
+	}
+
+	$target = get_permalink( $id );
+	if ( ! $target || basename( untrailingslashit( (string) wp_parse_url( $target, PHP_URL_PATH ) ) ) === $last ) {
+		return; // 転送先が自分自身なら何もしない
+	}
+
+	wp_safe_redirect( $target, 301 );
+	exit;
+}
+add_action( 'template_redirect', 'naniwa_legacy_redirect', 9 );
 
 /**
  * 抜粋の省略記号を「…」にする。
