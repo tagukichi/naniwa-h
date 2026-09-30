@@ -866,10 +866,68 @@ table.data td .price { font-weight: 800; color: var(--orange-600); }
 
 /* ============================================
    Contact Form 7 を埋め込んだフォーム（求人応募）
-   CF7側のフォーム定義で .form-row / .label / .req を使う前提。
    CF7が付ける独自クラスをテーマの見た目に寄せる。
+   フォーム定義は次のどちらの書き方でも同じ見た目になる。
+     A. 元の書き方   <label> 氏名 <span class="required">必須</span> … [submit "送信"]
+     B. テーマ用     <div class="form-row"><label class="label">… <span class="req">
    ============================================ */
 .form-card-plugin .wpcf7 { margin: 0; }
+
+/* 並び順：スパム対策（Turnstile）はどこに差し込まれても送信ボタンの直前に置く */
+.form-card-plugin .wpcf7-form { display: flex; flex-direction: column; }
+.form-card-plugin .wpcf7-form > :is(.cf-turnstile, .wpcf7-turnstile),
+.form-card-plugin .wpcf7-form > :has(.cf-turnstile, .wpcf7-turnstile) {
+  order: 90; align-self: center; margin: 24px 0 0; min-height: 65px;
+}
+.form-card-plugin .wpcf7-form > :has(.wpcf7-submit) { order: 100; }
+.form-card-plugin .wpcf7-form > .wpcf7-response-output { order: 110; }
+/* 送信前・送信中は結果メッセージ欄を出さない（空の枠が残るため） */
+.form-card-plugin .wpcf7-response-output:empty,
+.form-card-plugin .wpcf7-form:is(.init, .submitting, .resetting) .wpcf7-response-output { display: none; }
+
+/* A. 元の書き方：<p><label> 項目名 <span class="required">必須</span><br>（例）…<br>[入力欄]</label></p> */
+.form-card-plugin .wpcf7-form > p { margin: 0; }
+.form-card-plugin .wpcf7-form > p > br { display: none; }
+.form-card-plugin .wpcf7-form > p:has(> label) { padding: 18px 0; }
+.form-card-plugin .wpcf7-form > p:has(> label) + p:has(> label) { border-top: 1px dashed var(--line); }
+.form-card-plugin .wpcf7-form > p > label {
+  display: block; font-size: 13px; line-height: 1.7; color: var(--ink-soft);
+}
+/* 1行目（項目名＋必須）だけを見出しの太さにし、2行目の（例）…は補足の文字にする */
+.form-card-plugin .wpcf7-form > p > label::first-line {
+  font-size: 15px; font-weight: 700; color: var(--ink);
+}
+.form-card-plugin .wpcf7-form > p > label > br:last-child { display: none; }
+.form-card-plugin .wpcf7-form > p > label > .wpcf7-form-control-wrap { margin-top: 8px; }
+
+/* 必須／任意のバッジ（A の .required / .optional を B の .req と同じ見た目に） */
+.form-card-plugin :is(.required, .optional) {
+  display: inline-block; vertical-align: 2px; margin-left: 8px;
+  font-size: 11px; font-weight: 800; line-height: 1.4; border-radius: 4px; padding: 3px 8px;
+}
+.form-card-plugin .required { background: #ffd23f; color: #6b4a00; }
+.form-card-plugin .optional { background: var(--green-100); color: var(--green-700); }
+
+/* 送信ボタン（A の [submit "送信"] もテーマのボタンと同じ見た目に） */
+.form-card-plugin .wpcf7-form > p:has(.wpcf7-submit) {
+  display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 28px 0 4px;
+}
+.form-card-plugin .wpcf7-submit {
+  -webkit-appearance: none; appearance: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 260px; padding: 18px 40px; border: none; border-radius: 999px; cursor: pointer;
+  background: linear-gradient(135deg, var(--orange-500), var(--orange-600)); color: var(--white);
+  font-family: inherit; font-size: 18px; font-weight: 700; letter-spacing: .08em; line-height: 1.4;
+  box-shadow: 0 6px 18px rgba(232, 101, 15, .35);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.form-card-plugin .wpcf7-submit:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.form-card-plugin .wpcf7-submit:focus-visible { outline: 3px solid rgba(232, 101, 15, .45); outline-offset: 3px; }
+.form-card-plugin .wpcf7-submit:disabled { opacity: .6; cursor: wait; transform: none; }
+@media (max-width: 860px) {
+  .form-card-plugin .wpcf7-submit { width: 100%; min-width: 0; }
+}
 .form-card-plugin .wpcf7-form > p:empty,
 .form-card-plugin .form-row > br { display: none; }
 .form-card-plugin .wpcf7-form-control-wrap { display: block; }
