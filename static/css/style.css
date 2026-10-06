@@ -252,6 +252,9 @@ section { padding: 80px 0; }
 .reason-num::after {
   content: attr(data-num);
   font-size: 56px; line-height: 1; letter-spacing: 0; font-weight: 800; font-style: italic;
+  /* 斜体は字形が枠の右にはみ出すが、background-clip:text は枠の内側しか塗らないため
+     右端が欠ける（傾きの大きい iPhone で目立つ）。余白で塗る範囲を広げておく。 */
+  padding: .06em .22em .08em .02em;
   background: linear-gradient(160deg, var(--green-500), var(--green-100));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
 }
