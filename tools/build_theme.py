@@ -175,6 +175,8 @@ def build_page_templates():
 
         if stem == "recruit":
             body = inject_recruit_form(body)
+        elif stem == "disused":
+            body = inject_price_tables(body)
         elif stem == "estimate-confirm":
             body = build_confirm_body(body)
         elif stem in {name for name, _title in ESTIMATE_STEPS}:
@@ -185,6 +187,81 @@ def build_page_templates():
         (OUT / f"page-{slug}.php").write_text(content, encoding="utf-8")
         written.append((slug, title))
     return written
+
+
+def php_str(text):
+    """PHP の単一引用符文字列にする。"""
+    return "'" + text.replace("\\", "\\\\").replace("'", "\\'") + "'"
+
+
+def inject_price_tables(body):
+    """不用品ページの料金表を、編集画面で書き換えられる形にする。
+
+    各 <table class="price-table"> の tbody を naniwa_price_rows() の呼び出しに
+    置き換え、元の行を初期値として inc/price-defaults.php に書き出す。
+    """
+    tables = {}
+
+    def replace(m):
+        table = m.group(0)
+        cap = re.search(r"<caption>(.*?)</caption>", table, re.S)
+        tbody = re.search(r"<tbody>(.*?)</tbody>", table, re.S)
+        if not cap or not tbody:
+            raise SystemExit("disused: 料金表の caption / tbody が見つかりません")
+        caption = strip_tags(cap.group(1))
+        if caption in tables:
+            raise SystemExit(f"disused: 料金表の見出しが重複しています（{caption}）")
+
+        rows, item, left = [], "", 0
+        for tr in re.findall(r"<tr>(.*?)</tr>", tbody.group(1), re.S):
+            th = re.search(r'<th(?:\s+rowspan="(\d+)")?[^>]*>(.*?)</th>', tr, re.S)
+            if th:
+                item, left = strip_tags(th.group(2)), int(th.group(1) or 1)
+            if left <= 0 or not item:
+                raise SystemExit(f"disused: {caption} の品目（rowspan）が読み取れません")
+            tds = [strip_tags(td) for td in re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)]
+            if len(tds) != 2:
+                raise SystemExit(f"disused: {caption} の行が3列になっていません: {tr}")
+            rows.append((item, tds[0] or "―", tds[1]))
+            left -= 1
+        tables[caption] = rows
+
+        call = f"<tbody>\n<?php naniwa_price_rows( {php_str(caption)} ); ?>\n            </tbody>"
+        return table[: tbody.start()] + call + table[tbody.end():]
+
+    body = re.sub(r'<table class="price-table">.*?</table>', replace, body, flags=re.S)
+    if not tables:
+        raise SystemExit("disused: 料金表が見つかりません")
+
+    blocks = []
+    for caption, rows in tables.items():
+        lines = "".join(
+            f"\t\t\tarray( {php_str(a)}, {php_str(b)}, {php_str(c)} ),\n" for a, b, c in rows
+        )
+        blocks.append(f"\t\t{php_str(caption)} => array(\n{lines}\t\t),\n")
+
+    php = (
+        "<?php\n"
+        "/**\n"
+        " * 不用品ページの料金表の初期値\n"
+        " *\n"
+        " * このファイルは tools/build_theme.py が src/pages/disused.html から自動生成する。\n"
+        " * 料金を変えるときは、固定ページ「不用品」の編集画面の「料金表」欄から直す。\n"
+        " *\n"
+        " * @package naniwa\n"
+        " */\n\n"
+        "defined( 'ABSPATH' ) || exit;\n\n"
+        "/**\n"
+        " * 料金表の初期値（見出し => 行［品目, サイズ・種別, 処分料金］）。\n"
+        " *\n"
+        " * @return array<string, array<int, array{0:string,1:string,2:string}>>\n"
+        " */\n"
+        "function naniwa_price_default_tables() {\n"
+        "\treturn array(\n" + "".join(blocks) + "\t);\n"
+        "}\n"
+    )
+    (OUT / "inc" / "price-defaults.php").write_text(php, encoding="utf-8")
+    return body
 
 
 def inject_recruit_form(body):

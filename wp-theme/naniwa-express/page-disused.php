@@ -103,15 +103,7 @@ get_header();
             <caption>AV家電</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="5">テレビ</th><td class="name">特大</td><td>10,000円</td></tr>
-              <tr><td class="name">大</td><td>8,000円</td></tr>
-              <tr><td class="name">中</td><td>5,000円</td></tr>
-              <tr><td class="name">小</td><td>5,000円</td></tr>
-              <tr><td class="name">ブラウン管</td><td>8,000円</td></tr>
-              <tr><th rowspan="1">ビデオ類</th><td class="name">―</td><td>3,000円</td></tr>
-              <tr><th rowspan="1">コンポ類</th><td class="name">―</td><td>1,000円～</td></tr>
-              <tr><th rowspan="1">パソコン</th><td class="name">―</td><td>3,000円</td></tr>
-              <tr><th rowspan="1">プリンタ</th><td class="name">―</td><td>1,000円</td></tr>
+<?php naniwa_price_rows( 'AV家電' ); ?>
             </tbody>
           </table>
         </div>
@@ -120,13 +112,7 @@ get_header();
             <caption>キッチン家電</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="5">冷蔵庫</th><td class="name">特大</td><td>18,000円</td></tr>
-              <tr><td class="name">大</td><td>15,000円</td></tr>
-              <tr><td class="name">中</td><td>10,000円</td></tr>
-              <tr><td class="name">小</td><td>10,000円</td></tr>
-              <tr><td class="name">業務用</td><td>30,000円</td></tr>
-              <tr><th rowspan="1">電子レンジ</th><td class="name">―</td><td>1,000円</td></tr>
-              <tr><th rowspan="1">ガスレンジ</th><td class="name">―</td><td>500円</td></tr>
+<?php naniwa_price_rows( 'キッチン家電' ); ?>
             </tbody>
           </table>
         </div>
@@ -135,15 +121,7 @@ get_header();
             <caption>その他家電</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="2">エアコン</th><td class="name">室内・室外機</td><td>5,000円</td></tr>
-              <tr><td class="name">窓用エアコン</td><td>3,000円</td></tr>
-              <tr><th rowspan="1">扇風機</th><td class="name">―</td><td>500円</td></tr>
-              <tr><th rowspan="2">洗濯機</th><td class="name">タテ型</td><td>8,000円</td></tr>
-              <tr><td class="name">ドラム式</td><td>12,000円</td></tr>
-              <tr><th rowspan="1">掃除機</th><td class="name">―</td><td>500円</td></tr>
-              <tr><th rowspan="1">ストーブ</th><td class="name">―</td><td>1,000円</td></tr>
-              <tr><th rowspan="1">照明</th><td class="name">―</td><td>500円</td></tr>
-              <tr><th rowspan="1">こたつ</th><td class="name">―</td><td>1,000円</td></tr>
+<?php naniwa_price_rows( 'その他家電' ); ?>
             </tbody>
           </table>
         </div>
@@ -155,27 +133,7 @@ get_header();
             <caption>収納家具</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="4">食器棚 / サイドボード</th><td class="name">特大</td><td>10,000円</td></tr>
-              <tr><td class="name">大</td><td>8,000円</td></tr>
-              <tr><td class="name">中</td><td>5,000円</td></tr>
-              <tr><td class="name">小</td><td>3,000円</td></tr>
-              <tr><th rowspan="3">整理タンス（木製）</th><td class="name">大</td><td>10,000円</td></tr>
-              <tr><td class="name">中</td><td>8,000円</td></tr>
-              <tr><td class="name">小</td><td>6,000円</td></tr>
-              <tr><th rowspan="5">本棚 / カラーBOX</th><td class="name">大</td><td>6,000円</td></tr>
-              <tr><td class="name">中</td><td>4,000円</td></tr>
-              <tr><td class="name">小</td><td>2,000円</td></tr>
-              <tr><td class="name">カラーBOX</td><td>1,000円</td></tr>
-              <tr><td class="name">ガラス付き</td><td>+1,000円</td></tr>
-              <tr><th rowspan="3">洋タンス</th><td class="name">ユニット</td><td>10,000円</td></tr>
-              <tr><td class="name">大</td><td>8,000円</td></tr>
-              <tr><td class="name">中</td><td>6,000円</td></tr>
-              <tr><th rowspan="1">スチールラック</th><td class="name">―</td><td>1,000円～</td></tr>
-              <tr><th rowspan="1">レンジ台</th><td class="name">―</td><td>1,000円</td></tr>
-              <tr><th rowspan="1">和タンス</th><td class="name">―</td><td>10,000円</td></tr>
-              <tr><th rowspan="3">物置（スチール）</th><td class="name">大</td><td>応相談</td></tr>
-              <tr><td class="name">中</td><td>応相談</td></tr>
-              <tr><td class="name">小</td><td>3,000円</td></tr>
+<?php naniwa_price_rows( '収納家具' ); ?>
             </tbody>
           </table>
         </div>
@@ -184,17 +142,7 @@ get_header();
             <caption>テーブル・イス</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="3">机</th><td class="name">学習机</td><td>3,000円</td></tr>
-              <tr><td class="name">上棚</td><td>1,000円</td></tr>
-              <tr><td class="name">袖机</td><td>2,000円</td></tr>
-              <tr><th rowspan="1">マッサージチェア</th><td class="name">―</td><td>20,000円</td></tr>
-              <tr><th rowspan="2">食卓</th><td class="name">大</td><td>2,000円</td></tr>
-              <tr><td class="name">小</td><td>1,000円</td></tr>
-              <tr><th rowspan="1">イス</th><td class="name">1脚</td><td>1,000円～</td></tr>
-              <tr><th rowspan="3">ソファ</th><td class="name">3人</td><td>8,000円～</td></tr>
-              <tr><td class="name">2人</td><td>6,000円</td></tr>
-              <tr><td class="name">1人</td><td>4,000円</td></tr>
-              <tr><th rowspan="1">座卓</th><td class="name">―</td><td>1,000円～</td></tr>
+<?php naniwa_price_rows( 'テーブル・イス' ); ?>
             </tbody>
           </table>
         </div>
@@ -203,17 +151,7 @@ get_header();
             <caption>寝具</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="5">ベッド枠</th><td class="name">ダブル</td><td>2,000円</td></tr>
-              <tr><td class="name">セミダブル</td><td>1,000円</td></tr>
-              <tr><td class="name">シングル</td><td>1,000円</td></tr>
-              <tr><td class="name">ロフトベッド</td><td>3,000円</td></tr>
-              <tr><td class="name">引出付き</td><td>+2,000円</td></tr>
-              <tr><th rowspan="3">ベッドマット</th><td class="name">ダブル</td><td>8,000円</td></tr>
-              <tr><td class="name">セミダブル</td><td>7,000円</td></tr>
-              <tr><td class="name">シングル</td><td>6,000円</td></tr>
-              <tr><th rowspan="2">ふとん</th><td class="name">1式</td><td>5,000円</td></tr>
-              <tr><td class="name">1枚</td><td>2,000円</td></tr>
-              <tr><th rowspan="1">毛布</th><td class="name">―</td><td>1,000円</td></tr>
+<?php naniwa_price_rows( '寝具' ); ?>
             </tbody>
           </table>
         </div>
@@ -222,16 +160,7 @@ get_header();
             <caption>その他家具</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="1">フローリングマット</th><td class="name">―</td><td>6,000円～</td></tr>
-              <tr><th rowspan="1">絨毯</th><td class="name">―</td><td>2,000円～</td></tr>
-              <tr><th rowspan="1">ウッドカーペット</th><td class="name">―</td><td>8,000円～</td></tr>
-              <tr><th rowspan="2">鏡台</th><td class="name">中</td><td>3,000円</td></tr>
-              <tr><td class="name">小</td><td>2,000円</td></tr>
-              <tr><th rowspan="2">風呂</th><td class="name">浴槽</td><td>5,000円</td></tr>
-              <tr><td class="name">風呂釜</td><td>8,000円</td></tr>
-              <tr><th rowspan="1">姿見</th><td class="name">―</td><td>2,000円～</td></tr>
-              <tr><th rowspan="1">パイプハンガー</th><td class="name">―</td><td>1,000円～</td></tr>
-              <tr><th rowspan="1">衣装ケース</th><td class="name">―</td><td>500円～</td></tr>
+<?php naniwa_price_rows( 'その他家具' ); ?>
             </tbody>
           </table>
         </div>
@@ -243,10 +172,7 @@ get_header();
             <caption>スポーツ・レジャー</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="1">スキー</th><td class="name">―</td><td>1,000円</td></tr>
-              <tr><th rowspan="1">スノーボード</th><td class="name">―</td><td>1,000円</td></tr>
-              <tr><th rowspan="2">ゴルフ</th><td class="name">バックのみ</td><td>1,000円</td></tr>
-              <tr><td class="name">クラブ入り</td><td>2,000円</td></tr>
+<?php naniwa_price_rows( 'スポーツ・レジャー' ); ?>
             </tbody>
           </table>
         </div>
@@ -255,12 +181,7 @@ get_header();
             <caption>カー用品・自転車</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="2">自転車</th><td class="name">大</td><td>3,000円</td></tr>
-              <tr><td class="name">小</td><td>2,000円</td></tr>
-              <tr><th rowspan="2">バイク</th><td class="name">125cc以上</td><td>30,000円～</td></tr>
-              <tr><td class="name">125cc以下</td><td>15,000円～</td></tr>
-              <tr><th rowspan="2">タイヤ</th><td class="name">1本</td><td>3,000円</td></tr>
-              <tr><td class="name">ホイール付</td><td>5,000円</td></tr>
+<?php naniwa_price_rows( 'カー用品・自転車' ); ?>
             </tbody>
           </table>
         </div>
@@ -269,9 +190,7 @@ get_header();
             <caption>楽器・趣味</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="1">エレクトーン</th><td class="name">―</td><td>20,000円</td></tr>
-              <tr><th rowspan="1">ピアノ</th><td class="name">―</td><td>20,000円～</td></tr>
-              <tr><th rowspan="1">電子ピアノ</th><td class="name">―</td><td>2,000円～</td></tr>
+<?php naniwa_price_rows( '楽器・趣味' ); ?>
             </tbody>
           </table>
         </div>
@@ -280,14 +199,7 @@ get_header();
             <caption>その他</caption>
             <thead><tr><th style="width:36%">品目</th><th style="width:34%">サイズ・種別</th><th style="width:30%">処分料金</th></tr></thead>
             <tbody>
-              <tr><th rowspan="1">物干し竿</th><td class="name">1本</td><td>500円</td></tr>
-              <tr><th rowspan="1">物量仕立て</th><td class="name">1立法メートル</td><td>10,000円</td></tr>
-              <tr><th rowspan="2">ポリタンク</th><td class="name">1本</td><td>500円</td></tr>
-              <tr><td class="name">灯油入</td><td>3,000円</td></tr>
-              <tr><th rowspan="1">ビニール袋</th><td class="name">1ヶ</td><td>1,000円</td></tr>
-              <tr><th rowspan="3">段ボール箱</th><td class="name">大</td><td>4,000円</td></tr>
-              <tr><td class="name">中</td><td>3,000円</td></tr>
-              <tr><td class="name">小</td><td>2,000円</td></tr>
+<?php naniwa_price_rows( 'その他' ); ?>
             </tbody>
           </table>
         </div>

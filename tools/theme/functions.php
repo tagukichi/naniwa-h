@@ -19,6 +19,8 @@ require_once get_theme_file_path( '/inc/template-tags.php' );
 require_once get_theme_file_path( '/inc/estimate-fields.php' );
 require_once get_theme_file_path( '/inc/estimate.php' );
 require_once get_theme_file_path( '/inc/turnstile.php' );
+require_once get_theme_file_path( '/inc/price-defaults.php' );
+require_once get_theme_file_path( '/inc/price-table.php' );
 
 /**
  * テーマサポートの宣言。
